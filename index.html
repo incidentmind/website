@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IncidentMind — AI Minds for Production Platforms</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    .hero-bg { background: linear-gradient(135deg, #0f172a 0%, #1e2937 100%); }
+    .tail-container { max-width: 1280px; margin: 0 auto; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-200 font-sans">
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 w-full bg-slate-950/80 backdrop-blur-md z-50 border-b border-slate-800">
+    <div class="tail-container px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="text-3xl font-bold text-indigo-400">IM</span>
+        <span class="text-2xl font-semibold tracking-tight">IncidentMind</span>
+      </div>
+      <div class="hidden md:flex gap-8 text-sm font-medium">
+        <a href="#services" class="hover:text-indigo-400 transition">Services</a>
+        <a href="#proof" class="hover:text-indigo-400 transition">Proof</a>
+        <a href="#open-source" class="hover:text-indigo-400 transition">Open Source</a>
+        <a href="#contact" class="hover:text-indigo-400 transition">Contact</a>
+      </div>
+      <a href="#contact" class="bg-indigo-600 hover:bg-indigo-500 px-6 py-2.5 rounded-xl text-sm font-semibold transition">
+        Book Free Assessment
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero-bg min-h-screen flex items-center pt-20">
+    <div class="tail-container px-6 grid md:grid-cols-2 gap-12 items-center">
+      <div class="space-y-8">
+        <h1 class="text-5xl md:text-6xl font-bold leading-tight tracking-tighter">
+          AI that actually<br>resolves incidents<br>and accelerates platforms
+        </h1>
+        <p class="text-xl text-slate-400 max-w-lg">
+          Ex-CTO of EAT24 (acquired by Yelp for $134M). Built the self-improving AI incident platform at Fidelity Charitable. 
+          Now helping Southeast teams cut MTTR and ship faster with production-grade AI + platform engineering.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#contact" class="bg-white text-slate-950 px-8 py-4 rounded-2xl font-semibold text-lg hover:scale-105 transition">
+            Get Your Free Platform Assessment
+          </a>
+          <a href="https://github.com/borgius" target="_blank" class="border border-slate-600 hover:border-slate-400 px-8 py-4 rounded-2xl font-semibold text-lg transition">
+            View My Open Source →
+          </a>
+        </div>
+        <div class="flex items-center gap-8 text-sm text-slate-400">
+          <div>Durham, NC • Remote & On-site</div>
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-check text-emerald-400"></i>
+            <span>20+ years • Production AI & EKS</span>
+          </div>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="bg-slate-900/70 backdrop-blur-xl border border-slate-700 rounded-3xl p-8 shadow-2xl">
+          <div class="bg-slate-950 rounded-2xl p-6 text-center">
+            <div class="text-emerald-400 text-4xl font-mono mb-4">MTTR ↓ 60%</div>
+            <div class="text-sm text-slate-400">Real result from our AI incident platform at Fidelity</div>
+          </div>
+        </div>
+        <div class="absolute -bottom-6 -right-6 bg-indigo-600/10 border border-indigo-500 rounded-3xl p-6 max-w-[220px]">
+          <div class="flex items-center gap-3">
+            <i class="fa-solid fa-brain text-4xl text-indigo-400"></i>
+            <div>
+              <div class="font-semibold">AI IncidentMind</div>
+              <div class="text-xs text-slate-400">Self-improving LLM resolution engine</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="py-24 bg-slate-900">
+    <div class="tail-container px-6">
+      <h2 class="text-4xl font-bold text-center mb-4">What We Deliver</h2>
+      <p class="text-center text-slate-400 max-w-2xl mx-auto mb-16">Production-grade solutions built by someone who has scaled platforms to $700M revenue and real AI in regulated environments.</p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Service 1 -->
+        <div class="bg-slate-800 border border-slate-700 rounded-3xl p-8 hover:border-indigo-500 transition">
+          <div class="h-12 w-12 bg-indigo-600 rounded-2xl flex items-center justify-center mb-6">
+            <i class="fa-solid fa-bolt text-white text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-semibold mb-3">AI-Powered Incident Resolution</h3>
+          <p class="text-slate-400">Auto-detect, classify, pull context from DataDog/Confluence/pipelines, and generate LLM root-cause reports with recommendations. Self-improving feedback loop included.</p>
+          <div class="mt-8 text-indigo-400 font-medium">Starting at $18k • 2–6 weeks</div>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="bg-slate-800 border border-slate-700 rounded-3xl p-8 hover:border-indigo-500 transition">
+          <div class="h-12 w-12 bg-indigo-600 rounded-2xl flex items-center justify-center mb-6">
+            <i class="fa-solid fa-kubernetes text-white text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-semibold mb-3">EKS Platform Acceleration</h3>
+          <p class="text-slate-400">ECS → EKS migrations, custom ProxySQL Helm charts, Terraform IaC, blue/green deployments, hybrid dev environments, cost optimization.</p>
+          <div class="mt-8 text-indigo-400 font-medium">Starting at $25k • Assessment $7k</div>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="bg-slate-800 border border-slate-700 rounded-3xl p-8 hover:border-indigo-500 transition">
+          <div class="h-12 w-12 bg-indigo-600 rounded-2xl flex items-center justify-center mb-6">
+            <i class="fa-solid fa-robot text-white text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-semibold mb-3">Custom MCP Servers & AI Agents</h3>
+          <p class="text-slate-400">Secure internal AI agents that safely access your tools, Confluence, codebases, and data (built on my open-source MCP framework).</p>
+          <div class="mt-8 text-indigo-400 font-medium">Starting at $9k per agent</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proof -->
+  <section id="proof" class="py-24">
+    <div class="tail-container px-6">
+      <h2 class="text-4xl font-bold text-center mb-16">Proven at Scale</h2>
+      <div class="max-w-4xl mx-auto space-y-12">
+        <div class="flex flex-col md:flex-row gap-8 items-center">
+          <div class="flex-1">
+            <div class="text-emerald-400 text-sm font-medium tracking-widest">EAT24 • 2007–2015</div>
+            <h3 class="text-3xl font-semibold">CTO & Architect — Scaled to $700M revenue</h3>
+            <p class="mt-4 text-slate-400">Built the entire delivery platform from zero. Acquired by Yelp for $134M (later sold to GrubHub for $287.5M).</p>
+          </div>
+          <div class="flex-1 text-slate-400">
+            “Best user experience in food delivery” — industry recognition
+          </div>
+        </div>
+        <div class="flex flex-col md:flex-row gap-8 items-center">
+          <div class="flex-1">
+            <div class="text-emerald-400 text-sm font-medium tracking-widest">Fidelity Charitable • 2018–Present</div>
+            <h3 class="text-3xl font-semibold">Built the first cloud-first platform + self-improving AI incident engine</h3>
+            <p class="mt-4 text-slate-400">Led ECS→EKS migration, ProxySQL clustering, ETL pipelines, and the AI system that cuts MTTR dramatically.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Open Source -->
+  <section id="open-source" class="py-24 bg-slate-900">
+    <div class="tail-container px-6 text-center">
+      <h2 class="text-4xl font-bold mb-4">Active Open-Source Contributor</h2>
+      <p class="max-w-md mx-auto text-slate-400 mb-12">Tools I built and maintain — used by developers adopting AI agents today</p>
+      <div class="grid md:grid-cols-3 gap-6 text-left max-w-4xl mx-auto">
+        <a href="https://github.com/borgius/jobspy-mcp-server" target="_blank" class="block bg-slate-800 p-6 rounded-3xl hover:bg-slate-700 transition">
+          <div class="font-medium">jobspy-mcp-server</div>
+          <div class="text-sm text-slate-400">MCP server for AI job search across 10+ platforms</div>
+        </a>
+        <a href="https://github.com/borgius/localrag" target="_blank" class="block bg-slate-800 p-6 rounded-3xl hover:bg-slate-700 transition">
+          <div class="font-medium">localrag</div>
+          <div class="text-sm text-slate-400">Private RAG for your codebase & docs</div>
+        </a>
+        <a href="https://github.com/borgius/qa-video" target="_blank" class="block bg-slate-800 p-6 rounded-3xl hover:bg-slate-700 transition">
+          <div class="font-medium">qa-video</div>
+          <div class="text-sm text-slate-400">Flashcard videos with offline neural TTS</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / Contact -->
+  <section id="contact" class="py-24 border-t border-slate-800">
+    <div class="tail-container px-6 max-w-xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-6">Ready to cut your incident pain and ship faster?</h2>
+      <p class="text-slate-400 mb-10">Let’s start with a free 30-minute platform health call (no sales pitch).</p>
+      
+      <a href="mailto:burdey@gmail.com?subject=IncidentMind%20Free%20Assessment" 
+         class="inline-block bg-indigo-600 hover:bg-indigo-500 text-white px-10 py-6 rounded-3xl text-xl font-semibold transition mb-8">
+        Schedule Free Assessment →
+      </a>
+      
+      <div class="text-sm text-slate-500">
+        Viktor Burdyey • Founder & Principal Engineer<br>
+        IncidentMind LLC • Durham, NC • <a href="https://linkedin.com/in/burdyey" class="hover:text-slate-300">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-8 text-center text-xs text-slate-500 border-t border-slate-800">
+    © 2026 IncidentMind LLC. All rights reserved.
+  </footer>
+
+  <script>
+    tailwind.config = { content: ["*"], theme: { extend: {} } }
+  </script>
+</body>
+</html>
