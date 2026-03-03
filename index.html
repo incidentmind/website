@@ -1,77 +1,1355 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IncidentMind — AI Minds for Production Platforms</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>IncidentNow — AI Incident Intelligence & Platform Engineering</title>
+  <meta name="description" content="Custom AI-powered incident resolution, MCP servers, and platform engineering. Built by Ex-CTO of EAT24 (Yelp $134M). Durham, NC.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
-    .hero-bg { background: linear-gradient(135deg, #0f172a 0%, #1e2937 100%); }
-    .tail-container { max-width: 1280px; margin: 0 auto; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #06060f;
+      --bg-primary: #0a0a1a;
+      --bg-card: rgba(255,255,255,0.03);
+      --bg-glass: rgba(255,255,255,0.05);
+      --border-glass: rgba(255,255,255,0.08);
+      --border-hover: rgba(255,255,255,0.15);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-blue: #6366f1;
+      --accent-violet: #8b5cf6;
+      --accent-emerald: #10b981;
+      --accent-cyan: #06b6d4;
+      --gradient-main: linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa);
+      --gradient-glow: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.08));
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-deep); }
+    ::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.3); border-radius: 3px; }
+
+    /* ── Aurora Background ── */
+    .aurora {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .aurora-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.12;
+      animation: aurora-float 20s ease-in-out infinite;
+    }
+    .aurora-blob:nth-child(1) {
+      width: 600px; height: 600px;
+      background: var(--accent-blue);
+      top: -10%; left: -5%;
+      animation-delay: 0s;
+    }
+    .aurora-blob:nth-child(2) {
+      width: 500px; height: 500px;
+      background: var(--accent-violet);
+      top: 20%; right: -10%;
+      animation-delay: -7s;
+    }
+    .aurora-blob:nth-child(3) {
+      width: 400px; height: 400px;
+      background: var(--accent-cyan);
+      bottom: 10%; left: 30%;
+      animation-delay: -14s;
+    }
+    @keyframes aurora-float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(40px, -30px) scale(1.1); }
+      66% { transform: translate(-20px, 20px) scale(0.9); }
+    }
+
+    /* ── Container ── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Navbar ── */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 24px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .navbar.scrolled {
+      background: rgba(6,6,15,0.85);
+      backdrop-filter: blur(20px) saturate(1.2);
+      -webkit-backdrop-filter: blur(20px) saturate(1.2);
+      border-bottom: 1px solid var(--border-glass);
+    }
+    .navbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      transition: padding 0.4s;
+    }
+    .navbar.scrolled .navbar-inner { padding: 14px 0; }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+    .nav-logo-icon {
+      width: 40px; height: 40px;
+      background: var(--gradient-main);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+      color: white;
+      box-shadow: 0 0 20px rgba(99,102,241,0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .nav-logo:hover .nav-logo-icon {
+      transform: scale(1.1) rotate(-3deg);
+      box-shadow: 0 0 30px rgba(99,102,241,0.5);
+    }
+    .nav-logo-text {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--gradient-main);
+      border-radius: 1px;
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      background: var(--gradient-main);
+      color: white !important;
+      padding: 10px 24px;
+      border-radius: 12px;
+      font-weight: 600 !important;
+      font-size: 14px;
+      transition: transform 0.3s, box-shadow 0.3s !important;
+      box-shadow: 0 2px 15px rgba(99,102,241,0.25);
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 4px 25px rgba(99,102,241,0.4) !important;
+    }
+
+    /* Mobile nav */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    /* ── Glass Card ── */
+    .glass {
+      background: var(--bg-glass);
+      border: 1px solid var(--border-glass);
+      border-radius: 24px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: border-color 0.4s, transform 0.4s, box-shadow 0.4s;
+    }
+    .glass:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px rgba(99,102,241,0.05);
+    }
+
+    /* ── Reveal Animations ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-60px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .stagger-1 { transition-delay: 0.1s; }
+    .stagger-2 { transition-delay: 0.2s; }
+    .stagger-3 { transition-delay: 0.3s; }
+    .stagger-4 { transition-delay: 0.4s; }
+    .stagger-5 { transition-delay: 0.5s; }
+
+    /* ── Section ── */
+    section { padding: 120px 0; position: relative; }
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent-blue);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+    .section-label::before {
+      content: '';
+      width: 24px; height: 2px;
+      background: var(--gradient-main);
+      border-radius: 1px;
+    }
+    .section-title {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .section-subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 600px;
+      line-height: 1.6;
+    }
+    .gradient-text {
+      background: var(--gradient-main);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      position: relative;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .hero-tagline {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--accent-emerald);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-tagline .pulse {
+      width: 8px; height: 8px;
+      background: var(--accent-emerald);
+      border-radius: 50%;
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(16,185,129,0); }
+    }
+    .hero h1 {
+      font-size: clamp(44px, 5.5vw, 72px);
+      font-weight: 900;
+      letter-spacing: -3px;
+      line-height: 1.05;
+      margin-bottom: 28px;
+    }
+    .hero-description {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 40px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gradient-main);
+      color: white;
+      padding: 16px 32px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 20px rgba(99,102,241,0.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 40px rgba(99,102,241,0.4);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--text-primary);
+      padding: 16px 32px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--border-glass);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-secondary:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-glass);
+      transform: translateY(-2px);
+    }
+    .hero-proof {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-glass);
+    }
+    .hero-proof-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .hero-proof-item i { color: var(--accent-emerald); font-size: 12px; }
+
+    /* Hero right: metrics dashboard */
+    .hero-dash {
+      position: relative;
+    }
+    .hero-card-main {
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card-main::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gradient-main);
+    }
+    .hero-metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .hero-metric {
+      text-align: center;
+      padding: 24px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.04);
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .hero-metric:hover {
+      border-color: rgba(99,102,241,0.2);
+      background: rgba(99,102,241,0.05);
+    }
+    .hero-metric-value {
+      font-family: var(--font-mono);
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .hero-metric-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .hero-float-card {
+      position: absolute;
+      padding: 20px 24px;
+      border-radius: 16px;
+      animation: float-card 6s ease-in-out infinite;
+    }
+    .hero-float-card.card-1 {
+      bottom: -20px; left: -30px;
+      animation-delay: -2s;
+    }
+    .hero-float-card.card-2 {
+      top: -20px; right: -20px;
+      animation-delay: -4s;
+    }
+    @keyframes float-card {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .float-card-inner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .float-card-icon {
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    /* ── Problem Section (scrollytelling) ── */
+    .problem-section {
+      background: linear-gradient(180deg, var(--bg-deep) 0%, rgba(99,102,241,0.03) 50%, var(--bg-deep) 100%);
+    }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .problem-sticky {
+      position: sticky;
+      top: 120px;
+    }
+    .problem-stats {
+      display: grid;
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .problem-stat {
+      padding: 24px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .problem-stat-number {
+      font-family: var(--font-mono);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent-blue);
+      flex-shrink: 0;
+      min-width: 100px;
+    }
+    .problem-stat-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .problem-cards {
+      display: grid;
+      gap: 32px;
+    }
+    .problem-card {
+      padding: 32px;
+    }
+    .problem-card-icon {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    .problem-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .problem-card p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── Services ── */
+    .services-section {
+      background: linear-gradient(180deg, var(--bg-deep), rgba(10,10,26,1));
+    }
+    .services-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+    .service-tier {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-bottom: 100px;
+    }
+    .service-tier:nth-child(even) .service-content { order: 2; }
+    .service-tier:nth-child(even) .service-visual { order: 1; }
+    .service-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 16px;
+    }
+    .badge-flagship {
+      background: rgba(99,102,241,0.15);
+      color: var(--accent-blue);
+      border: 1px solid rgba(99,102,241,0.3);
+    }
+    .badge-growth {
+      background: rgba(139,92,246,0.15);
+      color: var(--accent-violet);
+      border: 1px solid rgba(139,92,246,0.3);
+    }
+    .badge-core {
+      background: rgba(16,185,129,0.15);
+      color: var(--accent-emerald);
+      border: 1px solid rgba(16,185,129,0.3);
+    }
+    .badge-advisory {
+      background: rgba(6,182,212,0.15);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(6,182,212,0.3);
+    }
+    .service-content h3 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .service-content > p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+    .service-features {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .service-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .service-features li i {
+      color: var(--accent-emerald);
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+    .service-pricing {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-glass);
+    }
+    .service-pricing-value {
+      font-family: var(--font-mono);
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .service-pricing-label {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .service-visual {
+      padding: 40px;
+      position: relative;
+    }
+    .service-visual-inner {
+      padding: 32px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .service-icon-large {
+      width: 64px; height: 64px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 24px;
+    }
+    .service-tech-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tech-tag {
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    /* ── Platform Services Grid ── */
+    .platform-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .platform-card {
+      padding: 32px;
+      text-align: center;
+    }
+    .platform-card-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin: 0 auto 16px;
+    }
+    .platform-card h4 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .platform-card p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .platform-card-price {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--accent-blue);
+      margin-top: 12px;
+      font-weight: 600;
+    }
+
+    /* ── Proof / Results ── */
+    .proof-section {
+      background: linear-gradient(180deg, var(--bg-deep) 0%, rgba(16,185,129,0.02) 50%, var(--bg-deep) 100%);
+    }
+    .proof-timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 60px auto 0;
+    }
+    .proof-timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent-blue), var(--accent-emerald), var(--accent-violet));
+      transform: translateX(-50%);
+      border-radius: 1px;
+    }
+    .proof-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 80px;
+      position: relative;
+    }
+    .proof-item::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 30px;
+      width: 14px; height: 14px;
+      background: var(--bg-deep);
+      border: 3px solid var(--accent-blue);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      box-shadow: 0 0 20px rgba(99,102,241,0.3);
+    }
+    .proof-item:nth-child(2)::before { border-color: var(--accent-emerald); box-shadow: 0 0 20px rgba(16,185,129,0.3); }
+    .proof-item:nth-child(3)::before { border-color: var(--accent-violet); box-shadow: 0 0 20px rgba(139,92,246,0.3); }
+    .proof-card {
+      padding: 36px;
+    }
+    .proof-date {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent-blue);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+    .proof-card h3 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .proof-card p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .proof-metrics {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .proof-metric {
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .proof-metric-value {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .proof-metric-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .proof-right-content {
+      padding-top: 30px;
+    }
+    .proof-highlights {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+    .proof-highlights li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .proof-highlights li i {
+      color: var(--accent-emerald);
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    /* ── Tech Stack ── */
+    .tech-section {
+      border-top: 1px solid var(--border-glass);
+    }
+    .tech-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      margin-top: 60px;
+    }
+    .tech-category {
+      padding: 32px;
+    }
+    .tech-category h4 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tech-category h4 i {
+      font-size: 18px;
+      color: var(--accent-blue);
+    }
+    .tech-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tech-item {
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      background: rgba(99,102,241,0.08);
+      border: 1px solid rgba(99,102,241,0.12);
+      color: var(--text-secondary);
+      transition: all 0.3s;
+    }
+    .tech-item:hover {
+      background: rgba(99,102,241,0.15);
+      color: var(--text-primary);
+      transform: translateY(-2px);
+    }
+
+    /* ── Open Source ── */
+    .oss-section {
+      background: linear-gradient(180deg, var(--bg-deep) 0%, rgba(139,92,246,0.03) 50%, var(--bg-deep) 100%);
+    }
+    .oss-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-top: 60px;
+    }
+    .oss-card {
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+    }
+    .oss-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .oss-card-icon {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      background: rgba(139,92,246,0.1);
+      border: 1px solid rgba(139,92,246,0.2);
+      color: var(--accent-violet);
+    }
+    .oss-card h4 {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .oss-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      flex-grow: 1;
+      margin-bottom: 16px;
+    }
+    .oss-card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent-violet);
+      text-decoration: none;
+      transition: gap 0.3s;
+    }
+    .oss-card-link:hover { gap: 12px; }
+
+    /* ── Approach ── */
+    .approach-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+      counter-reset: step;
+    }
+    .approach-step {
+      padding: 36px 28px;
+      text-align: center;
+      counter-increment: step;
+      position: relative;
+    }
+    .approach-step::before {
+      content: counter(step, decimal-leading-zero);
+      font-family: var(--font-mono);
+      font-size: 48px;
+      font-weight: 800;
+      background: var(--gradient-main);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0.3;
+      display: block;
+      margin-bottom: 16px;
+    }
+    .approach-step h4 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .approach-step p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ── Contact / CTA ── */
+    .cta-section {
+      padding: 160px 0;
+    }
+    .cta-wrapper {
+      text-align: center;
+      padding: 80px 60px;
+      border-radius: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-wrapper::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-glow);
+      z-index: 0;
+    }
+    .cta-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gradient-main);
+    }
+    .cta-wrapper > * { position: relative; z-index: 1; }
+    .cta-wrapper h2 {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+    .cta-wrapper > p {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 540px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .cta-info {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .cta-info-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .cta-info-item i {
+      color: var(--accent-blue);
+    }
+    .cta-info-item a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .cta-info-item a:hover { color: var(--text-primary); }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border-glass);
+      padding: 40px 0;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-copy {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 18px;
+      transition: color 0.3s, transform 0.3s;
+    }
+    .footer-links a:hover {
+      color: var(--text-primary);
+      transform: scale(1.15);
+    }
+
+    /* ── Competitive Position ── */
+    .position-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      margin-top: 60px;
+    }
+    .position-quadrant {
+      padding: 48px;
+      position: relative;
+    }
+    .quadrant-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 2px;
+      height: 300px;
+      position: relative;
+    }
+    .quadrant-inner::before {
+      content: '';
+      position: absolute;
+      left: 50%; top: 0; bottom: 0;
+      width: 1px;
+      background: rgba(255,255,255,0.06);
+    }
+    .quadrant-inner::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 0; right: 0;
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+    }
+    .quadrant-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      text-align: center;
+    }
+    .quadrant-highlight {
+      background: rgba(99,102,241,0.06);
+      border-radius: 16px;
+    }
+    .quadrant-cell .label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-blue);
+      margin-bottom: 4px;
+    }
+    .quadrant-cell .sublabel {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .axis-label {
+      position: absolute;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .axis-top { top: -24px; left: 50%; transform: translateX(-50%); }
+    .axis-bottom { bottom: -24px; left: 50%; transform: translateX(-50%); }
+    .axis-left { left: -8px; top: 50%; transform: translateY(-50%) rotate(-90deg); }
+    .axis-right { right: -8px; top: 50%; transform: translateY(-50%) rotate(90deg); }
+    .position-text h3 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+    .position-text p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .position-list {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+    .position-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    .position-list li i {
+      color: var(--accent-blue);
+      margin-top: 3px;
+    }
+
+    /* ── Animated Counter ── */
+    .counter[data-target] {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .service-tier,
+      .problem-grid,
+      .position-grid { grid-template-columns: 1fr; gap: 40px; }
+      .service-tier:nth-child(even) .service-content { order: 1; }
+      .service-tier:nth-child(even) .service-visual { order: 2; }
+      .proof-timeline::before { left: 20px; }
+      .proof-item {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding-left: 50px;
+      }
+      .proof-item::before { left: 20px; }
+      .approach-steps { grid-template-columns: 1fr 1fr; }
+      .platform-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      section { padding: 80px 0; }
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0; right: 0;
+        background: rgba(6,6,15,0.95);
+        backdrop-filter: blur(20px);
+        padding: 24px;
+        border-bottom: 1px solid var(--border-glass);
+      }
+      .hero h1 { letter-spacing: -2px; }
+      .hero-metric-grid { grid-template-columns: 1fr; }
+      .approach-steps { grid-template-columns: 1fr; }
+      .platform-grid { grid-template-columns: 1fr; }
+      .cta-wrapper { padding: 48px 24px; border-radius: 24px; }
+      .hero-actions { flex-direction: column; }
+      .hero-proof { flex-direction: column; align-items: flex-start; }
+      .quadrant-inner { height: 240px; }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .hero-float-card { display: none; }
+      .oss-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Focus / Accessibility ── */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--accent-blue);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .reveal-left, .reveal-right { transition: none; opacity: 1; transform: none; }
+      .aurora-blob { animation: none; }
+      .hero-float-card { animation: none; }
+    }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-200 font-sans">
+<body>
 
-  <!-- Navbar -->
-  <nav class="fixed top-0 w-full bg-slate-950/80 backdrop-blur-md z-50 border-b border-slate-800">
-    <div class="tail-container px-6 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <span class="text-3xl font-bold text-indigo-400">IM</span>
-        <span class="text-2xl font-semibold tracking-tight">IncidentMind</span>
-      </div>
-      <div class="hidden md:flex gap-8 text-sm font-medium">
-        <a href="#services" class="hover:text-indigo-400 transition">Services</a>
-        <a href="#proof" class="hover:text-indigo-400 transition">Proof</a>
-        <a href="#open-source" class="hover:text-indigo-400 transition">Open Source</a>
-        <a href="#contact" class="hover:text-indigo-400 transition">Contact</a>
-      </div>
-      <a href="#contact" class="bg-indigo-600 hover:bg-indigo-500 px-6 py-2.5 rounded-xl text-sm font-semibold transition">
-        Book Free Assessment
+  <!-- Aurora Background -->
+  <div class="aurora" aria-hidden="true">
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+  </div>
+
+  <!-- ━━ Navbar ━━ -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <a href="#" class="nav-logo" aria-label="IncidentNow home">
+        <div class="nav-logo-icon">IN</div>
+        <span class="nav-logo-text">IncidentNow</span>
       </a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#proof">Results</a></li>
+        <li><a href="#tech">Stack</a></li>
+        <li><a href="#open-source">Open Source</a></li>
+        <li><a href="#contact" class="nav-cta">Book Free Call</a></li>
+      </ul>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section class="hero-bg min-h-screen flex items-center pt-20">
-    <div class="tail-container px-6 grid md:grid-cols-2 gap-12 items-center">
-      <div class="space-y-8">
-        <h1 class="text-5xl md:text-6xl font-bold leading-tight tracking-tighter">
-          AI that actually<br>resolves incidents<br>and accelerates platforms
-        </h1>
-        <p class="text-xl text-slate-400 max-w-lg">
-          Ex-CTO of EAT24 (acquired by Yelp for $134M). Built the self-improving AI incident platform at Fidelity Charitable. 
-          Now helping Southeast teams cut MTTR and ship faster with production-grade AI + platform engineering.
-        </p>
-        <div class="flex flex-wrap gap-4">
-          <a href="#contact" class="bg-white text-slate-950 px-8 py-4 rounded-2xl font-semibold text-lg hover:scale-105 transition">
-            Get Your Free Platform Assessment
-          </a>
-          <a href="https://github.com/borgius" target="_blank" class="border border-slate-600 hover:border-slate-400 px-8 py-4 rounded-2xl font-semibold text-lg transition">
-            View My Open Source →
-          </a>
-        </div>
-        <div class="flex items-center gap-8 text-sm text-slate-400">
-          <div>Durham, NC • Remote & On-site</div>
-          <div class="flex items-center gap-2">
-            <i class="fa-solid fa-check text-emerald-400"></i>
-            <span>20+ years • Production AI & EKS</span>
+  <!-- ━━ Hero ━━ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-tagline reveal">
+            <span class="pulse"></span>
+            Available for new engagements
+          </div>
+          <h1 class="reveal stagger-1">
+            AI that actually<br>
+            <span class="gradient-text">resolves incidents</span>
+          </h1>
+          <p class="hero-description reveal stagger-2">
+            I built the self-improving AI incident platform at Fidelity Charitable. Before that, I built EAT24 from scratch to a $134M acquisition by Yelp. Now I bring that experience to your team — custom AI systems, MCP agents, and production-grade platform engineering.
+          </p>
+          <div class="hero-actions reveal stagger-3">
+            <a href="#contact" class="btn-primary">
+              <i class="fa-solid fa-calendar-check"></i>
+              Free 30-Min Assessment
+            </a>
+            <a href="https://github.com/borgius" target="_blank" rel="noopener" class="btn-secondary">
+              <i class="fa-brands fa-github"></i>
+              View Open Source
+            </a>
+          </div>
+          <div class="hero-proof reveal stagger-4">
+            <div class="hero-proof-item">
+              <i class="fa-solid fa-check-circle"></i>
+              <span>20+ years experience</span>
+            </div>
+            <div class="hero-proof-item">
+              <i class="fa-solid fa-check-circle"></i>
+              <span>Ex-CTO, $134M exit</span>
+            </div>
+            <div class="hero-proof-item">
+              <i class="fa-solid fa-check-circle"></i>
+              <span>Durham, NC + Remote</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="relative">
-        <div class="bg-slate-900/70 backdrop-blur-xl border border-slate-700 rounded-3xl p-8 shadow-2xl">
-          <div class="bg-slate-950 rounded-2xl p-6 text-center">
-            <div class="text-emerald-400 text-4xl font-mono mb-4">MTTR ↓ 60%</div>
-            <div class="text-sm text-slate-400">Real result from our AI incident platform at Fidelity</div>
+
+        <div class="hero-dash reveal-right stagger-2">
+          <div class="hero-card-main glass">
+            <div class="hero-metric-grid">
+              <div class="hero-metric">
+                <div class="hero-metric-value" style="color: var(--accent-emerald);">
+                  <span class="counter" data-target="60" data-suffix="%">0</span>
+                </div>
+                <div class="hero-metric-label">MTTR Reduction</div>
+              </div>
+              <div class="hero-metric">
+                <div class="hero-metric-value" style="color: var(--accent-blue);">
+                  <span class="counter" data-target="40" data-suffix="%">0</span>
+                </div>
+                <div class="hero-metric-label">Faster Pipelines</div>
+              </div>
+              <div class="hero-metric">
+                <div class="hero-metric-value" style="color: var(--accent-violet);">
+                  <span class="counter" data-target="700" data-prefix="$" data-suffix="M">0</span>
+                </div>
+                <div class="hero-metric-label">Platform Revenue</div>
+              </div>
+              <div class="hero-metric">
+                <div class="hero-metric-value" style="color: var(--accent-cyan);">
+                  <span class="counter" data-target="12" data-suffix="GB">0</span>
+                </div>
+                <div class="hero-metric-label">ETL Daily Throughput</div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="absolute -bottom-6 -right-6 bg-indigo-600/10 border border-indigo-500 rounded-3xl p-6 max-w-[220px]">
-          <div class="flex items-center gap-3">
-            <i class="fa-solid fa-brain text-4xl text-indigo-400"></i>
-            <div>
-              <div class="font-semibold">AI IncidentMind</div>
-              <div class="text-xs text-slate-400">Self-improving LLM resolution engine</div>
+          <div class="hero-float-card glass card-1">
+            <div class="float-card-inner">
+              <div class="float-card-icon" style="background: rgba(16,185,129,0.1); color: var(--accent-emerald);">
+                <i class="fa-solid fa-brain"></i>
+              </div>
+              <div>
+                <div style="font-weight: 600; font-size: 14px;">Self-Improving AI</div>
+                <div style="font-size: 12px; color: var(--text-muted);">Feedback loop engine</div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-float-card glass card-2">
+            <div class="float-card-inner">
+              <div class="float-card-icon" style="background: rgba(99,102,241,0.1); color: var(--accent-blue);">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <div>
+                <div style="font-weight: 600; font-size: 14px;">Enterprise-Grade</div>
+                <div style="font-size: 12px; color: var(--text-muted);">Fidelity-tested</div>
+              </div>
             </div>
           </div>
         </div>
@@ -79,118 +1357,798 @@
     </div>
   </section>
 
-  <!-- Services -->
-  <section id="services" class="py-24 bg-slate-900">
-    <div class="tail-container px-6">
-      <h2 class="text-4xl font-bold text-center mb-4">What We Deliver</h2>
-      <p class="text-center text-slate-400 max-w-2xl mx-auto mb-16">Production-grade solutions built by someone who has scaled platforms to $700M revenue and real AI in regulated environments.</p>
-      
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Service 1 -->
-        <div class="bg-slate-800 border border-slate-700 rounded-3xl p-8 hover:border-indigo-500 transition">
-          <div class="h-12 w-12 bg-indigo-600 rounded-2xl flex items-center justify-center mb-6">
-            <i class="fa-solid fa-bolt text-white text-2xl"></i>
-          </div>
-          <h3 class="text-2xl font-semibold mb-3">AI-Powered Incident Resolution</h3>
-          <p class="text-slate-400">Auto-detect, classify, pull context from DataDog/Confluence/pipelines, and generate LLM root-cause reports with recommendations. Self-improving feedback loop included.</p>
-          <div class="mt-8 text-indigo-400 font-medium">Starting at $18k • 2–6 weeks</div>
-        </div>
-
-        <!-- Service 2 -->
-        <div class="bg-slate-800 border border-slate-700 rounded-3xl p-8 hover:border-indigo-500 transition">
-          <div class="h-12 w-12 bg-indigo-600 rounded-2xl flex items-center justify-center mb-6">
-            <i class="fa-solid fa-kubernetes text-white text-2xl"></i>
-          </div>
-          <h3 class="text-2xl font-semibold mb-3">EKS Platform Acceleration</h3>
-          <p class="text-slate-400">ECS → EKS migrations, custom ProxySQL Helm charts, Terraform IaC, blue/green deployments, hybrid dev environments, cost optimization.</p>
-          <div class="mt-8 text-indigo-400 font-medium">Starting at $25k • Assessment $7k</div>
-        </div>
-
-        <!-- Service 3 -->
-        <div class="bg-slate-800 border border-slate-700 rounded-3xl p-8 hover:border-indigo-500 transition">
-          <div class="h-12 w-12 bg-indigo-600 rounded-2xl flex items-center justify-center mb-6">
-            <i class="fa-solid fa-robot text-white text-2xl"></i>
-          </div>
-          <h3 class="text-2xl font-semibold mb-3">Custom MCP Servers & AI Agents</h3>
-          <p class="text-slate-400">Secure internal AI agents that safely access your tools, Confluence, codebases, and data (built on my open-source MCP framework).</p>
-          <div class="mt-8 text-indigo-400 font-medium">Starting at $9k per agent</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Proof -->
-  <section id="proof" class="py-24">
-    <div class="tail-container px-6">
-      <h2 class="text-4xl font-bold text-center mb-16">Proven at Scale</h2>
-      <div class="max-w-4xl mx-auto space-y-12">
-        <div class="flex flex-col md:flex-row gap-8 items-center">
-          <div class="flex-1">
-            <div class="text-emerald-400 text-sm font-medium tracking-widest">EAT24 • 2007–2015</div>
-            <h3 class="text-3xl font-semibold">CTO & Architect — Scaled to $700M revenue</h3>
-            <p class="mt-4 text-slate-400">Built the entire delivery platform from zero. Acquired by Yelp for $134M (later sold to GrubHub for $287.5M).</p>
-          </div>
-          <div class="flex-1 text-slate-400">
-            “Best user experience in food delivery” — industry recognition
+  <!-- ━━ Problem / Why ━━ -->
+  <section class="problem-section">
+    <div class="container">
+      <div class="problem-grid">
+        <div class="problem-sticky">
+          <div class="section-label reveal">The Problem</div>
+          <h2 class="section-title reveal stagger-1">
+            $250B spent on<br><span class="gradient-text">manual IT ops</span><br>every year
+          </h2>
+          <p class="section-subtitle reveal stagger-2">
+            SaaS incident tools promise AI but deliver dashboards. Your team is still drowning in alerts, copy-pasting runbooks, and fighting the same fires. The gap isn't tools — it's implementation.
+          </p>
+          <div class="problem-stats">
+            <div class="problem-stat glass reveal stagger-3">
+              <div class="problem-stat-number">$250B</div>
+              <div class="problem-stat-text">Annual spend on manual IT operations globally</div>
+            </div>
+            <div class="problem-stat glass reveal stagger-4">
+              <div class="problem-stat-number">73%</div>
+              <div class="problem-stat-text">Of teams say AI tooling doesn't match their stack</div>
+            </div>
           </div>
         </div>
-        <div class="flex flex-col md:flex-row gap-8 items-center">
-          <div class="flex-1">
-            <div class="text-emerald-400 text-sm font-medium tracking-widest">Fidelity Charitable • 2018–Present</div>
-            <h3 class="text-3xl font-semibold">Built the first cloud-first platform + self-improving AI incident engine</h3>
-            <p class="mt-4 text-slate-400">Led ECS→EKS migration, ProxySQL clustering, ETL pipelines, and the AI system that cuts MTTR dramatically.</p>
+        <div class="problem-cards">
+          <div class="problem-card glass reveal">
+            <div class="problem-card-icon" style="background: rgba(239,68,68,0.1); color: #ef4444;">
+              <i class="fa-solid fa-puzzle-piece"></i>
+            </div>
+            <h3>SaaS Tools Don't Fit Your Stack</h3>
+            <p>You bought PagerDuty or Rootly but can't wire it into your actual Kubernetes clusters, DataDog alerts, CI/CD pipelines, and Confluence runbooks. The "AI" is a black box that doesn't learn from your incidents.</p>
+          </div>
+          <div class="problem-card glass reveal stagger-1">
+            <div class="problem-card-icon" style="background: rgba(245,158,11,0.1); color: #f59e0b;">
+              <i class="fa-solid fa-lock"></i>
+            </div>
+            <h3>Regulated Industries Can't Use SaaS AI</h3>
+            <p>Finance, healthcare, and government need to own their AI models and data. SaaS incident platforms send your production data to their cloud — a compliance non-starter.</p>
+          </div>
+          <div class="problem-card glass reveal stagger-2">
+            <div class="problem-card-icon" style="background: rgba(99,102,241,0.1); color: var(--accent-blue);">
+              <i class="fa-solid fa-users-slash"></i>
+            </div>
+            <h3>No One Has Actually Built This</h3>
+            <p>Every DevOps consultant sells "AI strategy." Almost none have built a production self-improving LLM incident platform with feedback loops, context aggregation, and enterprise governance.</p>
+          </div>
+          <div class="problem-card glass reveal stagger-3">
+            <div class="problem-card-icon" style="background: rgba(16,185,129,0.1); color: var(--accent-emerald);">
+              <i class="fa-solid fa-microchip"></i>
+            </div>
+            <h3>MCP Is the Future — But Who Builds It?</h3>
+            <p>The Model Context Protocol lets AI agents safely access internal tools. It's the next paradigm for developer productivity — but your team needs an expert who's already shipping MCP servers in production.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Open Source -->
-  <section id="open-source" class="py-24 bg-slate-900">
-    <div class="tail-container px-6 text-center">
-      <h2 class="text-4xl font-bold mb-4">Active Open-Source Contributor</h2>
-      <p class="max-w-md mx-auto text-slate-400 mb-12">Tools I built and maintain — used by developers adopting AI agents today</p>
-      <div class="grid md:grid-cols-3 gap-6 text-left max-w-4xl mx-auto">
-        <a href="https://github.com/borgius/jobspy-mcp-server" target="_blank" class="block bg-slate-800 p-6 rounded-3xl hover:bg-slate-700 transition">
-          <div class="font-medium">jobspy-mcp-server</div>
-          <div class="text-sm text-slate-400">MCP server for AI job search across 10+ platforms</div>
-        </a>
-        <a href="https://github.com/borgius/localrag" target="_blank" class="block bg-slate-800 p-6 rounded-3xl hover:bg-slate-700 transition">
-          <div class="font-medium">localrag</div>
-          <div class="text-sm text-slate-400">Private RAG for your codebase & docs</div>
-        </a>
-        <a href="https://github.com/borgius/qa-video" target="_blank" class="block bg-slate-800 p-6 rounded-3xl hover:bg-slate-700 transition">
-          <div class="font-medium">qa-video</div>
-          <div class="text-sm text-slate-400">Flashcard videos with offline neural TTS</div>
-        </a>
+  <!-- ━━ Services ━━ -->
+  <section id="services" class="services-section">
+    <div class="container">
+      <div class="services-header">
+        <div class="section-label reveal">Services</div>
+        <h2 class="section-title reveal stagger-1">
+          What <span class="gradient-text">IncidentNow</span> delivers
+        </h2>
+        <p class="section-subtitle reveal stagger-2" style="margin: 0 auto;">
+          Production-grade solutions from someone who's scaled platforms to $700M revenue and shipped real AI in regulated environments.
+        </p>
+      </div>
+
+      <!-- Service 1: AI Incident Intelligence -->
+      <div class="service-tier">
+        <div class="service-content reveal-left">
+          <div class="service-badge badge-flagship"><i class="fa-solid fa-star"></i> Flagship Service</div>
+          <h3>AI-Powered Incident Intelligence</h3>
+          <p>A custom AI incident resolution platform tailored to your stack — not a generic SaaS subscription. You own the system, the models, and the data. Built on the exact architecture proven at Fidelity Charitable.</p>
+          <ul class="service-features">
+            <li><i class="fa-solid fa-check"></i>Incident detection &amp; classification pipeline with auto-triage</li>
+            <li><i class="fa-solid fa-check"></i>Multi-source context aggregation: DataDog, Confluence, CI/CD logs, K8s manifests, past incidents</li>
+            <li><i class="fa-solid fa-check"></i>LLM-powered root-cause analysis with resolution recommendations</li>
+            <li><i class="fa-solid fa-check"></i>Self-improving feedback loop — the system gets smarter with every incident</li>
+            <li><i class="fa-solid fa-check"></i>Integration with existing alerting (PagerDuty, Rootly, Slack, OpsGenie)</li>
+            <li><i class="fa-solid fa-check"></i>Enterprise governance: runs in your VPC, your data stays yours</li>
+          </ul>
+          <div class="service-pricing">
+            <span class="service-pricing-value gradient-text">$25K–$75K</span>
+            <span class="service-pricing-label">per engagement · 6–12 weeks</span>
+          </div>
+        </div>
+        <div class="service-visual glass reveal-right">
+          <div class="service-visual-inner">
+            <div class="service-icon-large" style="background: rgba(99,102,241,0.12); color: var(--accent-blue);">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px; font-family: var(--font-mono);">Technology stack</div>
+            <div class="service-tech-list">
+              <span class="tech-tag">LLM / GPT-4</span>
+              <span class="tech-tag">RAG</span>
+              <span class="tech-tag">DataDog API</span>
+              <span class="tech-tag">Confluence</span>
+              <span class="tech-tag">Kubernetes</span>
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">TypeScript</span>
+              <span class="tech-tag">Prompt Eng.</span>
+              <span class="tech-tag">Feedback Loops</span>
+              <span class="tech-tag">n8n</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 2: MCP Servers & AI Agents -->
+      <div class="service-tier">
+        <div class="service-content reveal-right">
+          <div class="service-badge badge-growth"><i class="fa-solid fa-rocket"></i> High Growth</div>
+          <h3>MCP Servers &amp; Enterprise AI Agents</h3>
+          <p>Build secure internal AI agents that safely access your company systems via the Model Context Protocol. Stop manually switching between tools — let AI agents do it safely, in your sandboxed environment.</p>
+          <ul class="service-features">
+            <li><i class="fa-solid fa-check"></i>Custom MCP servers for DataDog, Confluence, GitHub, Jira, K8s, databases</li>
+            <li><i class="fa-solid fa-check"></i>Secure sandboxed agent environments with fine-grained permissions</li>
+            <li><i class="fa-solid fa-check"></i>RAG pipelines over internal documentation &amp; codebases</li>
+            <li><i class="fa-solid fa-check"></i>n8n workflow automation with AI integration</li>
+            <li><i class="fa-solid fa-check"></i>Multi-agent orchestration for complex operations tasks</li>
+            <li><i class="fa-solid fa-check"></i>Built on my open-source MCP framework (mcp-generator, jobspy-mcp-server)</li>
+          </ul>
+          <div class="service-pricing">
+            <span class="service-pricing-value gradient-text">$9K–$50K+</span>
+            <span class="service-pricing-label">per agent/server · multi-agent architectures available</span>
+          </div>
+        </div>
+        <div class="service-visual glass reveal-left">
+          <div class="service-visual-inner">
+            <div class="service-icon-large" style="background: rgba(139,92,246,0.12); color: var(--accent-violet);">
+              <i class="fa-solid fa-robot"></i>
+            </div>
+            <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px; font-family: var(--font-mono);">Agent ecosystem</div>
+            <div class="service-tech-list">
+              <span class="tech-tag">MCP Protocol</span>
+              <span class="tech-tag">Claude / GPT</span>
+              <span class="tech-tag">RAG</span>
+              <span class="tech-tag">n8n</span>
+              <span class="tech-tag">TypeScript</span>
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Sandboxing</span>
+              <span class="tech-tag">Vector DB</span>
+              <span class="tech-tag">OAuth / RBAC</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service 3: Platform Engineering -->
+      <div class="service-tier" style="margin-bottom: 0;">
+        <div class="service-content reveal-left">
+          <div class="service-badge badge-core"><i class="fa-solid fa-wrench"></i> Core Engineering</div>
+          <h3>Platform Engineering Acceleration</h3>
+          <p>Hands-on DevOps engineering to modernize your infrastructure — not a slideshow. Migration execution, IaC adoption, CI/CD optimization, and observability, delivered by someone with 7+ years doing exactly this at Fidelity.</p>
+          <ul class="service-features">
+            <li><i class="fa-solid fa-check"></i>ECS → EKS migration with rollback strategy</li>
+            <li><i class="fa-solid fa-check"></i>Terraform / CDKTF adoption for existing AWS infrastructure</li>
+            <li><i class="fa-solid fa-check"></i>CI/CD optimization: parallelization, blue/green deployments</li>
+            <li><i class="fa-solid fa-check"></i>Full DataDog observability: dashboards, APM, SLOs, tracing</li>
+            <li><i class="fa-solid fa-check"></i>Developer experience: hybrid dev environments, bootstrap tooling</li>
+            <li><i class="fa-solid fa-check"></i>ETL pipeline architecture for high-volume data processing</li>
+          </ul>
+          <div class="service-pricing">
+            <span class="service-pricing-value gradient-text">$7K assessment</span>
+            <span class="service-pricing-label">+ project-based · $12K–$60K per engagement</span>
+          </div>
+        </div>
+        <div class="service-visual glass reveal-right">
+          <div class="service-visual-inner">
+            <div class="service-icon-large" style="background: rgba(16,185,129,0.12); color: var(--accent-emerald);">
+              <i class="fa-solid fa-cubes"></i>
+            </div>
+            <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px; font-family: var(--font-mono);">Infrastructure</div>
+            <div class="service-tech-list">
+              <span class="tech-tag">AWS EKS</span>
+              <span class="tech-tag">Terraform</span>
+              <span class="tech-tag">CDKTF</span>
+              <span class="tech-tag">Helm</span>
+              <span class="tech-tag">Docker</span>
+              <span class="tech-tag">Jenkins</span>
+              <span class="tech-tag">Concourse</span>
+              <span class="tech-tag">DataDog</span>
+              <span class="tech-tag">ProxySQL</span>
+              <span class="tech-tag">k6</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Platform sub-services grid -->
+      <div class="platform-grid">
+        <div class="platform-card glass reveal stagger-1">
+          <div class="platform-card-icon" style="background: rgba(99,102,241,0.1); color: var(--accent-blue);">
+            <i class="fa-solid fa-ship"></i>
+          </div>
+          <h4>ECS → EKS Migration</h4>
+          <p>Phased migration with zero-downtime rollback strategies and custom Helm charts for ProxySQL clustering.</p>
+          <div class="platform-card-price">$25K–$60K</div>
+        </div>
+        <div class="platform-card glass reveal stagger-2">
+          <div class="platform-card-icon" style="background: rgba(139,92,246,0.1); color: var(--accent-violet);">
+            <i class="fa-solid fa-code-branch"></i>
+          </div>
+          <h4>Terraform / IaC Adoption</h4>
+          <p>Convert existing AWS infrastructure to Terraform/CDKTF with state management and modular design.</p>
+          <div class="platform-card-price">$15K–$40K</div>
+        </div>
+        <div class="platform-card glass reveal stagger-3">
+          <div class="platform-card-icon" style="background: rgba(16,185,129,0.1); color: var(--accent-emerald);">
+            <i class="fa-solid fa-gauge-high"></i>
+          </div>
+          <h4>CI/CD Optimization</h4>
+          <p>Pipeline parallelization, blue/green deployments, GitOps. Cut pipeline runtime by 40%+.</p>
+          <div class="platform-card-price">$12K–$25K</div>
+        </div>
+        <div class="platform-card glass reveal stagger-1">
+          <div class="platform-card-icon" style="background: rgba(6,182,212,0.1); color: var(--accent-cyan);">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <h4>Observability Stack</h4>
+          <p>Full DataDog implementation with custom dashboards, APM, SLOs, distributed tracing, and alerting.</p>
+          <div class="platform-card-price">$15K–$30K</div>
+        </div>
+        <div class="platform-card glass reveal stagger-2">
+          <div class="platform-card-icon" style="background: rgba(245,158,11,0.1); color: #f59e0b;">
+            <i class="fa-solid fa-laptop-code"></i>
+          </div>
+          <h4>Developer Experience</h4>
+          <p>Hybrid dev environments, Chrome extensions, bootstrap tooling, and production-ready app templates.</p>
+          <div class="platform-card-price">$10K–$20K</div>
+        </div>
+        <div class="platform-card glass reveal stagger-3">
+          <div class="platform-card-icon" style="background: rgba(239,68,68,0.1); color: #ef4444;">
+            <i class="fa-solid fa-database"></i>
+          </div>
+          <h4>ETL Pipeline Design</h4>
+          <p>High-volume data pipeline architecture (JSON → S3 → SQS → workers), resilient to upstream changes.</p>
+          <div class="platform-card-price">$15K–$35K</div>
+        </div>
+      </div>
+
+      <!-- Service 4: Fractional Lead -->
+      <div style="margin-top: 100px;">
+        <div class="service-tier" style="margin-bottom: 0;">
+          <div class="service-content reveal-left">
+            <div class="service-badge badge-advisory"><i class="fa-solid fa-compass"></i> Advisory</div>
+            <h3>Fractional Platform Engineering Lead</h3>
+            <p>Part-time embedded leadership for teams that need a senior platform engineering voice but can't justify a full-time hire. Architecture decisions, roadmap planning, vendor evaluation, team mentoring — with CTO-level experience.</p>
+            <ul class="service-features">
+              <li><i class="fa-solid fa-check"></i>Architecture decision records (ADRs) and technical strategy</li>
+              <li><i class="fa-solid fa-check"></i>Platform roadmap planning and prioritization</li>
+              <li><i class="fa-solid fa-check"></i>Vendor evaluation: tools, cloud services, build vs. buy</li>
+              <li><i class="fa-solid fa-check"></i>Team mentoring, code reviews, and upleveling</li>
+              <li><i class="fa-solid fa-check"></i>Incident response process design and SRE best practices</li>
+              <li><i class="fa-solid fa-check"></i>Architecture review boards compliance (enterprise-ready)</li>
+            </ul>
+            <div class="service-pricing">
+              <span class="service-pricing-value gradient-text">$200–$275/hr</span>
+              <span class="service-pricing-label">10–20 hrs/week retainer · $8K–$22K/month</span>
+            </div>
+          </div>
+          <div class="service-visual glass reveal-right">
+            <div class="service-visual-inner">
+              <div class="service-icon-large" style="background: rgba(6,182,212,0.12); color: var(--accent-cyan);">
+                <i class="fa-solid fa-compass"></i>
+              </div>
+              <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px; font-family: var(--font-mono);">Leadership scope</div>
+              <div class="service-tech-list">
+                <span class="tech-tag">Architecture</span>
+                <span class="tech-tag">Roadmapping</span>
+                <span class="tech-tag">Vendor Eval</span>
+                <span class="tech-tag">Mentoring</span>
+                <span class="tech-tag">Code Review</span>
+                <span class="tech-tag">ADRs</span>
+                <span class="tech-tag">SRE</span>
+                <span class="tech-tag">Compliance</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA / Contact -->
-  <section id="contact" class="py-24 border-t border-slate-800">
-    <div class="tail-container px-6 max-w-xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-6">Ready to cut your incident pain and ship faster?</h2>
-      <p class="text-slate-400 mb-10">Let’s start with a free 30-minute platform health call (no sales pitch).</p>
-      
-      <a href="mailto:burdey@gmail.com?subject=IncidentMind%20Free%20Assessment" 
-         class="inline-block bg-indigo-600 hover:bg-indigo-500 text-white px-10 py-6 rounded-3xl text-xl font-semibold transition mb-8">
-        Schedule Free Assessment →
-      </a>
-      
-      <div class="text-sm text-slate-500">
-        Viktor Burdyey • Founder & Principal Engineer<br>
-        IncidentMind LLC • Durham, NC • <a href="https://linkedin.com/in/burdyey" class="hover:text-slate-300">LinkedIn</a>
+  <!-- ━━ Approach ━━ -->
+  <section>
+    <div class="container">
+      <div style="text-align: center;">
+        <div class="section-label reveal">How I Work</div>
+        <h2 class="section-title reveal stagger-1">From assessment to <span class="gradient-text">production</span></h2>
+        <p class="section-subtitle reveal stagger-2" style="margin: 0 auto;">No sales teams, no account managers. You work directly with the engineer who built it.</p>
+      </div>
+      <div class="approach-steps">
+        <div class="approach-step glass reveal stagger-1">
+          <h4>Discover</h4>
+          <p>Free 30-minute call to understand your stack, pain points, and goals. No pitch — just technical conversation.</p>
+        </div>
+        <div class="approach-step glass reveal stagger-2">
+          <h4>Assess</h4>
+          <p>Deep-dive into your infrastructure, incidents, and workflows. Deliver a clear assessment document with recommendations.</p>
+        </div>
+        <div class="approach-step glass reveal stagger-3">
+          <h4>Build</h4>
+          <p>Hands-on implementation in your environment. Weekly demos, iterative delivery, production-ready code.</p>
+        </div>
+        <div class="approach-step glass reveal stagger-4">
+          <h4>Sustain</h4>
+          <p>Knowledge transfer, documentation, team training. Optional retainer for ongoing optimization.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <footer class="py-8 text-center text-xs text-slate-500 border-t border-slate-800">
-    © 2026 IncidentMind LLC. All rights reserved.
+  <!-- ━━ Proof / Results ━━ -->
+  <section id="proof" class="proof-section">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 20px;">
+        <div class="section-label reveal">Proven Results</div>
+        <h2 class="section-title reveal stagger-1">
+          Built at <span class="gradient-text">real scale</span>
+        </h2>
+        <p class="section-subtitle reveal stagger-2" style="margin: 0 auto;">
+          Not demos. Not proofs of concept. Production systems at companies you know.
+        </p>
+      </div>
+
+      <div class="proof-timeline">
+        <!-- EAT24 -->
+        <div class="proof-item">
+          <div class="proof-card glass reveal-left">
+            <div class="proof-date">2007 – 2015 · EAT24</div>
+            <h3>CTO &amp; Lead Architect — Zero to $134M Acquisition</h3>
+            <p>Built the entire food-delivery platform from the first line of code. Scaled to 40,000+ restaurant partners, $700M gross revenue. Acquired by Yelp for $134M, later sold to GrubHub for $287.5M.</p>
+            <div class="proof-metrics">
+              <div class="proof-metric">
+                <div class="proof-metric-value" style="color: var(--accent-emerald);">$700M</div>
+                <div class="proof-metric-label">Gross Revenue</div>
+              </div>
+              <div class="proof-metric">
+                <div class="proof-metric-value" style="color: var(--accent-blue);">$134M</div>
+                <div class="proof-metric-label">Yelp Acquisition</div>
+              </div>
+              <div class="proof-metric">
+                <div class="proof-metric-value" style="color: var(--accent-violet);">40K+</div>
+                <div class="proof-metric-label">Restaurants</div>
+              </div>
+            </div>
+          </div>
+          <div class="proof-right-content reveal-right">
+            <ul class="proof-highlights">
+              <li><i class="fa-solid fa-check"></i>Designed and built the entire technology stack from scratch</li>
+              <li><i class="fa-solid fa-check"></i>Grew platform to handle millions of food delivery orders</li>
+              <li><i class="fa-solid fa-check"></i>Led architecture through two acquisitions ($134M → $287.5M)</li>
+              <li><i class="fa-solid fa-check"></i>Managed high-availability systems with real-time order processing</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Fidelity -->
+        <div class="proof-item">
+          <div class="proof-card glass reveal-left">
+            <div class="proof-date" style="color: var(--accent-emerald);">2019 – Present · Fidelity Charitable</div>
+            <h3>Senior Platform Engineer — AI Incident Platform &amp; Cloud-First Architecture</h3>
+            <p>Built the first cloud-first project at Fidelity Charitable (GivingMarketplace). Designed and shipped the AI-powered incident resolution platform that dramatically cut MTTR across all environments.</p>
+            <div class="proof-metrics">
+              <div class="proof-metric">
+                <div class="proof-metric-value" style="color: var(--accent-emerald);">60%</div>
+                <div class="proof-metric-label">MTTR Reduction</div>
+              </div>
+              <div class="proof-metric">
+                <div class="proof-metric-value" style="color: var(--accent-blue);">40%</div>
+                <div class="proof-metric-label">Faster CI/CD</div>
+              </div>
+              <div class="proof-metric">
+                <div class="proof-metric-value" style="color: var(--accent-violet);">12GB</div>
+                <div class="proof-metric-label">Daily ETL</div>
+              </div>
+            </div>
+          </div>
+          <div class="proof-right-content reveal-right">
+            <ul class="proof-highlights">
+              <li><i class="fa-solid fa-check"></i>Self-improving LLM incident platform with context from DataDog, Confluence, CI/CD, K8s</li>
+              <li><i class="fa-solid fa-check"></i>ECS → EKS migration with custom ProxySQL Helm charts for HA clustering</li>
+              <li><i class="fa-solid fa-check"></i>ETL pipeline processing ~12GB of nonprofit data daily across 20+ DB tables</li>
+              <li><i class="fa-solid fa-check"></i>Full-stack observability with DataDog APM, SLOs, tracing, and k6 load testing</li>
+              <li><i class="fa-solid fa-check"></i>Navigated enterprise architecture review boards, security, and compliance</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Additional Experience -->
+        <div class="proof-item">
+          <div class="proof-card glass reveal-left">
+            <div class="proof-date" style="color: var(--accent-violet);">Earlier · Yelp, Decisely, &amp; More</div>
+            <h3>Full-Stack Engineering Leadership Across Multiple Industries</h3>
+            <p>Continued to architect and deliver production systems across adtech, HR-tech, and food delivery. Consistent track record of building teams and shipping reliable software.</p>
+            <div class="proof-metrics">
+              <div class="proof-metric">
+                <div class="proof-metric-value" style="color: var(--accent-cyan);">20+</div>
+                <div class="proof-metric-label">Years</div>
+              </div>
+              <div class="proof-metric">
+                <div class="proof-metric-value" style="color: var(--accent-emerald);">5+</div>
+                <div class="proof-metric-label">Industries</div>
+              </div>
+            </div>
+          </div>
+          <div class="proof-right-content reveal-right">
+            <ul class="proof-highlights">
+              <li><i class="fa-solid fa-check"></i>Post-acquisition engineering at Yelp (EAT24 integration)</li>
+              <li><i class="fa-solid fa-check"></i>HR-tech platform development at Decisely</li>
+              <li><i class="fa-solid fa-check"></i>B2B gift card marketplace to $5M ARR at CardPool</li>
+              <li><i class="fa-solid fa-check"></i>Enterprise solutions for media &amp; entertainment (Autodesk, Macromedia)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ Competitive Position ━━ -->
+  <section>
+    <div class="container">
+      <div style="text-align: center;">
+        <div class="section-label reveal">Why IncidentNow</div>
+        <h2 class="section-title reveal stagger-1">
+          Custom + high-touch:<br><span class="gradient-text">the quadrant nobody serves</span>
+        </h2>
+      </div>
+
+      <div class="position-grid">
+        <div class="position-quadrant glass reveal-left">
+          <div class="quadrant-inner">
+            <div class="axis-label axis-top">Custom / Owned</div>
+            <div class="axis-label axis-bottom">SaaS Subscription</div>
+            <div class="axis-label axis-left">High-Touch</div>
+            <div class="axis-label axis-right">Self-Serve</div>
+            <div class="quadrant-cell quadrant-highlight">
+              <div class="label">IncidentNow</div>
+              <div class="sublabel">You build it, you own it</div>
+            </div>
+            <div class="quadrant-cell">
+              <div class="sublabel" style="color: var(--text-muted);">DIY open-source</div>
+            </div>
+            <div class="quadrant-cell">
+              <div class="sublabel" style="color: var(--text-muted);">Big 4 Consulting</div>
+            </div>
+            <div class="quadrant-cell">
+              <div class="sublabel" style="color: var(--text-muted);">PagerDuty, Rootly, incident.io</div>
+            </div>
+          </div>
+        </div>
+        <div class="position-text reveal-right">
+          <h3>Built for companies that need to own their AI</h3>
+          <p>PagerDuty, Rootly, and incident.io are great SaaS products — but they're subscriptions you don't control. IncidentNow builds systems you own, in your infrastructure, trained on your data.</p>
+          <ul class="position-list">
+            <li><i class="fa-solid fa-shield-halved"></i>Regulated industries that need data sovereignty</li>
+            <li><i class="fa-solid fa-fingerprint"></i>Unique stacks that don't fit SaaS templates</li>
+            <li><i class="fa-solid fa-brain"></i>Teams that want AI models trained on their incidents</li>
+            <li><i class="fa-solid fa-hand-holding-dollar"></i>Companies tired of monthly SaaS bills that grow with scale</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ Tech Stack ━━ -->
+  <section id="tech" class="tech-section">
+    <div class="container">
+      <div style="text-align: center;">
+        <div class="section-label reveal">Technology</div>
+        <h2 class="section-title reveal stagger-1">Battle-tested <span class="gradient-text">stack</span></h2>
+        <p class="section-subtitle reveal stagger-2" style="margin: 0 auto;">
+          Not theory — tools I use in production every day.
+        </p>
+      </div>
+
+      <div class="tech-categories">
+        <div class="tech-category glass reveal stagger-1">
+          <h4><i class="fa-brands fa-aws"></i> Cloud &amp; Infrastructure</h4>
+          <div class="tech-items">
+            <span class="tech-item">AWS EKS</span>
+            <span class="tech-item">ECS</span>
+            <span class="tech-item">RDS</span>
+            <span class="tech-item">S3</span>
+            <span class="tech-item">SQS</span>
+            <span class="tech-item">Lambda</span>
+            <span class="tech-item">IAM</span>
+            <span class="tech-item">VPC</span>
+            <span class="tech-item">CloudWatch</span>
+            <span class="tech-item">Global DB</span>
+          </div>
+        </div>
+        <div class="tech-category glass reveal stagger-2">
+          <h4><i class="fa-solid fa-code"></i> Infrastructure as Code</h4>
+          <div class="tech-items">
+            <span class="tech-item">Terraform</span>
+            <span class="tech-item">CDKTF</span>
+            <span class="tech-item">CloudFormation</span>
+            <span class="tech-item">Helm Charts</span>
+            <span class="tech-item">Docker</span>
+            <span class="tech-item">Kubernetes</span>
+          </div>
+        </div>
+        <div class="tech-category glass reveal stagger-3">
+          <h4><i class="fa-solid fa-arrows-spin"></i> CI/CD &amp; DevOps</h4>
+          <div class="tech-items">
+            <span class="tech-item">Jenkins</span>
+            <span class="tech-item">Concourse</span>
+            <span class="tech-item">CircleCI</span>
+            <span class="tech-item">GitOps</span>
+            <span class="tech-item">Blue/Green</span>
+            <span class="tech-item">GitHub Actions</span>
+          </div>
+        </div>
+        <div class="tech-category glass reveal stagger-1">
+          <h4><i class="fa-solid fa-chart-area"></i> Observability</h4>
+          <div class="tech-items">
+            <span class="tech-item">DataDog APM</span>
+            <span class="tech-item">SLOs</span>
+            <span class="tech-item">Distributed Tracing</span>
+            <span class="tech-item">k6 Load Testing</span>
+            <span class="tech-item">Custom Dashboards</span>
+          </div>
+        </div>
+        <div class="tech-category glass reveal stagger-2">
+          <h4><i class="fa-solid fa-brain"></i> AI &amp; LLM</h4>
+          <div class="tech-items">
+            <span class="tech-item">Prompt Engineering</span>
+            <span class="tech-item">RAG</span>
+            <span class="tech-item">MCP Protocol</span>
+            <span class="tech-item">Self-Improving Pipelines</span>
+            <span class="tech-item">LLM Integration</span>
+            <span class="tech-item">n8n Automation</span>
+          </div>
+        </div>
+        <div class="tech-category glass reveal stagger-3">
+          <h4><i class="fa-solid fa-terminal"></i> Languages</h4>
+          <div class="tech-items">
+            <span class="tech-item">TypeScript</span>
+            <span class="tech-item">Node.js</span>
+            <span class="tech-item">Python</span>
+            <span class="tech-item">Bash</span>
+            <span class="tech-item">PHP</span>
+            <span class="tech-item">Ruby</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ Open Source ━━ -->
+  <section id="open-source" class="oss-section">
+    <div class="container">
+      <div style="text-align: center;">
+        <div class="section-label reveal">Open Source</div>
+        <h2 class="section-title reveal stagger-1">
+          Tools I <span class="gradient-text">build &amp; maintain</span>
+        </h2>
+        <p class="section-subtitle reveal stagger-2" style="margin: 0 auto;">
+          Publicly available. Actively maintained. Used by developers adopting AI agents today.
+        </p>
+      </div>
+
+      <div class="oss-grid">
+        <div class="oss-card glass reveal stagger-1">
+          <div class="oss-card-header">
+            <div class="oss-card-icon"><i class="fa-solid fa-briefcase"></i></div>
+            <h4>jobspy-mcp-server</h4>
+          </div>
+          <p>MCP server for AI-powered job search across 10+ platforms. Lets AI agents search, filter, and analyze job listings through natural language.</p>
+          <a href="https://github.com/borgius/jobspy-mcp-server" target="_blank" rel="noopener" class="oss-card-link">
+            View on GitHub <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="oss-card glass reveal stagger-2">
+          <div class="oss-card-header">
+            <div class="oss-card-icon"><i class="fa-solid fa-book-open"></i></div>
+            <h4>localrag</h4>
+          </div>
+          <p>Private RAG system for your codebase and documentation. Run locally, zero data leaves your machine. Semantic search over any repository.</p>
+          <a href="https://github.com/borgius/localrag" target="_blank" rel="noopener" class="oss-card-link">
+            View on GitHub <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="oss-card glass reveal stagger-3">
+          <div class="oss-card-header">
+            <div class="oss-card-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <h4>mcp-generator</h4>
+          </div>
+          <p>Framework for generating MCP servers from OpenAPI specs. Rapidly build type-safe MCP servers for any API-based tool.</p>
+          <a href="https://github.com/borgius/mcp-generator" target="_blank" rel="noopener" class="oss-card-link">
+            View on GitHub <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="oss-card glass reveal stagger-1">
+          <div class="oss-card-header">
+            <div class="oss-card-icon"><i class="fa-solid fa-video"></i></div>
+            <h4>qa-video</h4>
+          </div>
+          <p>Generate flashcard videos with offline neural TTS. Perfect for educational content creation with AI-powered text-to-speech.</p>
+          <a href="https://github.com/borgius/qa-video" target="_blank" rel="noopener" class="oss-card-link">
+            View on GitHub <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="oss-card glass reveal stagger-2">
+          <div class="oss-card-header">
+            <div class="oss-card-icon"><i class="fa-solid fa-gears"></i></div>
+            <h4>n8n-nodes-bun</h4>
+          </div>
+          <p>Custom n8n workflow automation nodes powered by Bun runtime. High-performance workflow steps for the n8n ecosystem.</p>
+          <a href="https://github.com/borgius/n8n-nodes-bun" target="_blank" rel="noopener" class="oss-card-link">
+            View on GitHub <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="oss-card glass reveal stagger-3">
+          <div class="oss-card-header">
+            <div class="oss-card-icon"><i class="fa-solid fa-file-export"></i></div>
+            <h4>confluence-exporter</h4>
+          </div>
+          <p>Export and backup Confluence spaces to local files. CLI tool for data migration, backup, and RAG pipeline ingestion.</p>
+          <a href="https://github.com/borgius/confluence-exporter" target="_blank" rel="noopener" class="oss-card-link">
+            View on GitHub <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ Contact / CTA ━━ -->
+  <section id="contact" class="cta-section">
+    <div class="container">
+      <div class="cta-wrapper glass reveal">
+        <div class="section-label" style="justify-content: center;">Let's Talk</div>
+        <h2>Ready to cut your incident pain<br>and <span class="gradient-text">ship faster?</span></h2>
+        <p>Start with a free 30-minute platform health call. No sales pitch — just a technical conversation with the engineer who'll do the work.</p>
+        <div class="cta-actions">
+          <a href="mailto:burdey@gmail.com?subject=IncidentNow%20—%20Free%20Assessment" class="btn-primary">
+            <i class="fa-solid fa-calendar-check"></i>
+            Schedule Free Assessment
+          </a>
+          <a href="https://linkedin.com/in/burdyey" target="_blank" rel="noopener" class="btn-secondary">
+            <i class="fa-brands fa-linkedin"></i>
+            Connect on LinkedIn
+          </a>
+        </div>
+        <div class="cta-info">
+          <div class="cta-info-item">
+            <i class="fa-solid fa-user"></i>
+            <span>Viktor Burdyey · Founder &amp; Principal Engineer</span>
+          </div>
+          <div class="cta-info-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Durham, NC · Remote &amp; On-site</span>
+          </div>
+          <div class="cta-info-item">
+            <i class="fa-solid fa-phone"></i>
+            <a href="tel:+14155317444">415-531-7444</a>
+          </div>
+          <div class="cta-info-item">
+            <i class="fa-brands fa-github"></i>
+            <a href="https://github.com/borgius" target="_blank" rel="noopener">github.com/borgius</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ Footer ━━ -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-copy">
+          © 2026 IncidentNow LLC. All rights reserved.
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/borgius" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="https://linkedin.com/in/burdyey" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="mailto:burdey@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
   </footer>
 
+  <!-- ━━ Scripts ━━ -->
   <script>
-    tailwind.config = { content: ["*"], theme: { extend: {} } }
+    // ── Navbar scroll effect ──
+    const navbar = document.querySelector('.navbar');
+    const onScroll = () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // ── Mobile menu ──
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    navToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', open);
+      navToggle.innerHTML = open
+        ? '<i class="fa-solid fa-xmark"></i>'
+        : '<i class="fa-solid fa-bars"></i>';
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+      });
+    });
+
+    // ── Intersection Observer: Reveal on scroll ──
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
+    );
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+      revealObserver.observe(el);
+    });
+
+    // ── Animated Counters ──
+    const counterObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            counterObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    document.querySelectorAll('.counter[data-target]').forEach(el => {
+      counterObserver.observe(el);
+    });
+
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.target);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const duration = 1800;
+      const start = performance.now();
+
+      function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(target * eased);
+        el.textContent = prefix + current + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+
+    // ── Smooth scroll for anchor links ──
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        const target = document.querySelector(anchor.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // ── Parallax aurora blobs on scroll ──
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          const blobs = document.querySelectorAll('.aurora-blob');
+          blobs.forEach((blob, i) => {
+            const speed = 0.03 + i * 0.015;
+            blob.style.transform = `translateY(${scrollY * speed}px)`;
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
   </script>
 </body>
 </html>
