@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "company-research": {
+      "source": "deanpeters/product-manager-skills",
+      "sourceType": "github",
+      "computedHash": "59c92748b44af0d8a03d1eb4fb19abf75048ef6c25170c1b91ed103c03366777"
+    }
+  }
+}
