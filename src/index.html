@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ meta.title }}</title>
+  <meta name="description" content="{{ meta.description }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+  <!-- Aurora Background -->
+  <div class="aurora" aria-hidden="true">
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+  </div>
+
+  <!-- ━━ Navbar ━━ -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <a href="{{ nav.logo.href }}" class="nav-logo" aria-label="{{ nav.logo.ariaLabel }}">
+        <div class="nav-logo-icon">{{ nav.logo.initials }}</div>
+        <span class="nav-logo-text">{{ nav.logo.text }}</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <ul class="nav-links">
+        {% for link in nav.links %}
+        <li><a href="{{ link.href }}"{% if link.cta %} class="nav-cta"{% endif %}>{{ link.label }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ━━ Hero ━━ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-tagline reveal">
+            <span class="pulse"></span>
+            {{ hero.tagline }}
+          </div>
+          <h1 class="reveal stagger-1">
+            {{ hero.heading.line1 }}<br>
+            <span class="gradient-text">{{ hero.heading.line2 }}</span>
+          </h1>
+          <p class="hero-description reveal stagger-2">
+            {{ hero.description }}
+          </p>
+          <div class="hero-actions reveal stagger-3">
+            {% for action in hero.actions %}
+            <a href="{{ action.href }}"{% if action.target %} target="{{ action.target }}" rel="noopener"{% endif %} class="btn-{{ action.variant }}">
+              <i class="{{ action.icon }}"></i>
+              {{ action.label }}
+            </a>
+            {% endfor %}
+          </div>
+          <div class="hero-proof reveal stagger-4">
+            {% for item in hero.proofItems %}
+            <div class="hero-proof-item">
+              <i class="fa-solid fa-check-circle"></i>
+              <span>{{ item }}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="hero-dash reveal-right stagger-2">
+          <div class="hero-card-main glass">
+            <div class="hero-metric-grid">
+              {% for metric in hero.metrics %}
+              <div class="hero-metric">
+                <div class="hero-metric-value" style="color: {{ metric.color }};">
+                  <span class="counter" data-target="{{ metric.value }}"{% if metric.suffix %} data-suffix="{{ metric.suffix }}"{% endif %}{% if metric.prefix %} data-prefix="{{ metric.prefix }}"{% endif %}>0</span>
+                </div>
+                <div class="hero-metric-label">{{ metric.label }}</div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% for card in hero.floatCards %}
+          <div class="hero-float-card glass {{ card.position }}">
+            <div class="float-card-inner">
+              <div class="float-card-icon" style="background: {{ card.bgColor }}; color: {{ card.iconColor }};">
+                <i class="{{ card.icon }}"></i>
+              </div>
+              <div>
+                <div style="font-weight: 600; font-size: 14px;">{{ card.title }}</div>
+                <div style="font-size: 12px; color: var(--text-muted);">{{ card.subtitle }}</div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ Problem / Why ━━ -->
+  <section class="problem-section">
+    <div class="container">
+      <div class="problem-grid">
+        <div class="problem-sticky">
+          <div class="section-label reveal">{{ problem.label }}</div>
+          <h2 class="section-title reveal stagger-1">
+            {{ problem.title.line1 }}<br><span class="gradient-text">{{ problem.title.line2 }}</span><br>{{ problem.title.line3 }}
+          </h2>
+          <p class="section-subtitle reveal stagger-2">
+            {{ problem.subtitle }}
+          </p>
+          <div class="problem-stats">
+            {% for stat in problem.stats %}
+            {% assign statStagger = forloop.index | plus: 2 %}
+            <div class="problem-stat glass reveal stagger-{{ statStagger }}">
+              <div class="problem-stat-number">{{ stat.value }}</div>
+              <div class="problem-stat-text">{{ stat.text }}</div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="problem-cards">
+          {% for card in problem.cards %}
+          {% assign cardStagger = forloop.index0 %}
+          <div class="problem-card glass reveal{% if cardStagger > 0 %} stagger-{{ cardStagger }}{% endif %}">
+            <div class="problem-card-icon" style="background: {{ card.bgColor }}; color: {{ card.iconColor }};">
+              <i class="{{ card.icon }}"></i>
+            </div>
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.body }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ Services ━━ -->
+  <section id="services" class="services-section">
+    <div class="container">
+      <div class="services-header">
+        <div class="section-label reveal">{{ services.label }}</div>
+        <h2 class="section-title reveal stagger-1">
+          {{ services.title.line1 }} <span class="gradient-text">{{ services.title.line2 }}</span> {{ services.title.line3 }}
+        </h2>
+        <p class="section-subtitle reveal stagger-2" style="margin: 0 auto;">
+          {{ services.subtitle }}
+        </p>
+      </div>
+
+      {% for tier in services.tiers limit:3 %}
+      {% assign isEven = forloop.index0 | modulo: 2 %}
+      {% if isEven == 0 %}
+        {% assign contentReveal = "reveal-left" %}
+        {% assign visualReveal = "reveal-right" %}
+      {% else %}
+        {% assign contentReveal = "reveal-right" %}
+        {% assign visualReveal = "reveal-left" %}
+      {% endif %}
+      <div class="service-tier"{% if forloop.last %} style="margin-bottom: 0;"{% endif %}>
+        <div class="service-content {{ contentReveal }}">
+          <div class="service-badge {{ tier.badgeVariant }}"><i class="{{ tier.badgeIcon }}"></i> {{ tier.badge }}</div>
+          <h3>{{ tier.title }}</h3>
+          <p>{{ tier.body }}</p>
+          <ul class="service-features">
+            {% for feature in tier.features %}
+            <li><i class="fa-solid fa-check"></i>{{ feature }}</li>
+            {% endfor %}
+          </ul>
+          <div class="service-pricing">
+            <span class="service-pricing-value gradient-text">{{ tier.pricing.value }}</span>
+            <span class="service-pricing-label">{{ tier.pricing.label }}</span>
+          </div>
+        </div>
+        <div class="service-visual glass {{ visualReveal }}">
+          <div class="service-visual-inner">
+            <div class="service-icon-large" style="background: {{ tier.visual.iconBg }}; color: {{ tier.visual.iconColor }};">
+              <i class="{{ tier.visual.icon }}"></i>
+            </div>
+            <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px; font-family: var(--font-mono);">{{ tier.visual.label }}</div>
+            <div class="service-tech-list">
+              {% for tag in tier.visual.tags %}
+              <span class="tech-tag">{{ tag }}</span>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Platform sub-services grid -->
+      <div class="platform-grid">
+        {% for card in services.platformCards %}
+        {% assign pcStagger = forloop.index | modulo: 3 %}
+        {% if pcStagger == 0 %}{% assign pcStagger = 3 %}{% endif %}
+        <div class="platform-card glass reveal stagger-{{ pcStagger }}">
+          <div class="platform-card-icon" style="background: {{ card.iconBg }}; color: {{ card.iconColor }};">
+            <i class="{{ card.icon }}"></i>
+          </div>
+          <h4>{{ card.title }}</h4>
+          <p>{{ card.body }}</p>
+          <div class="platform-card-price">{{ card.price }}</div>
+        </div>
+        {% endfor %}
+      </div>
+
+      {% for tier in services.tiers offset:3 limit:1 %}
+      <div style="margin-top: 100px;">
+        <div class="service-tier" style="margin-bottom: 0;">
+          <div class="service-content reveal-left">
+            <div class="service-badge {{ tier.badgeVariant }}"><i class="{{ tier.badgeIcon }}"></i> {{ tier.badge }}</div>
+            <h3>{{ tier.title }}</h3>
+            <p>{{ tier.body }}</p>
+            <ul class="service-features">
+              {% for feature in tier.features %}
+              <li><i class="fa-solid fa-check"></i>{{ feature }}</li>
+              {% endfor %}
+            </ul>
+            <div class="service-pricing">
+              <span class="service-pricing-value gradient-text">{{ tier.pricing.value }}</span>
+              <span class="service-pricing-label">{{ tier.pricing.label }}</span>
+            </div>
+          </div>
+          <div class="service-visual glass reveal-right">
+            <div class="service-visual-inner">
+              <div class="service-icon-large" style="background: {{ tier.visual.iconBg }}; color: {{ tier.visual.iconColor }};">
+                <i class="{{ tier.visual.icon }}"></i>
+              </div>
+              <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px; font-family: var(--font-mono);">{{ tier.visual.label }}</div>
+              <div class="service-tech-list">
+                {% for tag in tier.visual.tags %}
+                <span class="tech-tag">{{ tag }}</span>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- ━━ Approach ━━ -->
+  <section>
+    <div class="container">
+      <div style="text-align: center;">
+        <div class="section-label reveal">{{ approach.label }}</div>
+        <h2 class="section-title reveal stagger-1">{{ approach.title.line1 }} <span class="gradient-text">{{ approach.title.line2 }}</span></h2>
+        <p class="section-subtitle reveal stagger-2" style="margin: 0 auto;">{{ approach.subtitle }}</p>
+      </div>
+      <div class="approach-steps">
+        {% for step in approach.steps %}
+        <div class="approach-step glass reveal stagger-{{ forloop.index }}">
+          <h4>{{ step.title }}</h4>
+          <p>{{ step.body }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ Proof / Results ━━ -->
+  <section id="proof" class="proof-section">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 20px;">
+        <div class="section-label reveal">{{ proof.label }}</div>
+        <h2 class="section-title reveal stagger-1">
+          {{ proof.title.line1 }} <span class="gradient-text">{{ proof.title.line2 }}</span>
+        </h2>
+        <p class="section-subtitle reveal stagger-2" style="margin: 0 auto;">
+          {{ proof.subtitle }}
+        </p>
+      </div>
+
+      <div class="proof-timeline">
+        {% for item in proof.items %}
+        <div class="proof-item">
+          <div class="proof-card glass reveal-left">
+            <div class="proof-date" style="color: {{ item.dateColor }};">{{ item.date }}</div>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.body }}</p>
+            <div class="proof-metrics">
+              {% for metric in item.metrics %}
+              <div class="proof-metric">
+                <div class="proof-metric-value" style="color: {{ metric.color }};">{{ metric.value }}</div>
+                <div class="proof-metric-label">{{ metric.label }}</div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="proof-right-content reveal-right">
+            <ul class="proof-highlights">
+              {% for highlight in item.highlights %}
+              <li><i class="fa-solid fa-check"></i>{{ highlight }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ Competitive Position ━━ -->
+  <section>
+    <div class="container">
+      <div style="text-align: center;">
+        <div class="section-label reveal">{{ positioning.label }}</div>
+        <h2 class="section-title reveal stagger-1">
+          {{ positioning.title.line1 }}<br><span class="gradient-text">{{ positioning.title.line2 }}</span>
+        </h2>
+      </div>
+
+      <div class="position-grid">
+        <div class="position-quadrant glass reveal-left">
+          <div class="quadrant-inner">
+            <div class="axis-label axis-top">{{ positioning.quadrant.axes.top }}</div>
+            <div class="axis-label axis-bottom">{{ positioning.quadrant.axes.bottom }}</div>
+            <div class="axis-label axis-left">{{ positioning.quadrant.axes.left }}</div>
+            <div class="axis-label axis-right">{{ positioning.quadrant.axes.right }}</div>
+            {% for cell in positioning.quadrant.cells %}
+            <div class="quadrant-cell{% if cell.highlight %} quadrant-highlight{% endif %}">
+              {% if cell.label %}<div class="label">{{ cell.label }}</div>{% endif %}
+              <div class="sublabel"{% unless cell.highlight %} style="color: var(--text-muted);"{% endunless %}>{{ cell.sublabel }}</div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="position-text reveal-right">
+          <h3>{{ positioning.text.heading }}</h3>
+          <p>{{ positioning.text.body }}</p>
+          <ul class="position-list">
+            {% for item in positioning.text.list %}
+            <li><i class="{{ item.icon }}"></i>{{ item.text }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ Tech Stack ━━ -->
+  <section id="tech" class="tech-section">
+    <div class="container">
+      <div style="text-align: center;">
+        <div class="section-label reveal">{{ tech.label }}</div>
+        <h2 class="section-title reveal stagger-1">{{ tech.title.line1 }} <span class="gradient-text">{{ tech.title.line2 }}</span></h2>
+        <p class="section-subtitle reveal stagger-2" style="margin: 0 auto;">
+          {{ tech.subtitle }}
+        </p>
+      </div>
+
+      <div class="tech-categories">
+        {% for cat in tech.categories %}
+        {% assign catStagger = forloop.index | modulo: 3 %}
+        {% if catStagger == 0 %}{% assign catStagger = 3 %}{% endif %}
+        <div class="tech-category glass reveal stagger-{{ catStagger }}">
+          <h4><i class="{{ cat.icon }}"></i> {{ cat.title }}</h4>
+          <div class="tech-items">
+            {% for item in cat.items %}
+            <span class="tech-item">{{ item }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ Open Source ━━ -->
+  <section id="open-source" class="oss-section">
+    <div class="container">
+      <div style="text-align: center;">
+        <div class="section-label reveal">{{ openSource.label }}</div>
+        <h2 class="section-title reveal stagger-1">
+          {{ openSource.title.line1 }} <span class="gradient-text">{{ openSource.title.line2 }}</span>
+        </h2>
+        <p class="section-subtitle reveal stagger-2" style="margin: 0 auto;">
+          {{ openSource.subtitle }}
+        </p>
+      </div>
+
+      <div class="oss-grid">
+        {% for project in openSource.projects %}
+        {% assign ossStagger = forloop.index | modulo: 3 %}
+        {% if ossStagger == 0 %}{% assign ossStagger = 3 %}{% endif %}
+        <div class="oss-card glass reveal stagger-{{ ossStagger }}">
+          <div class="oss-card-header">
+            <div class="oss-card-icon"><i class="{{ project.icon }}"></i></div>
+            <h4>{{ project.name }}</h4>
+          </div>
+          <p>{{ project.description }}</p>
+          <a href="{{ project.github }}" target="_blank" rel="noopener" class="oss-card-link">
+            View on GitHub <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ Contact / CTA ━━ -->
+  <section id="contact" class="cta-section">
+    <div class="container">
+      <div class="cta-wrapper glass reveal">
+        <div class="section-label" style="justify-content: center;">{{ contact.label }}</div>
+        <h2>{{ contact.heading.line1 }}<br>{{ contact.heading.line2 }} <span class="gradient-text">{{ contact.heading.line2Gradient }}</span></h2>
+        <p>{{ contact.body }}</p>
+        <div class="cta-actions">
+          {% for action in contact.actions %}
+          <a href="{{ action.href }}"{% if action.target %} target="{{ action.target }}" rel="noopener"{% endif %} class="btn-{{ action.variant }}">
+            <i class="{{ action.icon }}"></i>
+            {{ action.label }}
+          </a>
+          {% endfor %}
+        </div>
+        <div class="cta-info">
+          {% for item in contact.info %}
+          <div class="cta-info-item">
+            <i class="{{ item.icon }}"></i>
+            {% if item.href %}<a href="{{ item.href }}"{% if item.target %} target="{{ item.target }}" rel="noopener"{% endif %}>{{ item.text }}</a>{% else %}<span>{{ item.text }}</span>{% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━ Footer ━━ -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-copy">
+          {{ footer.copyright }}
+        </div>
+        <div class="footer-links">
+          {% for link in footer.links %}
+          <a href="{{ link.href }}"{% if link.target %} target="{{ link.target }}" rel="noopener"{% endif %} aria-label="{{ link.label }}"><i class="{{ link.icon }}"></i></a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ━━ Scripts ━━ -->
+  <script src="/js/main.js"></script>
+</body>
+</html>
