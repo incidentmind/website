@@ -10,6 +10,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <link rel="stylesheet" href="/css/main.css">
+  <link rel="icon" href="/img/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="/img/icon.svg" sizes="any">
+  <link rel="apple-touch-icon" href="/img/icon.svg">
 </head>
 <body>
 
@@ -24,7 +27,7 @@
   <nav class="navbar" role="navigation" aria-label="Main navigation">
     <div class="navbar-inner">
       <a href="{{ nav.logo.href }}" class="nav-logo" aria-label="{{ nav.logo.ariaLabel }}">
-        <div class="nav-logo-icon">{{ nav.logo.initials }}</div>
+        <div class="nav-logo-icon"><img src="/img/icon.svg" alt="IncidentMind icon" width="40" height="40" style="display:block;"></div>
         <span class="nav-logo-text">{{ nav.logo.text }}</span>
       </a>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">

@@ -1,13 +1,46 @@
+# =============================================================================
+# IncidentMind — Eleventy Page Data
+# File: src/index.11tydata.yaml
+# Template: src/index.html  (Liquid templating via Eleventy)
+# Output:   _site/index.html
+#
+# This file drives 100% of the text, icons, colors, and links on the homepage.
+# The HTML template uses Liquid syntax: {{ key }} for output, {% for %} for
+# loops, {% if %} for conditionals.
+#
+# CSS custom properties used for colors (defined in src/css/main.css):
+#   --accent-emerald   green  (#10b981)
+#   --accent-blue      indigo (#6366f1)
+#   --accent-violet    purple (#8b5cf6)
+#   --accent-cyan      cyan   (#06b6d4)
+#
+# Font Awesome 6 icon classes are used throughout (fa-solid, fa-brands, …).
+# =============================================================================
+
+# ─── SEO ─────────────────────────────────────────────────────────────────────
+# meta.title       → rendered in <title> and used by search engines / social cards
+# meta.description → rendered in <meta name="description"> for SEO snippets
 meta:
-  title: "IncidentNow — AI Incident Intelligence & Platform Engineering"
+  title: "IncidentMind — AI Incident Intelligence & Platform Engineering"
   description: "Custom AI-powered incident resolution, MCP servers, and platform engineering. Built by Ex-CTO of EAT24 (Yelp $134M). Durham, NC."
 
+# ─── Navbar ──────────────────────────────────────────────────────────────────
+# Rendered inside <nav class="navbar">.
+# nav.logo       → left-side logo mark; initials in a colored box + text label
+#   .initials    → two-letter monogram rendered inside .nav-logo-icon div
+#   .text        → brand name rendered in .nav-logo-text span
+#   .href        → logo link target (# = top of page)
+#   .ariaLabel   → aria-label on the <a> for screen readers
+# nav.links[]    → rendered as <li><a> items in .nav-links <ul>
+#   .label       → visible link text
+#   .href        → anchor target (all are in-page anchors matching section ids)
+#   .cta (bool)  → if true, adds class="nav-cta" for the highlighted CTA button style
 nav:
   logo:
     initials: "IN"
-    text: "IncidentNow"
+    text: "IncidentMind"
     href: "#"
-    ariaLabel: "IncidentNow home"
+    ariaLabel: "IncidentMind home"
   links:
     - label: "Services"
       href: "#services"
@@ -19,29 +52,57 @@ nav:
       href: "#open-source"
     - label: "Book Free Call"
       href: "#contact"
-      cta: true
+      cta: true          # adds class="nav-cta" → highlighted pill button in navbar
 
+# ─── Hero Section ────────────────────────────────────────────────────────────
+# Rendered in <section class="hero">.  No section id — it is the first visible
+# element so the navbar logo links back to it via href="#".
+#
+# Layout: two-column hero-grid
+#   Left column: text + CTAs + proof items
+#   Right column: .hero-dash — glass metric card + two floating cards
 hero:
+  # Small "available" indicator shown above the H1 with a pulsing green dot
   tagline: "Available for new engagements"
+
+  # H1 split across two lines:
+  #   line1 → plain text
+  #   line2 → wrapped in <span class="gradient-text"> (blue→violet gradient)
   heading:
     line1: "AI that actually"
     line2: "resolves incidents"
+
+  # Paragraph below the H1 — rendered as <p class="hero-description">
   description: |
     I built the self-improving AI incident platform at Fidelity Charitable. Before that, I built EAT24 from scratch to a $134M acquisition by Yelp. Now I bring that experience to your team — custom AI systems, MCP agents, and production-grade platform engineering.
+
+  # CTA buttons rendered as <a class="btn-{variant}">
+  # variant: "primary" → solid indigo button; "secondary" → ghost/outline button
+  # target: "_blank" causes rel="noopener" to be added automatically in the template
   actions:
     - label: "Free 30-Min Assessment"
       href: "#contact"
-      icon: "fa-solid fa-calendar-check"
+      icon: "fa-solid fa-calendar-check"   # Font Awesome icon class inside the button
       variant: "primary"
     - label: "View Open Source"
       href: "https://github.com/borgius"
       icon: "fa-brands fa-github"
       variant: "secondary"
       target: "_blank"
+
+  # Three small trust-signal items with checkmark icons shown below CTA buttons
+  # Rendered as .hero-proof-item divs (fa-check-circle icon prepended in HTML)
   proofItems:
     - "20+ years experience"
     - "Ex-CTO, $134M exit"
     - "Durham, NC + Remote"
+
+  # Animated stat counters inside the right-column glass card (.hero-metric-grid)
+  # JS in main.js reads data-target, data-prefix, data-suffix and animates from 0
+  # value  → numeric target for the counter animation
+  # prefix → prepended to the displayed number (e.g. "$")
+  # suffix → appended to the displayed number (e.g. "%", "M", "GB")
+  # color  → CSS custom property applied as inline style for the metric value text
   metrics:
     - value: 60
       suffix: "%"
@@ -60,6 +121,12 @@ hero:
       suffix: "GB"
       label: "ETL Daily Throughput"
       color: "var(--accent-cyan)"
+
+  # Two floating glass cards overlaid on the hero right column (.hero-float-card)
+  # position → CSS class applied to the card for absolute positioning:
+  #            "card-1" = upper-left float, "card-2" = lower-right float
+  # bgColor  → inline background on the icon wrapper div (rgba for transparency)
+  # iconColor → inline color on the icon wrapper div
   floatCards:
     - title: "Self-Improving AI"
       subtitle: "Feedback loop engine"
@@ -74,6 +141,22 @@ hero:
       iconColor: "var(--accent-blue)"
       position: "card-2"
 
+# ─── Problem Section ─────────────────────────────────────────────────────────
+# Rendered in <section class="problem-section">. No HTML id — not linked from nav.
+# Layout: sticky left column (label + H2 + stats) and scrolling right column (cards).
+#
+# label    → small eyebrow text above H2 (.section-label span)
+# title    → H2 split across three lines; line2 gets .gradient-text
+# subtitle → paragraph below the H2
+# stats[]  → two glass stat boxes in .problem-stats
+#   .value → pre-formatted string (e.g. "$250B") shown large
+#   .text  → supporting description below the value
+# cards[]  → four .problem-card glass cards in the right scroll column
+#   .icon      → Font Awesome class for the card icon
+#   .bgColor   → inline background on the icon wrapper
+#   .iconColor → inline color on the icon wrapper
+#   .title     → <h3> inside the card
+#   .body      → <p> inside the card
 problem:
   label: "The Problem"
   title:
@@ -108,14 +191,41 @@ problem:
       title: "MCP Is the Future — But Who Builds It?"
       body: "The Model Context Protocol lets AI agents safely access internal tools. It's the next paradigm for developer productivity — but your team needs an expert who's already shipping MCP servers in production."
 
+# ─── Services Section ────────────────────────────────────────────────────────
+# Rendered in <section id="services" class="services-section">.
+# Linked from navbar as href="#services".
+#
+# Rendering order / layout:
+#   1. Section header (label + H2 + subtitle)
+#   2. First 3 tiers in alternating left-right layout
+#      (even index → content-left / visual-right; odd → reversed)
+#      Template: {% for tier in services.tiers limit:3 %}
+#   3. platformCards grid (6 cards in a 3-column grid)
+#   4. 4th tier (Advisory) rendered separately after the platform grid
+#      Template: {% for tier in services.tiers offset:3 limit:1 %}
+#
+# Per-tier fields:
+#   badge / badgeIcon / badgeVariant → pill badge above H3
+#     badgeVariant CSS classes: badge-flagship | badge-growth | badge-core | badge-advisory
+#   title                → <h3> service name
+#   body                 → <p> description paragraph
+#   features[]           → <ul class="service-features"> checklist (fa-check prepended)
+#   pricing.value        → displayed with .gradient-text class (price range string)
+#   pricing.label        → plain text beside the price (timeframe / notes)
+#   visual               → right-side glass card showing the tech stack for this service
+#     .icon              → large icon inside the glass card
+#     .iconBg / .iconColor → inline styles on the icon wrapper
+#     .label             → caption below the icon (e.g. "Technology stack")
+#     .tags[]            → tech pill tags rendered as <span class="tech-tag">
 services:
   label: "Services"
   title:
     line1: "What"
-    line2: "IncidentNow"
+    line2: "IncidentMind"
     line3: "delivers"
   subtitle: "Production-grade solutions from someone who's scaled platforms to $700M revenue and shipped real AI in regulated environments."
   tiers:
+    # Tier 1 — rendered first (left-content / right-visual)
     - badge: "Flagship Service"
       badgeIcon: "fa-solid fa-star"
       badgeVariant: "badge-flagship"
@@ -147,6 +257,7 @@ services:
           - "Prompt Eng."
           - "Feedback Loops"
           - "n8n"
+    # Tier 2 — rendered second (right-content / left-visual, alternating)
     - badge: "High Growth"
       badgeIcon: "fa-solid fa-rocket"
       badgeVariant: "badge-growth"
@@ -177,6 +288,7 @@ services:
           - "Sandboxing"
           - "Vector DB"
           - "OAuth / RBAC"
+    # Tier 3 — rendered third (left-content / right-visual, alternating)
     - badge: "Core Engineering"
       badgeIcon: "fa-solid fa-wrench"
       badgeVariant: "badge-core"
@@ -208,6 +320,7 @@ services:
           - "DataDog"
           - "ProxySQL"
           - "k6"
+    # Tier 4 — rendered AFTER platformCards grid (offset:3 in template)
     - badge: "Advisory"
       badgeIcon: "fa-solid fa-compass"
       badgeVariant: "badge-advisory"
@@ -237,6 +350,11 @@ services:
           - "ADRs"
           - "SRE"
           - "Compliance"
+
+  # 6-card grid rendered between tier 3 and tier 4 (the Advisory tier).
+  # Each card is a .platform-card glass element with icon, title, body, price.
+  # iconBg / iconColor → inline styles on the icon wrapper div
+  # price → plain text shown in .platform-card-price div (no gradient applied)
   platformCards:
     - icon: "fa-solid fa-ship"
       iconBg: "rgba(99,102,241,0.1)"
@@ -275,11 +393,16 @@ services:
       body: "High-volume data pipeline architecture (JSON → S3 → SQS → workers), resilient to upstream changes."
       price: "$15K–$35K"
 
+# ─── Approach Section ────────────────────────────────────────────────────────
+# Rendered in an anonymous <section> (no id, not linked from navbar).
+# Centered header + 4-step horizontal card strip (.approach-steps).
+# steps[].title → <h4> inside each .approach-step glass card
+# steps[].body  → <p> inside each card
 approach:
   label: "How I Work"
   title:
     line1: "From assessment to"
-    line2: "production"
+    line2: "production"    # wrapped in .gradient-text
   subtitle: "No sales teams, no account managers. You work directly with the engineer who built it."
   steps:
     - title: "Discover"
@@ -291,6 +414,27 @@ approach:
     - title: "Sustain"
       body: "Knowledge transfer, documentation, team training. Optional retainer for ongoing optimization."
 
+# ─── Proof / Results Section ─────────────────────────────────────────────────
+# Rendered in <section id="proof" class="proof-section">.
+# Linked from navbar as href="#proof".
+#
+# Layout: vertical timeline (.proof-timeline) — each item has a left glass card
+# and right content via CSS grid (.proof-item).
+#
+# items[]:
+#   .date            → eyebrow date range styled with .dateColor
+#   .dateColor       → inline color on the .proof-date div
+#   .timelineDotColor → CSS custom property for the timeline connector dot
+#                       (set on the element, but current HTML does not apply it;
+#                        reserved for future CSS use or JS enhancement)
+#   .title           → <h3> inside the glass card
+#   .body            → <p> inside the glass card
+#   .metrics[]       → small stat boxes inside .proof-metrics
+#     .value         → pre-formatted string (e.g. "$700M") displayed large
+#     .label         → caption below value
+#     .color         → inline color on the value element
+#   .highlights[]    → bullet list on the right side (.proof-highlights)
+#                       fa-check icon prepended in HTML
 proof:
   label: "Proven Results"
   title:
@@ -357,8 +501,29 @@ proof:
         - "B2B gift card marketplace to $5M ARR at CardPool"
         - "Enterprise solutions for media & entertainment (Autodesk, Macromedia)"
 
+# ─── Competitive Positioning Section ─────────────────────────────────────────
+# Rendered in an anonymous <section> (no id, not linked from navbar).
+# Layout: two-column .position-grid
+#   Left: 2×2 quadrant visual (.position-quadrant glass)
+#   Right: explanatory text (.position-text)
+#
+# quadrant.axes   → four axis labels positioned with CSS:
+#                   top (Custom/Owned), bottom (SaaS), left (High-Touch), right (Self-Serve)
+# quadrant.cells[] → four cells rendered in reading order (top-left → top-right → bottom-left → bottom-right):
+#   [0] top-left     = IncidentMind  (highlight: true adds .quadrant-highlight)
+#   [1] top-right    = DIY open-source
+#   [2] bottom-left  = Big 4 Consulting
+#   [3] bottom-right = PagerDuty / SaaS tools
+#   .label   → optional bold name inside the cell (only present on the IncidentMind cell)
+#   .sublabel → secondary text; muted color unless .highlight is set
+#   .highlight → (bool) adds .quadrant-highlight CSS class for the IncidentMind cell
+#
+# text → right-column content
+#   .heading → <h3>
+#   .body    → <p>
+#   .list[]  → icon + text <li> items in .position-list
 positioning:
-  label: "Why IncidentNow"
+  label: "Why IncidentMind"
   title:
     line1: "Custom + high-touch:"
     line2: "the quadrant nobody serves"
@@ -369,15 +534,15 @@ positioning:
       left: "High-Touch"
       right: "Self-Serve"
     cells:
-      - label: "IncidentNow"
+      - label: "IncidentMind"
         sublabel: "You build it, you own it"
-        highlight: true
+        highlight: true      # adds .quadrant-highlight → highlighted cell with border
       - sublabel: "DIY open-source"
       - sublabel: "Big 4 Consulting"
       - sublabel: "PagerDuty, Rootly, incident.io"
   text:
     heading: "Built for companies that need to own their AI"
-    body: "PagerDuty, Rootly, and incident.io are great SaaS products — but they're subscriptions you don't control. IncidentNow builds systems you own, in your infrastructure, trained on your data."
+    body: "PagerDuty, Rootly, and incident.io are great SaaS products — but they're subscriptions you don't control. IncidentMind builds systems you own, in your infrastructure, trained on your data."
     list:
       - icon: "fa-solid fa-shield-halved"
         text: "Regulated industries that need data sovereignty"
@@ -388,11 +553,19 @@ positioning:
       - icon: "fa-solid fa-hand-holding-dollar"
         text: "Companies tired of monthly SaaS bills that grow with scale"
 
+# ─── Technology Stack Section ─────────────────────────────────────────────────
+# Rendered in <section id="tech" class="tech-section">.
+# Linked from navbar as href="#tech".
+#
+# categories[] → rendered as .tech-category glass cards in a CSS grid
+#   .icon  → Font Awesome class for the category heading icon
+#   .title → <h4> category name (icon prepended in HTML)
+#   .items[] → plain strings rendered as <span class="tech-item"> pill tags
 tech:
   label: "Technology"
   title:
     line1: "Battle-tested"
-    line2: "stack"
+    line2: "stack"          # wrapped in .gradient-text
   subtitle: "Not theory — tools I use in production every day."
   categories:
     - icon: "fa-brands fa-aws"
@@ -453,6 +626,15 @@ tech:
         - "PHP"
         - "Ruby"
 
+# ─── Open Source Section ──────────────────────────────────────────────────────
+# Rendered in <section id="open-source" class="oss-section">.
+# Linked from navbar as href="#open-source".
+#
+# projects[] → 6 .oss-card glass cards in .oss-grid (CSS 3-column grid)
+#   .name        → <h4> project name
+#   .icon        → Font Awesome class in the .oss-card-icon div
+#   .description → <p> project description
+#   .github      → full URL for the "View on GitHub" link (target="_blank" set in HTML)
 openSource:
   label: "Open Source"
   title:
@@ -485,6 +667,23 @@ openSource:
       description: "Export and backup Confluence spaces to local files. CLI tool for data migration, backup, and RAG pipeline ingestion."
       github: "https://github.com/borgius/confluence-exporter"
 
+# ─── Contact / CTA Section ───────────────────────────────────────────────────
+# Rendered in <section id="contact" class="cta-section">.
+# Linked from navbar as href="#contact" and from hero/services CTA buttons.
+# Entire content is inside a single .cta-wrapper glass card (centered layout).
+#
+# heading:
+#   .line1        → first line of the <h2>
+#   .line2        → second line plain text (e.g. "and")
+#   .line2Gradient → appended after line2 with .gradient-text class (e.g. "ship faster?")
+# body            → <p> paragraph below the heading
+# actions[]       → CTA buttons (same btn-{variant} pattern as hero.actions)
+#   variant: "primary" → solid button; "secondary" → ghost button
+# info[]          → contact detail items in .cta-info
+#   .icon         → Font Awesome class
+#   .text         → display text
+#   .href         → optional link target (tel:, mailto:, https:)
+#   .target       → optional "_blank" for external links (rel="noopener" added)
 contact:
   label: "Let's Talk"
   heading:
@@ -494,7 +693,7 @@ contact:
   body: "Start with a free 30-minute platform health call. No sales pitch — just a technical conversation with the engineer who'll do the work."
   actions:
     - label: "Schedule Free Assessment"
-      href: "mailto:burdey@gmail.com?subject=IncidentNow%20%E2%80%94%20Free%20Assessment"
+      href: "mailto:burdey@gmail.com?subject=IncidentMind%20%E2%80%94%20Free%20Assessment"
       icon: "fa-solid fa-calendar-check"
       variant: "primary"
     - label: "Connect on LinkedIn"
@@ -515,8 +714,16 @@ contact:
       href: "https://github.com/borgius"
       target: "_blank"
 
+# ─── Footer ───────────────────────────────────────────────────────────────────
+# Rendered in <footer>.
+# .copyright → plain text in .footer-copy div
+# .links[]   → icon-only social links in .footer-links
+#   .icon    → Font Awesome class (rendered as <i>; no visible text label)
+#   .href    → link target
+#   .label   → used as aria-label on the <a> for accessibility
+#   .target  → optional "_blank"; rel="noopener" added automatically in HTML
 footer:
-  copyright: "© 2026 IncidentNow LLC. All rights reserved."
+  copyright: "© 2026 IncidentMind LLC. All rights reserved."
   links:
     - icon: "fa-brands fa-github"
       href: "https://github.com/borgius"
