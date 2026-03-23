@@ -21,8 +21,8 @@
 # meta.title       → rendered in <title> and used by search engines / social cards
 # meta.description → rendered in <meta name="description"> for SEO snippets
 meta:
-  title: "IncidentMind — AI Incident Intelligence & Platform Engineering"
-  description: "Custom AI-powered incident resolution, MCP servers, and platform engineering. Built by Ex-CTO of EAT24 (Yelp $134M). Durham, NC."
+  title: "IncidentMind — AI Automation Systems, Agents & MCP Engineering"
+  description: "IncidentMind builds custom AI agents, MCP servers, workflow automation, and platform systems for companies that need secure, company-owned automation."
 
 # ─── Navbar ──────────────────────────────────────────────────────────────────
 # Rendered inside <nav class="navbar">.
@@ -42,15 +42,15 @@ nav:
     href: "#"
     ariaLabel: "IncidentMind home"
   links:
-    - label: "Services"
+    - label: "Solutions"
       href: "#services"
-    - label: "Results"
+    - label: "Proof"
       href: "#proof"
     - label: "Stack"
       href: "#tech"
     - label: "Open Source"
       href: "#open-source"
-    - label: "Book Free Call"
+    - label: "Talk to IncidentMind"
       href: "#contact"
       cta: true          # adds class="nav-cta" → highlighted pill button in navbar
 
@@ -63,24 +63,24 @@ nav:
 #   Right column: .hero-dash — glass metric card + two floating cards
 hero:
   # Small "available" indicator shown above the H1 with a pulsing green dot
-  tagline: "Available for new engagements"
+  tagline: "Custom AI automation, built for your stack"
 
   # H1 split across two lines:
   #   line1 → plain text
   #   line2 → wrapped in <span class="gradient-text"> (blue→violet gradient)
   heading:
-    line1: "AI that actually"
-    line2: "resolves incidents"
+    line1: "AI agents that"
+    line2: "actually do the work"
 
   # Paragraph below the H1 — rendered as <p class="hero-description">
   description: |
-    I built the self-improving AI incident platform at Fidelity Charitable. Before that, I built EAT24 from scratch to a $134M acquisition by Yelp. Now I bring that experience to your team — custom AI systems, MCP agents, and production-grade platform engineering.
+    IncidentMind is an AI automation company that designs and ships custom agents, MCP servers, and workflow systems for real operations. We connect AI to your internal tools, approvals, docs, and production environments so your team can automate work safely — not just chat about it.
 
   # CTA buttons rendered as <a class="btn-{variant}">
   # variant: "primary" → solid indigo button; "secondary" → ghost/outline button
   # target: "_blank" causes rel="noopener" to be added automatically in the template
   actions:
-    - label: "Free 30-Min Assessment"
+    - label: "Book Strategy Call"
       href: "#contact"
       icon: "fa-solid fa-calendar-check"   # Font Awesome icon class inside the button
       variant: "primary"
@@ -93,9 +93,9 @@ hero:
   # Three small trust-signal items with checkmark icons shown below CTA buttons
   # Rendered as .hero-proof-item divs (fa-check-circle icon prepended in HTML)
   proofItems:
-    - "20+ years experience"
-    - "Ex-CTO, $134M exit"
-    - "Durham, NC + Remote"
+    - "Custom agents for your exact stack"
+    - "Secure, company-owned automation"
+    - "Built for complex operations teams"
 
   # Animated stat counters inside the right-column glass card (.hero-metric-grid)
   # JS in main.js reads data-target, data-prefix, data-suffix and animates from 0
@@ -106,20 +106,20 @@ hero:
   metrics:
     - value: 60
       suffix: "%"
-      label: "MTTR Reduction"
+      label: "MTTR Reduction Proven"
       color: "var(--accent-emerald)"
     - value: 40
       suffix: "%"
-      label: "Faster Pipelines"
+      label: "Pipeline Speedup"
       color: "var(--accent-blue)"
+    - value: 20
+      suffix: "+"
+      label: "Years Building Systems"
+      color: "var(--accent-violet)"
     - value: 700
       prefix: "$"
       suffix: "M"
-      label: "Platform Revenue"
-      color: "var(--accent-violet)"
-    - value: 12
-      suffix: "GB"
-      label: "ETL Daily Throughput"
+      label: "Revenue Scaled"
       color: "var(--accent-cyan)"
 
   # Two floating glass cards overlaid on the hero right column (.hero-float-card)
@@ -128,14 +128,14 @@ hero:
   # bgColor  → inline background on the icon wrapper div (rgba for transparency)
   # iconColor → inline color on the icon wrapper div
   floatCards:
-    - title: "Self-Improving AI"
-      subtitle: "Feedback loop engine"
+    - title: "Tool-Using Agents"
+      subtitle: "Connected to your systems"
       icon: "fa-solid fa-brain"
       bgColor: "rgba(16,185,129,0.1)"
       iconColor: "var(--accent-emerald)"
       position: "card-1"
-    - title: "Enterprise-Grade"
-      subtitle: "Fidelity-tested"
+    - title: "Secure by Design"
+      subtitle: "Runs in your environment"
       icon: "fa-solid fa-shield-halved"
       bgColor: "rgba(99,102,241,0.1)"
       iconColor: "var(--accent-blue)"
@@ -160,36 +160,36 @@ hero:
 problem:
   label: "The Problem"
   title:
-    line1: "$250B spent on"
-    line2: "manual IT ops"
-    line3: "every year"
-  subtitle: "SaaS incident tools promise AI but deliver dashboards. Your team is still drowning in alerts, copy-pasting runbooks, and fighting the same fires. The gap isn't tools — it's implementation."
+    line1: "Companies want AI"
+    line2: "automation"
+    line3: "not another copilot"
+  subtitle: "Most teams have AI pilots, SaaS bots, and disconnected automations — but the real work still happens manually across ops, support, engineering, and internal workflows. The gap is not ideas. It's execution inside your stack."
   stats:
     - value: "$250B"
-      text: "Annual spend on manual IT operations globally"
+      text: "Estimated annual spend on manual IT operations globally"
     - value: "73%"
-      text: "Of teams say AI tooling doesn't match their stack"
+      text: "Of teams say AI tooling still doesn't match their real environment"
   cards:
     - icon: "fa-solid fa-puzzle-piece"
       bgColor: "rgba(239,68,68,0.1)"
       iconColor: "#ef4444"
-      title: "SaaS Tools Don't Fit Your Stack"
-      body: "You bought PagerDuty or Rootly but can't wire it into your actual Kubernetes clusters, DataDog alerts, CI/CD pipelines, and Confluence runbooks. The \"AI\" is a black box that doesn't learn from your incidents."
+      title: "Your Work Lives Across Too Many Systems"
+      body: "The real process spans tickets, Slack, docs, CI/CD, dashboards, databases, CRMs, and approval steps. Generic AI tools rarely connect the full workflow end-to-end."
     - icon: "fa-solid fa-lock"
       bgColor: "rgba(245,158,11,0.1)"
       iconColor: "#f59e0b"
-      title: "Regulated Industries Can't Use SaaS AI"
-      body: "Finance, healthcare, and government need to own their AI models and data. SaaS incident platforms send your production data to their cloud — a compliance non-starter."
-    - icon: "fa-solid fa-users-slash"
+      title: "Owned Automation Matters"
+      body: "Teams in finance, healthcare, and enterprise environments need automations they can inspect, govern, and run in their own environment. Black-box SaaS AI often stops the conversation before the project begins."
+    - icon: "fa-solid fa-people-arrows"
       bgColor: "rgba(99,102,241,0.1)"
       iconColor: "var(--accent-blue)"
-      title: "No One Has Actually Built This"
-      body: "Every DevOps consultant sells \"AI strategy.\" Almost none have built a production self-improving LLM incident platform with feedback loops, context aggregation, and enterprise governance."
+      title: "Copilots Suggest — They Don't Execute"
+      body: "Chat interfaces are useful, but they don't replace workflow design, tool permissions, human approvals, audit trails, and production-safe actions. Companies need automation that can actually move work forward."
     - icon: "fa-solid fa-microchip"
       bgColor: "rgba(16,185,129,0.1)"
       iconColor: "var(--accent-emerald)"
-      title: "MCP Is the Future — But Who Builds It?"
-      body: "The Model Context Protocol lets AI agents safely access internal tools. It's the next paradigm for developer productivity — but your team needs an expert who's already shipping MCP servers in production."
+      title: "AI Agents Need Real Integration"
+      body: "MCP servers, retrieval pipelines, workflow orchestration, and observability are what turn AI into a working system. Without that engineering layer, \"AI automation\" stays stuck in demo mode."
 
 # ─── Services Section ────────────────────────────────────────────────────────
 # Rendered in <section id="services" class="services-section">.
@@ -218,43 +218,46 @@ problem:
 #     .label             → caption below the icon (e.g. "Technology stack")
 #     .tags[]            → tech pill tags rendered as <span class="tech-tag">
 services:
-  label: "Services"
+  label: "Solutions"
   title:
     line1: "What"
     line2: "IncidentMind"
-    line3: "delivers"
-  subtitle: "Production-grade solutions from someone who's scaled platforms to $700M revenue and shipped real AI in regulated environments."
+    line3: "automates"
+  subtitle: "Custom AI systems for operations, support, internal tooling, platform workflows, and agent-driven execution — built to fit your environment instead of forcing you into a generic SaaS playbook."
   tiers:
     # Tier 1 — rendered first (left-content / right-visual)
     - badge: "Flagship Service"
       badgeIcon: "fa-solid fa-star"
       badgeVariant: "badge-flagship"
-      title: "AI-Powered Incident Intelligence"
-      body: "A custom AI incident resolution platform tailored to your stack — not a generic SaaS subscription. You own the system, the models, and the data. Built on the exact architecture proven at Fidelity Charitable."
+      title: "Custom AI Automation Systems"
+      body: "IncidentMind designs end-to-end AI automation for the workflows that matter most to your business. That can include incident response, support operations, internal requests, knowledge workflows, and multi-step operational processes. You own the system, the logic, and the environment it runs in."
       features:
-        - "Incident detection & classification pipeline with auto-triage"
-        - "Multi-source context aggregation: DataDog, Confluence, CI/CD logs, K8s manifests, past incidents"
-        - "LLM-powered root-cause analysis with resolution recommendations"
-        - "Self-improving feedback loop — the system gets smarter with every incident"
-        - "Integration with existing alerting (PagerDuty, Rootly, Slack, OpsGenie)"
-        - "Enterprise governance: runs in your VPC, your data stays yours"
+        - "Workflow discovery and redesign for high-friction manual processes"
+        - "Agent-powered intake, triage, routing, summarization, and action execution"
+        - "Multi-system context aggregation across docs, tickets, alerts, chat, and internal tools"
+        - "Human-in-the-loop approvals, guardrails, and auditability"
+        - "Self-improving feedback loops so automations get better over time"
+        - "Deployment in your environment with company-owned data and controls"
       pricing:
-        value: "$25K–$75K"
+        value: "$25K–$90K"
         label: "per engagement · 6–12 weeks"
       visual:
         icon: "fa-solid fa-bolt"
         iconBg: "rgba(99,102,241,0.12)"
         iconColor: "var(--accent-blue)"
-        label: "Technology stack"
+        label: "Automation building blocks"
         tags:
-          - "LLM / GPT-4"
+          - "LLM / GPT"
           - "RAG"
-          - "DataDog API"
-          - "Confluence"
-          - "Kubernetes"
+          - "MCP"
+          - "Workflows"
+          - "Approvals"
+          - "Slack"
+          - "Jira"
+          - "GitHub"
           - "Python"
           - "TypeScript"
-          - "Prompt Eng."
+          - "Observability"
           - "Feedback Loops"
           - "n8n"
     # Tier 2 — rendered second (right-content / left-visual, alternating)
@@ -262,14 +265,15 @@ services:
       badgeIcon: "fa-solid fa-rocket"
       badgeVariant: "badge-growth"
       title: "MCP Servers & Enterprise AI Agents"
-      body: "Build secure internal AI agents that safely access your company systems via the Model Context Protocol. Stop manually switching between tools — let AI agents do it safely, in your sandboxed environment."
+      body: "Build secure internal AI agents that can read context, call tools, and take safe action across your systems. IncidentMind creates the integration layer that turns foundation models into useful operators for your company."
       features:
         - "Custom MCP servers for DataDog, Confluence, GitHub, Jira, K8s, databases"
         - "Secure sandboxed agent environments with fine-grained permissions"
-        - "RAG pipelines over internal documentation & codebases"
-        - "n8n workflow automation with AI integration"
-        - "Multi-agent orchestration for complex operations tasks"
-        - "Built on my open-source MCP framework (mcp-generator, jobspy-mcp-server)"
+        - "RAG pipelines over internal documentation, SOPs, tickets, and codebases"
+        - "Workflow orchestration with AI-triggered actions and approvals"
+        - "Multi-agent architectures for research, triage, and execution"
+        - "Observability, logging, and safety controls for agent behavior"
+        - "Built on proven open-source MCP and automation tooling"
       pricing:
         value: "$9K–$50K+"
         label: "per agent/server · multi-agent architectures available"
@@ -292,15 +296,15 @@ services:
     - badge: "Core Engineering"
       badgeIcon: "fa-solid fa-wrench"
       badgeVariant: "badge-core"
-      title: "Platform Engineering Acceleration"
-      body: "Hands-on DevOps engineering to modernize your infrastructure — not a slideshow. Migration execution, IaC adoption, CI/CD optimization, and observability, delivered by someone with 7+ years doing exactly this at Fidelity."
+      title: "Workflow & Platform Automation"
+      body: "AI agents only work when the surrounding platform is real. IncidentMind helps modernize the pipelines, integrations, environments, and observability needed to automate delivery, support, operations, and data-heavy workflows in production."
       features:
-        - "ECS → EKS migration with rollback strategy"
-        - "Terraform / CDKTF adoption for existing AWS infrastructure"
-        - "CI/CD optimization: parallelization, blue/green deployments"
-        - "Full DataDog observability: dashboards, APM, SLOs, tracing"
-        - "Developer experience: hybrid dev environments, bootstrap tooling"
-        - "ETL pipeline architecture for high-volume data processing"
+        - "Workflow orchestration for support ops, incident ops, and internal service requests"
+        - "CI/CD automation: parallelization, approvals, release safety, and deployment workflows"
+        - "Infrastructure automation with Terraform / CDKTF and cloud-native tooling"
+        - "Observability for automated systems: dashboards, traces, logs, and SLOs"
+        - "Developer and operator experience improvements with internal tooling"
+        - "ETL and data pipeline automation for high-volume operational data"
       pricing:
         value: "$7K assessment"
         label: "+ project-based · $12K–$60K per engagement"
@@ -324,15 +328,15 @@ services:
     - badge: "Advisory"
       badgeIcon: "fa-solid fa-compass"
       badgeVariant: "badge-advisory"
-      title: "Fractional Platform Engineering Lead"
-      body: "Part-time embedded leadership for teams that need a senior platform engineering voice but can't justify a full-time hire. Architecture decisions, roadmap planning, vendor evaluation, team mentoring — with CTO-level experience."
+      title: "Fractional AI Automation Lead"
+      body: "For teams that need senior leadership to shape an AI automation roadmap without hiring a full-time executive. IncidentMind helps prioritize use cases, define architecture, evaluate vendors, and guide implementation toward real business outcomes."
       features:
-        - "Architecture decision records (ADRs) and technical strategy"
-        - "Platform roadmap planning and prioritization"
-        - "Vendor evaluation: tools, cloud services, build vs. buy"
-        - "Team mentoring, code reviews, and upleveling"
-        - "Incident response process design and SRE best practices"
-        - "Architecture review boards compliance (enterprise-ready)"
+        - "AI automation roadmap and opportunity prioritization"
+        - "Architecture decision records (ADRs), governance, and technical strategy"
+        - "Vendor evaluation: models, platforms, workflow tools, build vs. buy"
+        - "Team mentoring on agents, MCP, automation design, and platform readiness"
+        - "Operating model design for human approvals, ownership, and support"
+        - "Enterprise review board, security, and compliance alignment"
       pricing:
         value: "$200–$275/hr"
         label: "10–20 hrs/week retainer · $8K–$22K/month"
@@ -359,38 +363,38 @@ services:
     - icon: "fa-solid fa-ship"
       iconBg: "rgba(99,102,241,0.1)"
       iconColor: "var(--accent-blue)"
-      title: "ECS → EKS Migration"
-      body: "Phased migration with zero-downtime rollback strategies and custom Helm charts for ProxySQL clustering."
-      price: "$25K–$60K"
+      title: "Incident Response Automation"
+      body: "Auto-triage, context gathering, runbook execution, escalation routing, and postmortem drafting across your incident workflow."
+      price: "$20K–$60K"
     - icon: "fa-solid fa-code-branch"
       iconBg: "rgba(139,92,246,0.1)"
       iconColor: "var(--accent-violet)"
-      title: "Terraform / IaC Adoption"
-      body: "Convert existing AWS infrastructure to Terraform/CDKTF with state management and modular design."
-      price: "$15K–$40K"
+      title: "Internal Tool Agents"
+      body: "Custom agents that search docs, query systems, answer operational questions, and take safe actions through MCP integrations."
+      price: "$12K–$40K"
     - icon: "fa-solid fa-gauge-high"
       iconBg: "rgba(16,185,129,0.1)"
       iconColor: "var(--accent-emerald)"
-      title: "CI/CD Optimization"
-      body: "Pipeline parallelization, blue/green deployments, GitOps. Cut pipeline runtime by 40%+."
-      price: "$12K–$25K"
+      title: "CI/CD & Release Automation"
+      body: "Pipeline orchestration, deployment approvals, release summaries, rollback workflows, and faster delivery loops."
+      price: "$12K–$30K"
     - icon: "fa-solid fa-chart-line"
       iconBg: "rgba(6,182,212,0.1)"
       iconColor: "var(--accent-cyan)"
-      title: "Observability Stack"
-      body: "Full DataDog implementation with custom dashboards, APM, SLOs, distributed tracing, and alerting."
-      price: "$15K–$30K"
+      title: "Support & Ticket Automation"
+      body: "Routing, enrichment, suggested responses, escalation summaries, and knowledge retrieval for internal or customer-facing queues."
+      price: "$10K–$30K"
     - icon: "fa-solid fa-laptop-code"
       iconBg: "rgba(245,158,11,0.1)"
       iconColor: "#f59e0b"
-      title: "Developer Experience"
-      body: "Hybrid dev environments, Chrome extensions, bootstrap tooling, and production-ready app templates."
-      price: "$10K–$20K"
+      title: "Knowledge & Documentation Automation"
+      body: "RAG pipelines over SOPs, docs, tickets, and codebases that help agents retrieve the right context at the right time."
+      price: "$10K–$25K"
     - icon: "fa-solid fa-database"
       iconBg: "rgba(239,68,68,0.1)"
       iconColor: "#ef4444"
-      title: "ETL Pipeline Design"
-      body: "High-volume data pipeline architecture (JSON → S3 → SQS → workers), resilient to upstream changes."
+      title: "Back-Office Workflow Automation"
+      body: "Automate multi-step internal processes that span approvals, documents, systems of record, and reporting."
       price: "$15K–$35K"
 
 # ─── Approach Section ────────────────────────────────────────────────────────
@@ -399,20 +403,20 @@ services:
 # steps[].title → <h4> inside each .approach-step glass card
 # steps[].body  → <p> inside each card
 approach:
-  label: "How I Work"
+  label: "How IncidentMind Works"
   title:
-    line1: "From assessment to"
+    line1: "From workflow audit to"
     line2: "production"    # wrapped in .gradient-text
-  subtitle: "No sales teams, no account managers. You work directly with the engineer who built it."
+  subtitle: "No generic discovery theater. IncidentMind works directly with your team to identify the right workflow, design the automation, ship it, and operationalize it."
   steps:
     - title: "Discover"
-      body: "Free 30-minute call to understand your stack, pain points, and goals. No pitch — just technical conversation."
+      body: "Understand where manual work, delays, and context switching are costing your team time. Focus on the workflow, not the hype."
     - title: "Assess"
-      body: "Deep-dive into your infrastructure, incidents, and workflows. Deliver a clear assessment document with recommendations."
+      body: "Map systems, permissions, approvals, and failure modes. Identify where agents, MCP, workflow orchestration, and platform changes are actually needed."
     - title: "Build"
-      body: "Hands-on implementation in your environment. Weekly demos, iterative delivery, production-ready code."
-    - title: "Sustain"
-      body: "Knowledge transfer, documentation, team training. Optional retainer for ongoing optimization."
+      body: "Implement the automation in your environment with iterative demos, real integrations, and production-ready controls."
+    - title: "Operationalize"
+      body: "Roll out with documentation, observability, training, and ownership so the system keeps working after launch."
 
 # ─── Proof / Results Section ─────────────────────────────────────────────────
 # Rendered in <section id="proof" class="proof-section">.
@@ -436,17 +440,17 @@ approach:
 #   .highlights[]    → bullet list on the right side (.proof-highlights)
 #                       fa-check icon prepended in HTML
 proof:
-  label: "Proven Results"
+  label: "Proof"
   title:
-    line1: "Built at"
-    line2: "real scale"
-  subtitle: "Not demos. Not proofs of concept. Production systems at companies you know."
+    line1: "Built in"
+    line2: "production"
+  subtitle: "IncidentMind is informed by real operating experience: large-scale systems, enterprise platform engineering, and AI incident automation shipped in environments where reliability matters."
   items:
     - date: "2007 – 2015 · EAT24"
       dateColor: "var(--accent-blue)"
       timelineDotColor: "var(--accent-blue)"
-      title: "CTO & Lead Architect — Zero to $134M Acquisition"
-      body: "Built the entire food-delivery platform from the first line of code. Scaled to 40,000+ restaurant partners, $700M gross revenue. Acquired by Yelp for $134M, later sold to GrubHub for $287.5M."
+      title: "Scaled a platform from zero to $134M acquisition"
+      body: "Built the original EAT24 platform from the first line of code through scale, acquisitions, and real operational complexity. That experience informs how IncidentMind approaches resilient systems and automation today."
       metrics:
         - value: "$700M"
           label: "Gross Revenue"
@@ -465,8 +469,8 @@ proof:
     - date: "2019 – Present · Fidelity Charitable"
       dateColor: "var(--accent-emerald)"
       timelineDotColor: "var(--accent-emerald)"
-      title: "Senior Platform Engineer — AI Incident Platform & Cloud-First Architecture"
-      body: "Built the first cloud-first project at Fidelity Charitable (GivingMarketplace). Designed and shipped the AI-powered incident resolution platform that dramatically cut MTTR across all environments."
+      title: "Shipped AI incident automation in a regulated enterprise"
+      body: "Built cloud-first platform systems and designed an AI-powered incident workflow that reduced MTTR while integrating with real enterprise controls, infrastructure, and compliance expectations."
       metrics:
         - value: "60%"
           label: "MTTR Reduction"
@@ -486,8 +490,8 @@ proof:
     - date: "Earlier · Yelp, Decisely, & More"
       dateColor: "var(--accent-violet)"
       timelineDotColor: "var(--accent-violet)"
-      title: "Full-Stack Engineering Leadership Across Multiple Industries"
-      body: "Continued to architect and deliver production systems across adtech, HR-tech, and food delivery. Consistent track record of building teams and shipping reliable software."
+      title: "Cross-industry leadership across product, platform, and operations"
+      body: "From adtech to HR-tech to food delivery, the through-line has been the same: understand the workflow, build the system, and ship software that holds up in the real world."
       metrics:
         - value: "20+"
           label: "Years"
@@ -525,33 +529,33 @@ proof:
 positioning:
   label: "Why IncidentMind"
   title:
-    line1: "Custom + high-touch:"
-    line2: "the quadrant nobody serves"
+    line1: "Custom AI automation,"
+    line2: "not another SaaS bot"
   quadrant:
     axes:
-      top: "Custom / Owned"
-      bottom: "SaaS Subscription"
-      left: "High-Touch"
-      right: "Self-Serve"
+      top: "Owned Automation"
+      bottom: "Generic SaaS"
+      left: "Hands-On Delivery"
+      right: "Self-Serve Tooling"
     cells:
       - label: "IncidentMind"
-        sublabel: "You build it, you own it"
+        sublabel: "Custom agents + automation systems"
         highlight: true      # adds .quadrant-highlight → highlighted cell with border
-      - sublabel: "DIY open-source"
-      - sublabel: "Big 4 Consulting"
-      - sublabel: "PagerDuty, Rootly, incident.io"
+      - sublabel: "DIY frameworks"
+      - sublabel: "Traditional consulting"
+      - sublabel: "SaaS copilots & bots"
   text:
-    heading: "Built for companies that need to own their AI"
-    body: "PagerDuty, Rootly, and incident.io are great SaaS products — but they're subscriptions you don't control. IncidentMind builds systems you own, in your infrastructure, trained on your data."
+    heading: "Built for companies that need automation to fit reality"
+    body: "IncidentMind sits between generic SaaS bots and abstract strategy consulting. We build company-specific automation systems that connect to your tools, respect your constraints, and leave you with software you actually own."
     list:
       - icon: "fa-solid fa-shield-halved"
-        text: "Regulated industries that need data sovereignty"
+        text: "Teams that need security, governance, and data control"
       - icon: "fa-solid fa-fingerprint"
-        text: "Unique stacks that don't fit SaaS templates"
+        text: "Companies with unique workflows that don't fit SaaS templates"
       - icon: "fa-solid fa-brain"
-        text: "Teams that want AI models trained on their incidents"
+        text: "Operators who want AI agents to do more than answer questions"
       - icon: "fa-solid fa-hand-holding-dollar"
-        text: "Companies tired of monthly SaaS bills that grow with scale"
+        text: "Leaders who want a durable automation asset instead of another subscription"
 
 # ─── Technology Stack Section ─────────────────────────────────────────────────
 # Rendered in <section id="tech" class="tech-section">.
@@ -566,7 +570,7 @@ tech:
   title:
     line1: "Battle-tested"
     line2: "stack"          # wrapped in .gradient-text
-  subtitle: "Not theory — tools I use in production every day."
+  subtitle: "Production technologies IncidentMind uses to build AI automation that can observe, decide, and act inside real systems."
   categories:
     - icon: "fa-brands fa-aws"
       title: "Cloud & Infrastructure"
@@ -638,9 +642,9 @@ tech:
 openSource:
   label: "Open Source"
   title:
-    line1: "Tools I"
-    line2: "build & maintain"
-  subtitle: "Publicly available. Actively maintained. Used by developers adopting AI agents today."
+    line1: "Tools IncidentMind"
+    line2: "builds & maintains"
+  subtitle: "Open-source projects that reflect how IncidentMind builds practical AI agents, MCP tooling, RAG systems, and automations."
   projects:
     - name: "jobspy-mcp-server"
       icon: "fa-solid fa-briefcase"
@@ -685,14 +689,14 @@ openSource:
 #   .href         → optional link target (tel:, mailto:, https:)
 #   .target       → optional "_blank" for external links (rel="noopener" added)
 contact:
-  label: "Let's Talk"
+  label: "Start an Engagement"
   heading:
-    line1: "Ready to cut your incident pain"
-    line2: "and"
-    line2Gradient: "ship faster?"
-  body: "Start with a free 30-minute platform health call. No sales pitch — just a technical conversation with the engineer who'll do the work."
+    line1: "Need AI automation that"
+    line2: "works in"
+    line2Gradient: "your environment?"
+  body: "Start with a free 30-minute call to identify the workflow, systems, and constraints that matter most. No vague AI pitch — just a focused conversation about what IncidentMind can automate for your team."
   actions:
-    - label: "Schedule Free Assessment"
+    - label: "Book Intro Call"
       href: "mailto:burdey@gmail.com?subject=IncidentMind%20%E2%80%94%20Free%20Assessment"
       icon: "fa-solid fa-calendar-check"
       variant: "primary"
@@ -703,7 +707,9 @@ contact:
       target: "_blank"
   info:
     - icon: "fa-solid fa-user"
-      text: "Viktor Burdyey · Founder & Principal Engineer"
+      text: "IncidentMind · AI Automation Company"
+    - icon: "fa-solid fa-id-badge"
+      text: "Founded by Viktor Burdyey"
     - icon: "fa-solid fa-location-dot"
       text: "Durham, NC · Remote & On-site"
     - icon: "fa-solid fa-phone"
