@@ -4,7 +4,7 @@
   "description": "Personal/consulting website built with Eleventy",
   "scripts": {
     "build": "eleventy",
-    "start": "eleventy --serve"
+    "dev": "eleventy --serve"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",

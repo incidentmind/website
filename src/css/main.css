@@ -1038,6 +1038,18 @@
       font-size: 13px;
       color: var(--text-muted);
     }
+    .footer-legal {
+      margin-left: 12px;
+    }
+    .footer-legal a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.3s;
+    }
+    .footer-legal a:hover {
+      color: var(--text-primary);
+    }
     .footer-links {
       display: flex;
       gap: 24px;
@@ -1206,6 +1218,23 @@
     }
 
     /* ── Focus / Accessibility ── */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      z-index: 200;
+      background: var(--gradient-main);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 0 0 12px 12px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: top 0.3s;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
     a:focus-visible, button:focus-visible {
       outline: 2px solid var(--accent-blue);
       outline-offset: 4px;
@@ -1215,4 +1244,53 @@
       .reveal, .reveal-left, .reveal-right { transition: none; opacity: 1; transform: none; }
       .aurora-blob { animation: none; }
       .hero-float-card { animation: none; }
+    }
+
+    /* ── Legal Pages ── */
+    .legal-page {
+      padding-top: 120px;
+      padding-bottom: 80px;
+    }
+    .legal-page h1 {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      margin-bottom: 8px;
+    }
+    .legal-effective {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 48px;
+    }
+    .legal-page h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-top: 40px;
+      margin-bottom: 12px;
+    }
+    .legal-page h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+    .legal-page p,
+    .legal-page li {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+    .legal-page ul {
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+    .legal-page a {
+      color: var(--accent-blue);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .legal-page a:hover {
+      color: var(--accent-violet);
     }

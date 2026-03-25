@@ -17,14 +17,6 @@ For more information about IncidentMind's Custom AI Automation Platform, visit [
 **Media Contact:**
 Viktor Burdyey
 Title: Founder & Principal Engineer
+Email: viktor@incidentmind.com
 GitHub: [github.com/borgius](https://github.com/borgius)
 Location: Durham, NC + Remote
-
----
-
-### Assumptions to Validate
-
-- The 60% MTTR reduction and 40% alert noise reduction figures are drawn from site metric targets; confirm these are validated customer outcomes, not projections, or replace with a broader automation ROI claim.
-- "incidentmind.com" is assumed as the primary web domain; update if the public URL differs.
-- "Viktor Burdyey" is assumed as the founder name behind the "borgius" GitHub handle and "Ex-CTO of EAT24" role; update if the preferred public name differs.
-- The listed example automation systems (incident, MCP, CI/CD, LLM pipelines) reflect current service offerings; update if the service list has changed.
