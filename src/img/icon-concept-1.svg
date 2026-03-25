@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-labelledby="title desc">
+  <title id="title">IncidentMind logo concept 1</title>
+  <desc id="desc">A refined version of the current connected-node mark with stronger contrast, clearer hierarchy, and a brighter center node.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070816"/>
+      <stop offset="100%" stop-color="#0b0d1f"/>
+    </linearGradient>
+    <linearGradient id="link" x1="14" y1="50" x2="50" y2="14" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="55%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <radialGradient id="core" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#c4b5fd"/>
+      <stop offset="55%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="64" height="64" rx="16" fill="url(#bg)"/>
+  <rect x="1" y="1" width="62" height="62" rx="15" fill="none" stroke="rgba(255,255,255,0.08)"/>
+
+  <g stroke="url(#link)" stroke-width="3" stroke-linecap="round" opacity="0.95">
+    <line x1="14" y1="50" x2="32" y2="32"/>
+    <line x1="32" y1="32" x2="50" y2="14"/>
+  </g>
+
+  <circle cx="32" cy="32" r="14" fill="#0d1024" opacity="0.55" filter="url(#glow)"/>
+  <circle cx="32" cy="32" r="10" fill="url(#core)"/>
+  <circle cx="32" cy="32" r="13" fill="none" stroke="#06b6d4" stroke-opacity="0.42" stroke-width="1.5"/>
+
+  <circle cx="14" cy="50" r="7" fill="#0a1020" stroke="#06b6d4" stroke-opacity="0.75" stroke-width="2"/>
+  <circle cx="50" cy="14" r="7" fill="#100d23" stroke="#8b5cf6" stroke-opacity="0.8" stroke-width="2"/>
+
+  <circle cx="14" cy="50" r="2.2" fill="#67e8f9"/>
+  <circle cx="50" cy="14" r="2.2" fill="#c4b5fd"/>
+  <circle cx="32" cy="32" r="3" fill="#eef2ff"/>
+</svg>

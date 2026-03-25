@@ -1,0 +1,98 @@
+---
+layout: false
+permalink: /blog/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IncidentMind Blog — AI Agents, HITL Workflows, and MCP Engineering</title>
+  <meta name="description" content="Field notes on AI agents, human-in-the-loop workflows, MCP servers, and practical automation systems from IncidentMind.">
+  <link rel="canonical" href="https://incidentmind.com/blog/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="icon" href="/img/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="/img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/img/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="aurora" aria-hidden="true">
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+  </div>
+
+  <nav class="navbar scrolled" role="navigation" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <a href="/" class="nav-logo" aria-label="IncidentMind home">
+        <div class="nav-logo-icon"><img src="/img/icon.svg" alt="IncidentMind icon" width="40" height="40" style="display:block;"></div>
+        <span class="nav-logo-text">IncidentMind</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <ul class="nav-links">
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/#services">Solutions</a></li>
+        <li><a href="/#open-source">Open Source</a></li>
+        <li><a href="/#contact" class="nav-cta">Talk to IncidentMind</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main-content" class="blog-page">
+    <section class="blog-hero">
+      <div class="container blog-hero-inner">
+        <div class="section-label">Blog</div>
+        <h1>Field notes on <span class="gradient-text">AI systems that ship</span></h1>
+        <p class="blog-hero-copy">Articles from IncidentMind on human-in-the-loop workflow design, MCP integrations, agent orchestration, and the engineering details that usually get hand-waved away in the demo.</p>
+      </div>
+    </section>
+
+    <section class="blog-index-section">
+      <div class="container">
+        <div class="blog-grid">
+          {% for post in collections.blog %}
+          <article class="blog-card glass">
+            <div class="blog-card-meta">
+              {% if post.data.series %}<span>{{ post.data.series }}</span>{% endif %}
+              {% if post.data.part %}<span>Part {{ post.data.part }}</span>{% endif %}
+              <span>{{ post.date | date: "%b %d, %Y" }}</span>
+            </div>
+            <h2><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
+            <p>{{ post.data.description }}</p>
+            <div class="blog-card-footer">
+              {% if post.data.readTime %}<span class="blog-read-time">{{ post.data.readTime }}</span>{% endif %}
+              <a href="{{ post.url }}" class="blog-read-link">Read article <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-copy">© 2026 IncidentMind LLC. All rights reserved.</div>
+        <div class="footer-links">
+          <a href="https://github.com/borgius" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/company/incidentmind" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="https://x.com/IncidentMind" target="_blank" rel="noopener" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

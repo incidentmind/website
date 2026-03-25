@@ -214,7 +214,9 @@
           </div>
           <h4>{{ card.title }}</h4>
           <p>{{ card.body }}</p>
+          {% if card.price %}
           <div class="platform-card-price">{{ card.price }}</div>
+          {% endif %}
         </div>
         {% endfor %}
       </div>
@@ -399,15 +401,28 @@
         {% for project in openSource.projects %}
         {% assign ossStagger = forloop.index | modulo: 3 %}
         {% if ossStagger == 0 %}{% assign ossStagger = 3 %}{% endif %}
-        <div class="oss-card glass reveal stagger-{{ ossStagger }}">
+        <div class="oss-card glass reveal stagger-{{ ossStagger }}{% if project.featured %} oss-card-featured{% endif %}">
+          {% if project.badge %}
+          <div class="oss-featured-badge">{{ project.badge }}</div>
+          {% endif %}
           <div class="oss-card-header">
             <div class="oss-card-icon"><i class="{{ project.icon }}"></i></div>
             <h4>{{ project.name }}</h4>
           </div>
           <p>{{ project.description }}</p>
-          <a href="{{ project.github }}" target="_blank" rel="noopener" class="oss-card-link">
-            View on GitHub <i class="fa-solid fa-arrow-right"></i>
-          </a>
+          {% if project.previewImage %}
+          <img src="{{ project.previewImage }}" alt="{{ project.previewAlt | default: project.name }}" class="oss-preview-image" loading="lazy">
+          {% endif %}
+          <div class="oss-card-actions">
+            <a href="{{ project.github }}" target="_blank" rel="noopener" class="oss-card-link">
+              View on GitHub <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            {% if project.secondaryLink %}
+            <a href="{{ project.secondaryLink.href }}" class="oss-card-link oss-card-link-secondary">
+              {{ project.secondaryLink.label }} <i class="fa-solid fa-book-open"></i>
+            </a>
+            {% endif %}
+          </div>
         </div>
         {% endfor %}
       </div>

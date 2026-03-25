@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-labelledby="title desc">
+  <title id="title">IncidentMind logo concept 2</title>
+  <desc id="desc">A more distinctive orchestration mark with a directional path, active route glow, and stronger asymmetry for memorability.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06060f"/>
+      <stop offset="100%" stop-color="#10142a"/>
+    </linearGradient>
+    <linearGradient id="route" x1="12" y1="49" x2="49" y2="15" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="45%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <filter id="soft-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="64" height="64" rx="16" fill="url(#bg)"/>
+  <path d="M18 11h24c6.6 0 11 4.4 11 11v24c0 6.6-4.4 11-11 11H18c-6.6 0-11-4.4-11-11V22c0-6.6 4.4-11 11-11Z" fill="none" stroke="rgba(255,255,255,0.06)"/>
+
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 49C20 42 23 39 28 34" stroke="#1e293b" stroke-width="5" opacity="0.9"/>
+    <path d="M28 34C34 28 38 24 50 15" stroke="#1e293b" stroke-width="5" opacity="0.9"/>
+    <path d="M28 34C36 34 41 34 47 34" stroke="#1e293b" stroke-width="5" opacity="0.9"/>
+
+    <path d="M14 49C20 42 23 39 28 34" stroke="url(#route)" stroke-width="3" filter="url(#soft-glow)"/>
+    <path d="M28 34C34 28 38 24 50 15" stroke="url(#route)" stroke-width="3" filter="url(#soft-glow)"/>
+    <path d="M28 34C36 34 41 34 47 34" stroke="url(#accent)" stroke-width="2.5" opacity="0.85"/>
+  </g>
+
+  <circle cx="14" cy="49" r="6" fill="#0a1222" stroke="#10b981" stroke-width="2"/>
+  <circle cx="28" cy="34" r="9.5" fill="#0d1024" stroke="#67e8f9" stroke-width="2"/>
+  <circle cx="50" cy="15" r="6.5" fill="#100d23" stroke="#818cf8" stroke-width="2"/>
+  <circle cx="47" cy="34" r="4.5" fill="#0d1024" stroke="#a78bfa" stroke-width="1.8"/>
+
+  <circle cx="14" cy="49" r="2" fill="#a7f3d0"/>
+  <circle cx="28" cy="34" r="2.6" fill="#f8fafc"/>
+  <circle cx="50" cy="15" r="2" fill="#ddd6fe"/>
+  <circle cx="47" cy="34" r="1.5" fill="#e9d5ff"/>
+</svg>
