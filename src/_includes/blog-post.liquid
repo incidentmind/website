@@ -16,8 +16,10 @@
   <link rel="icon" href="/img/favicon-16.png" sizes="16x16" type="image/png">
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
   <link rel="manifest" href="/manifest.json">
+  {% render "partials/gtm-head.liquid", gtmId: site.gtm.id %}
 </head>
 <body>
+  {% render "partials/gtm-body.liquid", gtmId: site.gtm.id %}
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <div class="aurora" aria-hidden="true">

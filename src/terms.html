@@ -14,8 +14,10 @@ permalink: /terms/
   <link rel="icon" href="/img/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  {% render "partials/gtm-head.liquid", gtmId: site.gtm.id %}
 </head>
 <body>
+  {% render "partials/gtm-body.liquid", gtmId: site.gtm.id %}
   <nav class="navbar scrolled" role="navigation" aria-label="Main navigation">
     <div class="navbar-inner">
       <a href="/" class="nav-logo" aria-label="IncidentMind home">
