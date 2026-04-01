@@ -1,0 +1,8 @@
+node_modules/
+_site/
+.git/
+.github/
+tmp/
+docs/
+docker/
+*.log

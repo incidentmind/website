@@ -1,0 +1,70 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Caddyfile — multi-site reverse proxy
+#
+# Place this file on the host alongside compose.yml.
+# Caddy obtains and renews TLS certificates automatically via ACME (Let's
+# Encrypt).  For local/staging use, replace the domain with a local address
+# or add `tls internal` to get a self-signed cert.
+#
+# Naming convention: the Caddy service name matches the docker-compose service
+# name so DNS resolution works inside the shared Docker network.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Global options ────────────────────────────────────────────────────────────
+{
+    email ops@incidentmind.com   # Used for ACME account & expiry notices
+    # Uncomment to use the staging CA while testing (avoids rate-limits):
+    # acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+}
+
+# ── incidentmind.com ─────────────────────────────────────────────────────────
+incidentmind.com, www.incidentmind.com {
+    # Strip www → bare domain (permanent redirect)
+    @www host www.incidentmind.com
+    redir @www https://incidentmind.com{uri} 301
+
+    reverse_proxy incidentmind:80 {
+        health_uri      /
+        health_interval 30s
+        health_timeout  5s
+    }
+
+    encode zstd gzip
+
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options    nosniff
+        X-Frame-Options           DENY
+        Referrer-Policy           strict-origin-when-cross-origin
+        Permissions-Policy        "geolocation=(), microphone=(), camera=()"
+        -Server
+    }
+
+    log {
+        output file /var/log/caddy/incidentmind.com.log
+        format json
+    }
+}
+
+# ── Add more sites below (copy the block above) ───────────────────────────────
+# othersite.com, www.othersite.com {
+#     @www host www.othersite.com
+#     redir @www https://othersite.com{uri} 301
+#
+#     reverse_proxy othersite:80
+#
+#     encode zstd gzip
+#
+#     header {
+#         Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+#         X-Content-Type-Options    nosniff
+#         X-Frame-Options           DENY
+#         Referrer-Policy           strict-origin-when-cross-origin
+#         -Server
+#     }
+#
+#     log {
+#         output file /var/log/caddy/othersite.com.log
+#         format json
+#     }
+# }

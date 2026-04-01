@@ -1,0 +1,70 @@
+# compose.yml — host-level multi-site orchestration
+#
+# Copy this file (and Caddyfile) to your server, e.g.:
+#   /opt/hosting/compose.yml
+#   /opt/hosting/Caddyfile
+#
+# First-run setup:
+#   docker compose pull
+#   docker compose up -d
+#
+# Rolling update (after a new image is pushed to GHCR):
+#   docker compose pull incidentmind && docker compose up -d --no-deps incidentmind
+#
+# Add a new site:
+#   1. Add a service block (copy the `incidentmind` service below)
+#   2. Add a vhost block to Caddyfile
+#   3. docker compose up -d --no-deps <new-service>
+
+services:
+
+  # ── Caddy (reverse proxy + automatic TLS) ───────────────────────────────────
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"        # HTTP/3
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data     # TLS certificates & ACME state (persist across restarts)
+      - caddy_config:/config # Caddy's own config cache
+      - caddy_logs:/var/log/caddy
+    networks:
+      - web
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:2019/metrics"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # ── incidentmind.com ─────────────────────────────────────────────────────────
+  incidentmind:
+    image: ghcr.io/incidentmind/website:latest
+    restart: unless-stopped
+    networks:
+      - web
+    # No published ports — only Caddy talks to this container
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # ── Add more sites here ──────────────────────────────────────────────────────
+  # othersite:
+  #   image: ghcr.io/your-org/othersite:latest
+  #   restart: unless-stopped
+  #   networks:
+  #     - web
+
+# ── Shared network (all site containers + caddy must be on this network) ─────
+networks:
+  web:
+
+# ── Named volumes (persisted on the host) ────────────────────────────────────
+volumes:
+  caddy_data:
+  caddy_config:
+  caddy_logs:
