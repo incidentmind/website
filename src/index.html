@@ -367,6 +367,33 @@
     </div>
   </section>
 
+  <!-- ━━ Contact / CTA ━━ -->
+  <section id="contact" class="cta-section">
+    <div class="container">
+      <div class="cta-wrapper glass reveal">
+        <div class="section-label" style="justify-content: center;">{{ contact.label }}</div>
+        <h2>{{ contact.heading.line1 }}<br>{{ contact.heading.line2 }} <span class="gradient-text">{{ contact.heading.line2Gradient }}</span></h2>
+        <p>{{ contact.body }}</p>
+        <div class="cta-actions">
+          {% for action in contact.actions %}
+          <a href="{{ action.href }}"{% if action.target %} target="{{ action.target }}" rel="noopener"{% endif %} class="btn-{{ action.variant }}">
+            <i class="{{ action.icon }}"></i>
+            {{ action.label }}
+          </a>
+          {% endfor %}
+        </div>
+        <div class="cta-info">
+          {% for item in contact.info %}
+          <div class="cta-info-item">
+            <i class="{{ item.icon }}"></i>
+            {% if item.href %}<a href="{{ item.href }}"{% if item.target %} target="{{ item.target }}" rel="noopener"{% endif %}>{{ item.text }}</a>{% else %}<span>{{ item.text }}</span>{% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ━━ Tech Stack ━━ -->
   <section id="tech" class="tech-section">
     <div class="container">
@@ -436,33 +463,6 @@
           </div>
         </div>
         {% endfor %}
-      </div>
-    </div>
-  </section>
-
-  <!-- ━━ Contact / CTA ━━ -->
-  <section id="contact" class="cta-section">
-    <div class="container">
-      <div class="cta-wrapper glass reveal">
-        <div class="section-label" style="justify-content: center;">{{ contact.label }}</div>
-        <h2>{{ contact.heading.line1 }}<br>{{ contact.heading.line2 }} <span class="gradient-text">{{ contact.heading.line2Gradient }}</span></h2>
-        <p>{{ contact.body }}</p>
-        <div class="cta-actions">
-          {% for action in contact.actions %}
-          <a href="{{ action.href }}"{% if action.target %} target="{{ action.target }}" rel="noopener"{% endif %} class="btn-{{ action.variant }}">
-            <i class="{{ action.icon }}"></i>
-            {{ action.label }}
-          </a>
-          {% endfor %}
-        </div>
-        <div class="cta-info">
-          {% for item in contact.info %}
-          <div class="cta-info-item">
-            <i class="{{ item.icon }}"></i>
-            {% if item.href %}<a href="{{ item.href }}"{% if item.target %} target="{{ item.target }}" rel="noopener"{% endif %}>{{ item.text }}</a>{% else %}<span>{{ item.text }}</span>{% endif %}
-          </div>
-          {% endfor %}
-        </div>
       </div>
     </div>
   </section>

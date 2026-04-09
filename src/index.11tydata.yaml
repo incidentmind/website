@@ -21,8 +21,8 @@
 # meta.title       → rendered in <title> and used by search engines / social cards
 # meta.description → rendered in <meta name="description"> for SEO snippets
 meta:
-  title: "IncidentMind — AI Lead Automation for Service Businesses"
-  description: "We help HVAC and service companies automatically respond to every lead, qualify customers, and book more jobs using AI automation."
+  title: "IncidentMind — HVAC & Home Service Lead Response Automation"
+  description: "We help HVAC and home service companies respond to every lead in under 60 seconds, follow up automatically, and book more jobs without adding office staff."
 
 # ─── Navbar ──────────────────────────────────────────────────────────────────
 # Rendered inside <nav class="navbar">.
@@ -48,11 +48,7 @@ nav:
       href: "#proof"
     - label: "Blog"
       href: "/blog/"
-    - label: "Stack"
-      href: "#tech"
-    - label: "Open Source"
-      href: "#open-source"
-    - label: "Book Free Demo"
+    - label: "Book Free Lead Audit"
       href: "#contact"
       cta: true          # adds class="nav-cta" → highlighted pill button in navbar
 
@@ -65,39 +61,39 @@ nav:
 #   Right column: .hero-dash — glass metric card + two floating cards
 hero:
   # Small "available" indicator shown above the H1 with a pulsing green dot
-  tagline: "AI automation for real businesses, not demos"
+  tagline: "Lead response automation for HVAC and home service teams"
 
   # H1 split across two lines:
   #   line1 → plain text
   #   line2 → wrapped in <span class="gradient-text"> (blue→violet gradient)
   heading:
     line1: "Stop losing leads."
-    line2: "Respond instantly and book more jobs."
+    line2: "Reply fast and book more jobs."
 
   # Paragraph below the H1 — rendered as <p class="hero-description">
   description: |
-    IncidentMind builds simple AI systems that automatically respond to every inquiry, qualify leads, and book jobs for your business. No complex tools, no hype. Just more revenue from the leads you already have.
+    If a customer calls after hours, fills out a form, or hits voicemail while your team is busy, IncidentMind replies fast, qualifies the lead, and keeps the conversation moving toward a booked job.
 
   # CTA buttons rendered as <a class="btn-{variant}">
   # variant: "primary" → solid indigo button; "secondary" → ghost/outline button
   # target: "_blank" causes rel="noopener" to be added automatically in the template
   actions:
-    - label: "Book Free Demo"
+    - label: "Book Free Lead Audit"
       href: "https://calendly.com/incidentmind"
       icon: "fa-solid fa-calendar-check"   # Font Awesome icon class inside the button
       variant: "primary"
       target: "_blank"
-    - label: "See How It Works"
+    - label: "See What Gets Automated"
       href: "#services"
-      icon: "fa-solid fa-play"
+      icon: "fa-solid fa-bolt"
       variant: "secondary"
 
   # Three small trust-signal items with checkmark icons shown below CTA buttons
   # Rendered as .hero-proof-item divs (fa-check-circle icon prepended in HTML)
   proofItems:
-    - "Never miss a lead again"
-    - "Respond in under 60 seconds"
+    - "Done-for-you setup"
     - "Works with your current tools"
+    - "Built for paid leads and after-hours inquiries"
 
   # Animated stat counters inside the right-column glass card (.hero-metric-grid)
   # JS in main.js reads data-target, data-prefix, data-suffix and animates from 0
@@ -106,22 +102,21 @@ hero:
   # suffix → appended to the displayed number (e.g. "%", "M", "GB")
   # color  → CSS custom property applied as inline style for the metric value text
   metrics:
-    - value: 30
-      suffix: "%"
-      label: "More Leads Converted"
-      color: "var(--accent-emerald)"
     - value: 60
       suffix: "s"
-      label: "Response Time"
-      color: "var(--accent-blue)"
+      label: "First reply target"
+      color: "var(--accent-emerald)"
     - value: 24
       suffix: "/7"
-      label: "Always On"
-      color: "var(--accent-violet)"
-    - value: 0
-      prefix: "$"
+      label: "Lead coverage"
+      color: "var(--accent-blue)"
+    - value: 3
       suffix: ""
-      label: "Missed Opportunities"
+      label: "Qualification steps"
+      color: "var(--accent-violet)"
+    - value: 1
+      suffix: ""
+      label: "Owner dashboard"
       color: "var(--accent-cyan)"
 
   # Two floating glass cards overlaid on the hero right column (.hero-float-card)
@@ -130,14 +125,14 @@ hero:
   # bgColor  → inline background on the icon wrapper div (rgba for transparency)
   # iconColor → inline color on the icon wrapper div
   floatCards:
-    - title: "Auto Lead Response"
-      subtitle: "Instant replies via SMS & email"
+    - title: "Missed Call Text-Back"
+      subtitle: "Reply even when voicemail gets hit"
       icon: "fa-solid fa-bolt"
       bgColor: "rgba(16,185,129,0.1)"
       iconColor: "var(--accent-emerald)"
       position: "card-1"
-    - title: "Auto Booking"
-      subtitle: "Turn leads into scheduled jobs"
+    - title: "Quote Follow-Up"
+      subtitle: "Keep warm estimates moving"
       icon: "fa-solid fa-calendar-check"
       bgColor: "rgba(99,102,241,0.1)"
       iconColor: "var(--accent-blue)"
@@ -165,33 +160,33 @@ problem:
     line1: "You are already"
     line2: "getting leads"
     line3: "but losing them"
-  subtitle: "Most service businesses lose money because they respond too late, miss inquiries, or don't follow up. Every missed message is lost revenue."
+  subtitle: "Most HVAC and home service companies do not have a lead problem first. They have a response problem. Calls get missed, forms sit too long, and warm leads go cold after hours."
   stats:
-    - value: "30%+"
-      text: "Of leads never get a response"
+    - value: "78%"
+      text: "Buyers often go with whoever replies first"
     - value: "5 min"
-      text: "Delay can reduce conversion by 80%"
+      text: "Best window to follow up on hot leads"
   cards:
-    - icon: "fa-solid fa-clock"
+    - icon: "fa-solid fa-phone-slash"
       bgColor: "rgba(239,68,68,0.1)"
       iconColor: "#ef4444"
-      title: "Slow Response"
-      body: "Leads go cold if you don't respond within minutes."
-    - icon: "fa-solid fa-envelope-open"
+      title: "Missed Calls"
+      body: "A paid lead hits voicemail, nobody follows up quickly, and the job goes somewhere else."
+    - icon: "fa-solid fa-moon"
       bgColor: "rgba(245,158,11,0.1)"
       iconColor: "#f59e0b"
-      title: "Missed Messages"
-      body: "Emails, forms, and calls get lost or ignored."
-    - icon: "fa-solid fa-user-xmark"
+      title: "After-Hours Leads"
+      body: "Website inquiries come in at night or on weekends and sit there until someone notices them."
+    - icon: "fa-solid fa-list-check"
       bgColor: "rgba(99,102,241,0.1)"
       iconColor: "var(--accent-blue)"
-      title: "No Follow-Up"
-      body: "Potential customers never hear back."
+      title: "Manual Follow-Up"
+      body: "Office staff are busy, messages get buried, and quote follow-up becomes inconsistent."
     - icon: "fa-solid fa-dollar-sign"
       bgColor: "rgba(16,185,129,0.1)"
       iconColor: "var(--accent-emerald)"
-      title: "Lost Revenue"
-      body: "Every missed lead is money left on the table."
+      title: "Paid Lead Waste"
+      body: "Google Ads, LSAs, Angi, and Yelp get expensive fast when response time slips."
 
 # ─── Services Section ────────────────────────────────────────────────────────
 # Rendered in <section id="services" class="services-section">.
@@ -220,202 +215,179 @@ problem:
 #     .label             → caption below the icon (e.g. "Technology stack")
 #     .tags[]            → tech pill tags rendered as <span class="tech-tag">
 services:
-  label: "Solutions"
+  label: "Starter Offer"
   title:
-    line1: "Simple automation that"
-    line2: "makes you money"
+    line1: "What gets automated first"
+    line2: "to win more jobs"
     line3: ""
-  subtitle: "Start small. See results fast. Scale later."
+  subtitle: "Start with the fastest revenue win: quicker replies, cleaner follow-up, and a simple path to booking."
   tiers:
     # Tier 1 — rendered first (left-content / right-visual)
-    - badge: "Starter Offer"
+    - badge: "Founding Client Offer"
       badgeIcon: "fa-solid fa-bolt"
       badgeVariant: "badge-growth"
       title: "Lead Response Automation"
-      body: "Automatically respond to every lead, qualify customers, and book jobs without hiring staff."
+      body: "Automatically reply to new leads, ask a few qualifying questions, and route people to the right next step before they cool off."
       features:
-        - "Instant SMS & email replies"
-        - "Lead qualification (AI)"
-        - "Auto booking integration"
-        - "Works with your website and forms"
-        - "Simple dashboard"
+        - "Instant text and email reply"
+        - "Basic lead qualification"
+        - "Routing by service, urgency, or location"
+        - "Booking link or human handoff"
+        - "Simple owner dashboard"
       pricing:
-        value: "$1K – $3K"
-        label: "setup + monthly plan"
+        value: "$1.5K – $2.5K"
+        label: "founding-client setup + monthly from $500"
       visual:
         icon: "fa-solid fa-comments"
         iconBg: "rgba(99,102,241,0.12)"
         iconColor: "var(--accent-blue)"
-        label: "Lead automation"
+        label: "First rollout"
         tags:
-          - "SMS Automation"
+          - "Website Forms"
+          - "Missed Calls"
+          - "SMS Replies"
           - "Email Replies"
-          - "Lead Capture"
-          - "Booking Flow"
-          - "CRM Integration"
+          - "Booking Handoff"
     # Tier 2 — rendered second (right-content / left-visual, alternating)
-    - badge: "Flagship Service"
-      badgeIcon: "fa-solid fa-star"
+    - badge: "Fastest Win"
+      badgeIcon: "fa-solid fa-phone-volume"
       badgeVariant: "badge-flagship"
-      title: "Custom AI Automation Systems"
-      body: "IncidentMind designs end-to-end AI automation for the workflows that matter most to your business. That can include incident response, support operations, internal requests, knowledge workflows, and multi-step operational processes. You own the system, the logic, and the environment it runs in."
+      title: "Missed Call & After-Hours Recovery"
+      body: "When a customer calls after hours or hits voicemail, IncidentMind follows up right away instead of waiting until morning."
       features:
-        - "Workflow discovery and redesign for high-friction manual processes"
-        - "Agent-powered intake, triage, routing, summarization, and action execution"
-        - "Multi-system context aggregation across docs, tickets, alerts, chat, and internal tools"
-        - "Human-in-the-loop approvals, guardrails, and auditability"
-        - "Self-improving feedback loops so automations get better over time"
-        - "Deployment in your environment with company-owned data and controls"
+        - "Missed-call text-back"
+        - "After-hours lead capture"
+        - "Priority routing for urgent jobs"
+        - "Morning handoff queue"
+        - "Owner alerts for hot leads"
       pricing:
-        value: "Starting at $25K"
-        label: "per engagement · typically 6–12 weeks"
+        value: "From $500/mo"
+        label: "easy add-on for ad-driven businesses"
       visual:
-        icon: "fa-solid fa-bolt"
+        icon: "fa-solid fa-moon"
         iconBg: "rgba(99,102,241,0.12)"
         iconColor: "var(--accent-blue)"
-        label: "Automation building blocks"
+        label: "Response gaps closed"
         tags:
-          - "Workflow Redesign"
-          - "Agent Orchestration"
-          - "Intake & Triage"
-          - "Context Aggregation"
-          - "Human Approval Flows"
-          - "Action Execution"
-          - "Audit Trails"
-          - "Feedback Loops"
-          - "Company-Owned Deployment"
-          - "Slack & Jira"
-            # Tier 3 — rendered third (left-content / right-visual, alternating)
-    - badge: "High Growth"
-      badgeIcon: "fa-solid fa-rocket"
+          - "Missed Call Text-Back"
+          - "After-Hours"
+          - "Voicemail Recovery"
+          - "Priority Alerts"
+          - "Escalation Rules"
+    # Tier 3 — rendered third (left-content / right-visual, alternating)
+    - badge: "Conversion Boost"
+      badgeIcon: "fa-solid fa-calendar-check"
       badgeVariant: "badge-growth"
-      title: "MCP Servers & Enterprise AI Agents"
-      body: "Build secure internal AI agents that can read context, call tools, and take safe action across your systems. IncidentMind creates the integration layer that turns foundation models into useful operators for your company."
+      title: "Quote Follow-Up & Booking Automation"
+      body: "Keep estimates and warm leads moving with automatic follow-up, reminders, and a cleaner path from inquiry to booked job."
       features:
-        - "Custom MCP servers for DataDog, Confluence, GitHub, Jira, K8s, databases"
-        - "Secure sandboxed agent environments with fine-grained permissions"
-        - "RAG pipelines over internal documentation, SOPs, tickets, and codebases"
-        - "Workflow orchestration with AI-triggered actions and approvals"
-        - "Multi-agent architectures for research, triage, and execution"
-        - "Observability, logging, and safety controls for agent behavior"
-        - "Built on proven open-source MCP and automation tooling"
+        - "Quote reminder sequences"
+        - "No-reply follow-up"
+        - "Reactivation for stalled leads"
+        - "Calendar or scheduler handoff"
+        - "Human stop rules and overrides"
       pricing:
-        value: "Starting at $9K"
-        label: "per agent or server · multi-agent architectures available"
+        value: "From $750/mo"
+        label: "best after lead-response setup"
       visual:
-        icon: "fa-solid fa-robot"
+        icon: "fa-solid fa-calendar-check"
         iconBg: "rgba(139,92,246,0.12)"
         iconColor: "var(--accent-violet)"
-        label: "Agent ecosystem"
+        label: "Warm leads kept moving"
         tags:
-          - "MCP Servers"
-          - "Tool-Using Agents"
-          - "Secure Sandboxes"
-          - "Permission Controls"
-          - "Retrieval Pipelines"
-          - "Internal Knowledge"
-          - "System Integrations"
-          - "Multi-Agent Workflows"
-          - "Agent Observability"
-            # Tier 4 — rendered after the platformCards grid
-    - badge: "Core Engineering"
-      badgeIcon: "fa-solid fa-wrench"
+          - "Quote Follow-Up"
+          - "Reactivation"
+          - "SMS Sequences"
+          - "Email Nudges"
+          - "Scheduling"
+    # Tier 4 — rendered after the platformCards grid
+    - badge: "Custom Workflows"
+      badgeIcon: "fa-solid fa-gears"
       badgeVariant: "badge-core"
-      title: "Workflow & Platform Automation"
-      body: "AI agents only work when the surrounding platform is real. IncidentMind helps modernize the pipelines, integrations, environments, and observability needed to automate delivery, support, operations, and data-heavy workflows in production."
+      title: "Custom Service Business Automation"
+      body: "Once lead response is working, IncidentMind can automate the next layer: intake, dispatch handoffs, reminders, status updates, and internal follow-through."
       features:
-        - "Workflow orchestration for support ops, incident ops, and internal service requests"
-        - "CI/CD automation: parallelization, approvals, release safety, and deployment workflows"
-        - "Infrastructure automation with Terraform / CDKTF and cloud-native tooling"
-        - "Observability for automated systems: dashboards, traces, logs, and SLOs"
-        - "Developer and operator experience improvements with internal tooling"
-        - "ETL and data pipeline automation for high-volume operational data"
+        - "Multi-step intake workflows"
+        - "Customer updates and reminders"
+        - "Dispatch or office handoffs"
+        - "Custom integrations with your current tools"
+        - "Simple reporting on response time and booked work"
       pricing:
-        value: "Starting at $7K"
-        label: "assessment + project-based engagement"
+        value: "Project-based"
+        label: "built around your current process"
       visual:
-        icon: "fa-solid fa-cubes"
+        icon: "fa-solid fa-gears"
         iconBg: "rgba(16,185,129,0.12)"
         iconColor: "var(--accent-emerald)"
-        label: "Infrastructure"
+        label: "Built around your workflow"
         tags:
-          - "CI/CD Automation"
-          - "Release Workflows"
-          - "Infrastructure as Code"
-          - "Cloud Automation"
-          - "Observability Stack"
-          - "Internal Tooling"
-          - "Support Operations"
-          - "Incident Operations"
-          - "Data Pipelines"
-          - "Production Reliability"
-            # Tier 5 — rendered after the platformCards grid (offset:3 in template)
-    - badge: "Advisory"
+          - "Scheduling"
+          - "Dispatch Handoffs"
+          - "Reminders"
+          - "Status Updates"
+          - "Reporting"
+    # Tier 5 — rendered after the platformCards grid (offset:3 in template)
+    - badge: "Lead Audit"
       badgeIcon: "fa-solid fa-compass"
       badgeVariant: "badge-advisory"
-      title: "Fractional AI Automation Lead"
-      body: "For teams that need senior leadership to shape an AI automation roadmap without hiring a full-time executive. IncidentMind helps prioritize use cases, define architecture, evaluate vendors, and guide implementation toward real business outcomes."
+      title: "Founder-Led Lead Response Audit"
+      body: "If you are not sure what to automate first, start here. I review your current lead flow, show you where money is leaking, and map the fastest fix."
       features:
-        - "AI automation roadmap and opportunity prioritization"
-        - "Architecture decision records (ADRs), governance, and technical strategy"
-        - "Vendor evaluation: models, platforms, workflow tools, build vs. buy"
-        - "Team mentoring on agents, MCP, automation design, and platform readiness"
-        - "Operating model design for human approvals, ownership, and support"
-        - "Enterprise review board, security, and compliance alignment"
+        - "Lead-source review"
+        - "After-hours gap analysis"
+        - "Follow-up bottleneck audit"
+        - "Prioritized recommendations"
+        - "Optional done-for-you implementation"
       pricing:
-        value: "Starting at $8K/mo"
-        label: "10–20 hrs/week · fractional retainer"
+        value: "Free intro audit"
+        label: "30 minutes to find the fastest win"
       visual:
-        icon: "fa-solid fa-compass"
+        icon: "fa-solid fa-magnifying-glass-chart"
         iconBg: "rgba(6,182,212,0.12)"
         iconColor: "var(--accent-cyan)"
-        label: "Leadership scope"
+        label: "Start here"
         tags:
-          - "AI Roadmaps"
-          - "Use-Case Prioritization"
-          - "Architecture Strategy"
-          - "Vendor Evaluation"
-          - "Governance"
-          - "Team Mentoring"
-          - "Operating Models"
-          - "Security Review"
-          - "Compliance Alignment"
+          - "Lead Audit"
+          - "Priorities"
+          - "Roadmap"
+          - "Quick Wins"
+          - "Next Steps"
 
   # 6-card grid rendered between tier 3 and the remaining deeper services.
   # Each card is a .platform-card glass element with icon, title, body, price.
   # iconBg / iconColor → inline styles on the icon wrapper div
   # price → plain text shown in .platform-card-price div (no gradient applied)
   platformCards:
-    - icon: "fa-solid fa-ship"
+    - icon: "fa-solid fa-window-maximize"
       iconBg: "rgba(99,102,241,0.1)"
       iconColor: "var(--accent-blue)"
-      title: "Incident Response Automation"
-      body: "Auto-triage, context gathering, runbook execution, escalation routing, and postmortem drafting across your incident workflow."
-    - icon: "fa-solid fa-code-branch"
+      title: "Website Form Response"
+      body: "New form leads get an instant reply, basic qualification, and a clear next step."
+    - icon: "fa-solid fa-comment-sms"
       iconBg: "rgba(139,92,246,0.1)"
       iconColor: "var(--accent-violet)"
-      title: "Internal Tool Agents"
-      body: "Custom agents that search docs, query systems, answer operational questions, and take safe actions through MCP integrations."
-    - icon: "fa-solid fa-gauge-high"
+      title: "Missed Call Text-Back"
+      body: "If someone hits voicemail, they get a fast text instead of silence."
+    - icon: "fa-solid fa-moon"
       iconBg: "rgba(16,185,129,0.1)"
       iconColor: "var(--accent-emerald)"
-      title: "CI/CD & Release Automation"
-      body: "Pipeline orchestration, deployment approvals, release summaries, rollback workflows, and faster delivery loops."
-    - icon: "fa-solid fa-chart-line"
+      title: "After-Hours Lead Capture"
+      body: "Nights and weekends no longer mean dead time for urgent jobs."
+    - icon: "fa-solid fa-clipboard-list"
       iconBg: "rgba(6,182,212,0.1)"
       iconColor: "var(--accent-cyan)"
-      title: "Support & Ticket Automation"
-      body: "Routing, enrichment, suggested responses, escalation summaries, and knowledge retrieval for internal or customer-facing queues."
-    - icon: "fa-solid fa-laptop-code"
+      title: "Lead Qualification"
+      body: "Ask the same first questions every time so your team gets cleaner handoffs."
+    - icon: "fa-solid fa-file-invoice-dollar"
       iconBg: "rgba(245,158,11,0.1)"
       iconColor: "#f59e0b"
-      title: "Knowledge & Documentation Automation"
-      body: "RAG pipelines over SOPs, docs, tickets, and codebases that help agents retrieve the right context at the right time."
-    - icon: "fa-solid fa-database"
+      title: "Quote Follow-Up"
+      body: "Warm estimates get nudged automatically before they go cold."
+    - icon: "fa-solid fa-bell"
       iconBg: "rgba(239,68,68,0.1)"
       iconColor: "#ef4444"
-      title: "Back-Office Workflow Automation"
-      body: "Automate multi-step internal processes that span approvals, documents, systems of record, and reporting."
+      title: "Owner & Office Alerts"
+      body: "Hot leads and exceptions get surfaced fast when a human needs to step in."
 
 # ─── Approach Section ────────────────────────────────────────────────────────
 # Rendered in an anonymous <section> (no id, not linked from navbar).
@@ -423,20 +395,20 @@ services:
 # steps[].title → <h4> inside each .approach-step glass card
 # steps[].body  → <p> inside each card
 approach:
-  label: "How IncidentMind Works"
+  label: "How it works"
   title:
-    line1: "From workflow audit to"
-    line2: "production"    # wrapped in .gradient-text
-  subtitle: "No generic discovery theater. IncidentMind works directly with your team to identify the right workflow, design the automation, ship it, and operationalize it."
+    line1: "From lead leak audit to"
+    line2: "live workflow"    # wrapped in .gradient-text
+  subtitle: "No giant implementation project. We start with one high-friction response gap, launch the workflow quickly, and improve it with real lead data."
   steps:
-    - title: "Discover"
-      body: "Understand where manual work, delays, and context switching are costing your team time. Focus on the workflow, not the hype."
-    - title: "Assess"
-      body: "Map systems, permissions, approvals, and failure modes. Identify where agents, MCP, workflow orchestration, and platform changes are actually needed."
-    - title: "Build"
-      body: "Implement the automation in your environment with iterative demos, real integrations, and production-ready controls."
-    - title: "Operationalize"
-      body: "Roll out with documentation, observability, training, and ownership so the system keeps working after launch."
+    - title: "Audit"
+      body: "Review how calls, forms, and after-hours leads are handled today."
+    - title: "Map"
+      body: "Decide what gets automated, what stays human, and where the handoff happens."
+    - title: "Launch"
+      body: "Go live with a focused workflow tied to your real lead sources."
+    - title: "Improve"
+      body: "Tighten response times, follow-up, and booking flow based on what actually happens."
 
 # ─── Proof / Results Section ─────────────────────────────────────────────────
 # Rendered in <section id="proof" class="proof-section">.
@@ -462,15 +434,15 @@ approach:
 proof:
   label: "Proof"
   title:
-    line1: "Built in"
-    line2: "production"
-  subtitle: "IncidentMind is informed by real operating experience: large-scale systems, enterprise platform engineering, and AI incident automation shipped in environments where reliability matters."
+    line1: "Built by someone who"
+    line2: "ships real systems"
+  subtitle: "I'm not going to fake local client logos. What I can show you is a track record of building systems where speed, uptime, and follow-through actually mattered."
   items:
     - date: "2007 – 2015 · EAT24"
       dateColor: "var(--accent-blue)"
       timelineDotColor: "var(--accent-blue)"
-      title: "Scaled a platform from zero to $134M acquisition"
-      body: "Built the original EAT24 platform from the first line of code through scale, acquisitions, and real operational complexity. That experience informs how IncidentMind approaches resilient systems and automation today."
+      title: "Built order and ops systems where speed mattered"
+      body: "At EAT24, delayed response meant lost orders. I built the original platform from scratch and helped it grow through real operational complexity and acquisition."
       metrics:
         - value: "$700M"
           label: "Gross Revenue"
@@ -482,15 +454,15 @@ proof:
           label: "Restaurants"
           color: "var(--accent-violet)"
       highlights:
-        - "Designed and built the entire technology stack from scratch"
-        - "Grew platform to handle millions of food delivery orders"
-        - "Led architecture through two acquisitions ($134M → $287.5M)"
-        - "Managed high-availability systems with real-time order processing"
+        - "Built the technology stack that ran the business day to day"
+        - "Handled time-sensitive customer and restaurant workflows at scale"
+        - "Led the platform through two acquisitions"
+        - "Learned the difference between a demo and a system people depend on"
     - date: "2019 – Present · Fidelity Charitable"
       dateColor: "var(--accent-emerald)"
       timelineDotColor: "var(--accent-emerald)"
-      title: "Shipped AI incident automation in a regulated enterprise"
-      body: "Built cloud-first platform systems and designed an AI-powered incident workflow that reduced MTTR while integrating with real enterprise controls, infrastructure, and compliance expectations."
+      title: "Shipped automation in environments that could not be sloppy"
+      body: "At Fidelity Charitable, I built platform systems and AI-assisted incident workflows in a regulated enterprise where reliability, approvals, and clear handoffs mattered."
       metrics:
         - value: "60%"
           label: "MTTR Reduction"
@@ -502,16 +474,15 @@ proof:
           label: "Daily ETL"
           color: "var(--accent-violet)"
       highlights:
-        - "Self-improving LLM incident platform with context from DataDog, Confluence, CI/CD, K8s"
-        - "ECS → EKS migration with custom ProxySQL Helm charts for HA clustering"
-        - "ETL pipeline processing ~12GB of nonprofit data daily across 20+ DB tables"
-        - "Full-stack observability with DataDog APM, SLOs, tracing, and k6 load testing"
-        - "Navigated enterprise architecture review boards, security, and compliance"
-    - date: "Earlier · Yelp, Decisely, & More"
+        - "Built automation with real guardrails, observability, and ownership"
+        - "Integrated across docs, alerts, CI/CD, Kubernetes, and internal tools"
+        - "Worked inside security and compliance constraints"
+        - "Designed handoffs where humans stayed in control when needed"
+    - date: "20+ years · multiple industries"
       dateColor: "var(--accent-violet)"
       timelineDotColor: "var(--accent-violet)"
-      title: "Cross-industry leadership across product, platform, and operations"
-      body: "From adtech to HR-tech to food delivery, the through-line has been the same: understand the workflow, build the system, and ship software that holds up in the real world."
+      title: "Not learning on your business"
+      body: "I have spent two decades building customer-facing and operational systems across food delivery, HR tech, marketplaces, and enterprise platforms. That experience is what IncidentMind brings to a smaller, faster engagement."
       metrics:
         - value: "20+"
           label: "Years"
@@ -520,10 +491,9 @@ proof:
           label: "Industries"
           color: "var(--accent-emerald)"
       highlights:
-        - "Post-acquisition engineering at Yelp (EAT24 integration)"
-        - "HR-tech platform development at Decisely"
-        - "B2B gift card marketplace to $5M ARR at CardPool"
-        - "Enterprise solutions for media & entertainment (Autodesk, Macromedia)"
+        - "Comfortable inside messy real workflows"
+        - "Builder-first, not slide-deck-first"
+        - "Fast enough for small projects, disciplined enough for production"
 
 # ─── Competitive Positioning Section ─────────────────────────────────────────
 # Rendered in an anonymous <section> (no id, not linked from navbar).
@@ -547,35 +517,35 @@ proof:
 #   .body    → <p>
 #   .list[]  → icon + text <li> items in .position-list
 positioning:
-  label: "Why IncidentMind"
+  label: "Who this is for"
   title:
-    line1: "Built for service businesses,"
-    line2: "not AI experiments"
+    line1: "Best for HVAC and"
+    line2: "home service teams"
   quadrant:
     axes:
-      top: "Done-for-you setup"
+      top: "Done-for-you"
       bottom: "DIY or generic"
-      left: "Fits your business"
+      left: "Fits your workflow"
       right: "One-size-fits-all"
     cells:
       - label: "IncidentMind"
-        sublabel: "Lead response + booking automation"
+        sublabel: "Done-for-you lead response automation"
         highlight: true      # adds .quadrant-highlight → highlighted cell with border
       - sublabel: "DIY tools & automations"
       - sublabel: "Traditional agencies"
       - sublabel: "Generic AI chatbots"
   text:
-    heading: "Simple automation that helps you book more jobs"
-    body: "You don't need another tool that sounds impressive and creates more work. You need fast replies, consistent follow-up, and a setup that works with the tools you already use. That's what IncidentMind builds."
+    heading: "A good fit if you already pay for leads"
+    body: "IncidentMind is a strong fit when you already have inbound demand and the leak is response speed, after-hours coverage, or inconsistent follow-up. If you want a simple system that works with your current tools, this is for you."
     list:
       - icon: "fa-solid fa-screwdriver-wrench"
-        text: "HVAC and local service teams that lose leads after hours"
+        text: "HVAC and home service teams with 20+ inbound leads a month"
+      - icon: "fa-solid fa-bullhorn"
+        text: "Businesses spending on Google Ads, LSAs, Angi, Yelp, or website forms"
       - icon: "fa-solid fa-phone-volume"
-        text: "Owners who want every inquiry answered fast"
-      - icon: "fa-solid fa-calendar-check"
-        text: "Businesses that want more booked jobs from the leads they already get"
-      - icon: "fa-solid fa-chart-line"
-        text: "Teams that want simple setup and clear ROI"
+        text: "Owners who miss after-hours calls or slow callbacks"
+      - icon: "fa-solid fa-user-check"
+        text: "Teams that want done-for-you setup, not another login"
 
 # ─── Technology Stack Section ─────────────────────────────────────────────────
 # Rendered in <section id="tech" class="tech-section">.
@@ -586,71 +556,66 @@ positioning:
 #   .title → <h4> category name (icon prepended in HTML)
 #   .items[] → plain strings rendered as <span class="tech-item"> pill tags
 tech:
-  label: "Technology"
+  label: "Works with your current tools"
   title:
-    line1: "Battle-tested"
+    line1: "Fits your current"
     line2: "stack"          # wrapped in .gradient-text
-  subtitle: "Production technologies IncidentMind uses to build AI agents, MCP servers, workflow automation, and platform systems that can observe, decide, and act inside real environments."
+  subtitle: "You do not need to rip out what already works. IncidentMind connects lead sources, messaging, booking, and reporting around the workflow you already run."
   categories:
-    - icon: "fa-brands fa-aws"
-      title: "Cloud & Infrastructure"
+    - icon: "fa-solid fa-filter-circle-dollar"
+      title: "Lead Sources"
       items:
-        - "AWS EKS"
-        - "ECS"
-        - "RDS"
-        - "S3"
-        - "SQS"
-        - "Lambda"
-        - "IAM"
-        - "VPC"
-        - "Private Networking"
-        - "HA Clustering"
-    - icon: "fa-solid fa-code"
-      title: "Infrastructure as Code"
+        - "Website Forms"
+        - "Google LSAs"
+        - "Google Ads"
+        - "Angi"
+        - "Yelp"
+        - "Facebook Leads"
+    - icon: "fa-solid fa-comments"
+      title: "Customer Channels"
       items:
-        - "Terraform"
-        - "CDKTF"
-        - "Helm Charts"
-        - "Docker"
-        - "Kubernetes"
-        - "Infra Modules"
-    - icon: "fa-solid fa-arrows-spin"
-      title: "CI/CD & Delivery"
+        - "SMS"
+        - "Email"
+        - "Missed Call Text-Back"
+        - "Voicemail Handoff"
+        - "Owner Alerts"
+        - "Web Chat"
+    - icon: "fa-solid fa-calendar-days"
+      title: "Scheduling & Ops"
       items:
-        - "GitHub Actions"
-        - "Jenkins"
-        - "Concourse"
-        - "GitOps"
-        - "Blue/Green Deployments"
-        - "Release Safety"
-    - icon: "fa-solid fa-chart-area"
-      title: "Observability"
+        - "Calendly"
+        - "Google Calendar"
+        - "ServiceTitan"
+        - "Housecall Pro"
+        - "Jobber"
+        - "Office Handoffs"
+    - icon: "fa-solid fa-chart-line"
+      title: "Reporting & Alerts"
       items:
-        - "DataDog APM"
-        - "SLOs"
-        - "Distributed Tracing"
-        - "Log Correlation"
-        - "k6 Load Testing"
-        - "Custom Dashboards"
-    - icon: "fa-solid fa-brain"
-      title: "AI & Agent Systems"
+        - "Response SLA"
+        - "Lead Status"
+        - "Notifications"
+        - "Morning Queue"
+        - "Simple Reports"
+        - "Owner Dashboard"
+    - icon: "fa-solid fa-gears"
+      title: "Automation Logic"
       items:
-        - "Prompt Engineering"
-        - "RAG Pipelines"
-        - "MCP Servers"
-        - "Tool-Using Agents"
-        - "LLM Integration"
-        - "Human-in-the-Loop"
-        - "n8n Automation"
+        - "Qualification Flows"
+        - "Routing Rules"
+        - "After-Hours Logic"
+        - "Follow-Up Sequences"
+        - "Human Handoffs"
+        - "Approval Steps"
     - icon: "fa-solid fa-plug"
-      title: "Integrations & Interfaces"
+      title: "Custom Integrations"
       items:
-        - "GitHub"
-        - "Jira"
-        - "Confluence"
-        - "Slack"
-        - "REST APIs"
         - "Webhooks"
+        - "APIs"
+        - "CRMs"
+        - "Spreadsheets"
+        - "Internal Tools"
+        - "Custom Workflows"
 
 # ─── Open Source Section ──────────────────────────────────────────────────────
 # Rendered in <section id="open-source" class="oss-section">.
@@ -662,11 +627,11 @@ tech:
 #   .description → <p> project description
 #   .github      → full URL for the "View on GitHub" link (target="_blank" set in HTML)
 openSource:
-  label: "Open Source"
+  label: "Engineering proof"
   title:
-    line1: "Tools IncidentMind"
-    line2: "builds & maintains"
-  subtitle: "Open-source projects that reflect how IncidentMind builds practical AI agents, MCP tooling, RAG systems, and automations."
+    line1: "Built by someone who"
+    line2: "actually ships"
+  subtitle: "This section is here for the technical people who want proof that IncidentMind is built by a working engineer, not a slide deck."
   projects:
     - name: "kanban-lite"
       icon: "fa-solid fa-table-columns"
@@ -718,14 +683,14 @@ openSource:
 #   .href         → optional link target (tel:, mailto:, https:)
 #   .target       → optional "_blank" for external links (rel="noopener" added)
 contact:
-  label: "Get More Leads"
+  label: "Free lead audit"
   heading:
-    line1: "Want more jobs"
-    line2: "from your"
-    line2Gradient: "existing leads?"
-  body: "I'll show you exactly how many leads you're losing and how to fix it in 30 minutes. No sales pressure."
+    line1: "Want to stop losing"
+    line2: "paid leads"
+    line2Gradient: "after hours?"
+  body: "I'll review your current lead flow and show you the fastest automation win for your business. No pressure, no giant proposal, just a clear next step."
   actions:
-    - label: "Book Free Demo"
+    - label: "Book Free Lead Audit"
       href: "https://calendly.com/incidentmind"
       icon: "fa-solid fa-calendar-check"
       variant: "primary"
@@ -740,7 +705,7 @@ contact:
     - icon: "fa-solid fa-location-dot"
       text: "Raleigh-Durham, NC"
     - icon: "fa-solid fa-briefcase"
-      text: "Helping service businesses grow with AI"
+      text: "HVAC + home service lead audits"
 
 # ─── Footer ───────────────────────────────────────────────────────────────────
 # Rendered in <footer>.
