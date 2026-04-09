@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="64" height="64" rx="14" fill="#06060f"/>
+
+  <!-- Connector lines (drawn first, behind nodes) -->
+  <line x1="32" y1="32" x2="50" y2="14" stroke="url(#grad)" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="32" y1="32" x2="14" y2="50" stroke="url(#grad)" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="50" y1="14" x2="14" y2="50" stroke="url(#grad)" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Lightning tick at midpoint of center→top-right (41,23) -->
+  <polyline points="39,22 41,20 42,23 44,21" stroke="url(#grad2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Lightning tick at midpoint of center→bottom-left (23,41) -->
+  <polyline points="21,40 23,38 24,41 26,39" stroke="url(#grad2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Lightning tick at midpoint of top-right→bottom-left (32,32) offset slightly -->
+  <polyline points="30,29 32,27 33,30 35,28" stroke="url(#grad2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Spark arc near top-right node -->
+  <path d="M 53,10 Q 56,13 53,17" stroke="url(#grad2)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Spark arc near bottom-left node -->
+  <path d="M 10,46 Q 7,50 11,54" stroke="url(#grad2)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Nodes (drawn on top) -->
+  <circle cx="50" cy="14" r="7" fill="url(#grad)"/>
+  <circle cx="14" cy="50" r="7" fill="url(#grad)"/>
+  <circle cx="32" cy="32" r="10" fill="url(#grad)"/>
+</svg>

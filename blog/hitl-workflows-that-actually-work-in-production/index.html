@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3 Human-in-the-Loop Workflows That Actually Work in Production — IncidentMind Blog</title>
+  <meta name="description" content="Three production-ready HITL patterns for content approval, incident response, and support escalation, complete with card structures, form schemas, and webhook flows.">
+  <link rel="canonical" href="https://incidentmind.com/blog/hitl-workflows-that-actually-work-in-production/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="icon" href="/img/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="/img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/img/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5T494JN5');</script>
+<!-- End Google Tag Manager -->
+
+
+</head>
+<body>
+  
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5T494JN5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="aurora" aria-hidden="true">
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+  </div>
+
+  <nav class="navbar scrolled" role="navigation" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <a href="/" class="nav-logo" aria-label="IncidentMind home">
+        <div class="nav-logo-icon"><img src="/img/icon.svg" alt="IncidentMind icon" width="40" height="40" style="display:block;"></div>
+        <span class="nav-logo-text">IncidentMind</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <ul class="nav-links">
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/#services">Solutions</a></li>
+        <li><a href="/#open-source">Open Source</a></li>
+        <li><a href="/#contact" class="nav-cta">Talk to IncidentMind</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main-content" class="blog-page">
+    <section class="blog-post-hero">
+      <div class="container blog-post-hero-inner">
+        <a href="/blog/" class="blog-breadcrumb"><i class="fa-solid fa-arrow-left"></i> Back to blog</a>
+        <div class="section-label">IncidentMind Blog</div>
+        <h1>3 Human-in-the-Loop Workflows That Actually Work in Production</h1>
+        <p class="blog-post-subtitle">Three production-ready HITL patterns for content approval, incident response, and support escalation, complete with card structures, form schemas, and webhook flows.</p>
+        <div class="blog-meta">
+          <span class="blog-meta-pill">The Human Layer in AI Agent Systems</span>
+          <span class="blog-meta-pill">Part 3</span>
+          <span class="blog-meta-pill">Mar 30, 2026</span>
+          <span class="blog-meta-pill">10 min read</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="blog-post-section">
+      <div class="container">
+        <article class="blog-post-article glass article-prose">
+          <p><em>Content approval, incident management, and support escalation — complete with card structures, form schemas, and the webhook flows that close the loop.</em></p>
+<hr>
+<p><em>This is Part 3 of a 3-part series on building the human layer in AI agent systems. <a href="/blog/ai-agent-human-control-surface/">← Part 1: The Problem</a> · <a href="/blog/how-to-wire-human-layer-into-ai-agent-pipeline/">← Part 2: How to Wire It</a></em></p>
+<hr>
+<h2>TL;DR</h2>
+<ul>
+<li>Three production-ready human-in-the-loop patterns, each using a different combination of kanban-lite capabilities.</li>
+<li>Every workflow includes the board layout, card YAML, form schemas, webhook events, and the orchestrator logic.</li>
+<li>Copy the <code>.kanban.json</code> snippets and adapt them to your stack.</li>
+</ul>
+<hr>
+<p><a href="/blog/ai-agent-human-control-surface/">Part 1</a> explained why agent pipelines need a shared human surface. <a href="/blog/how-to-wire-human-layer-into-ai-agent-pipeline/">Part 2</a> covered the integration wiring. This article puts it all together with three real workflows.</p>
+<p>Each one is designed to be copied and adapted, not treated as abstract theory.</p>
+<hr>
+<h2>Workflow 1: AI Content Pipeline with Editorial Approval</h2>
+<p><strong>The scenario</strong>: Agents generate draft articles. Humans review, request revisions, and approve for publishing. Marketing leadership wants queue visibility without understanding the orchestrator.</p>
+<h3>Workflow 1 Board Layout</h3>
+<pre><code class="language-text">Backlog → Writing → Review → Approved → Published
+</code></pre>
+<p>Minimize <code>Backlog</code> and <code>Published</code> in practice — the active queue is <code>Writing → Review → Approved</code>.</p>
+<h3>Workflow 1 Card Structure</h3>
+<pre><code class="language-yaml">---
+id: q3-launch-blog-2026-03-19
+status: review
+priority: high
+assignee: maya
+dueDate: 2026-03-25
+labels: [&quot;marketing&quot;, &quot;agent-generated&quot;, &quot;q3-launch&quot;]
+actions:
+  retry-draft: &quot;Retry with different tone&quot;
+  approve: &quot;Approve for Publishing&quot;
+forms:
+  - name: editorial-review
+---
+
+# Q3 Launch Blog Post
+
+Research phase identified 14 sources on developer productivity trends.
+Writer agent produced first draft (attached as `draft-v1.md`).
+
+**Word count**: 1,840
+**Target audience**: Engineering managers
+**Key message**: Platform reduces onboarding time by 40%
+</code></pre>
+<h3>Workflow 1 Form Schema</h3>
+<pre><code class="language-json">{
+  &quot;forms&quot;: {
+    &quot;editorial-review&quot;: {
+      &quot;schema&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;title&quot;: &quot;Editorial Review&quot;,
+        &quot;required&quot;: [&quot;tone&quot;, &quot;factCheck&quot;, &quot;verdict&quot;],
+        &quot;properties&quot;: {
+          &quot;tone&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [&quot;on-brand&quot;, &quot;too-corporate&quot;, &quot;too-casual&quot;, &quot;needs-rewrite&quot;]
+          },
+          &quot;factCheck&quot;: { &quot;type&quot;: &quot;boolean&quot;, &quot;title&quot;: &quot;Facts verified?&quot; },
+          &quot;verdict&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [&quot;approve&quot;, &quot;revise&quot;, &quot;reject&quot;]
+          },
+          &quot;revisionNotes&quot;: { &quot;type&quot;: &quot;string&quot;, &quot;title&quot;: &quot;Notes for revision&quot; }
+        }
+      }
+    }
+  }
+}
+</code></pre>
+<h3>Workflow 1 Flow</h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Actor</th>
+<th>Action</th>
+<th>Signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Planner agent</td>
+<td>Creates card in <code>backlog</code> via MCP</td>
+<td><code>task.created</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Research agent</td>
+<td>Adds log: &quot;Collected 14 sources&quot;, attaches notes</td>
+<td><code>attachment.added</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Writer agent</td>
+<td>Uploads draft, moves card to <code>review</code></td>
+<td><code>task.moved</code> → status: review</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Editor (human)</td>
+<td>Opens card, reads draft, submits editorial-review form</td>
+<td><code>form.submit</code></td>
+</tr>
+<tr>
+<td>5a</td>
+<td><em>If verdict = &quot;revise&quot;</em></td>
+<td>Editor clicks <code>retry-draft</code></td>
+<td>Action webhook with revision notes</td>
+</tr>
+<tr>
+<td>5b</td>
+<td><em>If verdict = &quot;approve&quot;</em></td>
+<td>Editor clicks <code>approve</code></td>
+<td>Action webhook → agent moves to <code>approved</code></td>
+</tr>
+<tr>
+<td>6</td>
+<td>Publishing agent</td>
+<td>Publishes, moves card to <code>published</code>, updates actions to <code>create-social-assets</code></td>
+<td><code>task.moved</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>What makes this work</strong>: The editor never leaves the card. Draft, sources, discussion, structured review, and approval all live in one place. Marketing leadership opens the board and sees how many items are in <code>Review</code> without asking anyone.</p>
+<h3>Workflow 1 Dynamic Actions</h3>
+<p>The orchestrator updates card actions as the card moves through stages:</p>
+<pre><code class="language-typescript">// After approval — replace review actions with publishing actions
+await sdk.updateCard(cardId, {
+  actions: {
+    'publish-now': 'Publish Immediately',
+    'schedule': 'Schedule for Tomorrow'
+  }
+});
+
+// After publishing — add follow-up action
+await sdk.updateCard(cardId, {
+  actions: {
+    'create-social-assets': 'Generate Social Media Posts'
+  }
+});
+</code></pre>
+<hr>
+<h2>Workflow 2: Incident Management with Structured Intake</h2>
+<p><strong>The scenario</strong>: An AI agent detects anomalies and opens incident cards. On-call engineers triage with a structured form. Resolution steps are logged, and a post-mortem form captures the outcome.</p>
+<h3>Workflow 2 Board Layout</h3>
+<pre><code class="language-text">Detected → Triaging → Mitigating → Resolved → Post-Mortem Done
+</code></pre>
+<h3>Workflow 2 Card Structure</h3>
+<pre><code class="language-yaml">---
+id: incident-api-latency-2026-03-20
+status: triaging
+priority: critical
+assignee: on-call
+labels: [&quot;incident&quot;, &quot;api&quot;, &quot;auto-detected&quot;]
+actions:
+  escalate-eng: &quot;Escalate to Engineering Lead&quot;
+  mark-mitigated: &quot;Mark as Mitigated&quot;
+forms:
+  - name: incident-triage
+  - name: post-mortem
+    data:
+      detectedAt: &quot;${created}&quot;
+      service: &quot;${metadata.service}&quot;
+---
+
+# API Latency Spike — P99 &gt; 2s
+
+Anomaly detection agent flagged sustained P99 latency above 2 seconds
+on the `/api/tasks` endpoint starting at 14:22 UTC.
+
+**Affected service**: task-api
+**Region**: us-east-1
+**Duration so far**: 18 minutes
+</code></pre>
+<h3>Workflow 2 Form Schemas</h3>
+<pre><code class="language-json">{
+  &quot;forms&quot;: {
+    &quot;incident-triage&quot;: {
+      &quot;schema&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;title&quot;: &quot;Incident Triage&quot;,
+        &quot;required&quot;: [&quot;severity&quot;, &quot;category&quot;, &quot;customerImpact&quot;],
+        &quot;properties&quot;: {
+          &quot;severity&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [&quot;SEV1&quot;, &quot;SEV2&quot;, &quot;SEV3&quot;, &quot;SEV4&quot;]
+          },
+          &quot;category&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [&quot;infrastructure&quot;, &quot;application&quot;, &quot;data&quot;, &quot;security&quot;, &quot;third-party&quot;]
+          },
+          &quot;customerImpact&quot;: { &quot;type&quot;: &quot;boolean&quot; },
+          &quot;estimatedResolution&quot;: { &quot;type&quot;: &quot;string&quot;, &quot;title&quot;: &quot;ETA&quot; },
+          &quot;initialAssessment&quot;: { &quot;type&quot;: &quot;string&quot; }
+        }
+      }
+    },
+    &quot;post-mortem&quot;: {
+      &quot;schema&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;title&quot;: &quot;Post-Mortem&quot;,
+        &quot;required&quot;: [&quot;rootCause&quot;, &quot;actionItems&quot;],
+        &quot;properties&quot;: {
+          &quot;detectedAt&quot;: { &quot;type&quot;: &quot;string&quot;, &quot;readOnly&quot;: true },
+          &quot;service&quot;: { &quot;type&quot;: &quot;string&quot;, &quot;readOnly&quot;: true },
+          &quot;rootCause&quot;: { &quot;type&quot;: &quot;string&quot; },
+          &quot;timeline&quot;: { &quot;type&quot;: &quot;string&quot;, &quot;title&quot;: &quot;Timeline summary&quot; },
+          &quot;actionItems&quot;: { &quot;type&quot;: &quot;string&quot;, &quot;title&quot;: &quot;Follow-up action items&quot; },
+          &quot;preventable&quot;: { &quot;type&quot;: &quot;boolean&quot;, &quot;title&quot;: &quot;Could this have been prevented?&quot; }
+        }
+      }
+    }
+  }
+}
+</code></pre>
+<h3>Workflow 2 Flow</h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Actor</th>
+<th>Action</th>
+<th>Signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Detection agent</td>
+<td>Creates card in <code>detected</code>, attaches metrics snapshot</td>
+<td><code>task.created</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>On-call (human)</td>
+<td>Moves to <code>triaging</code>, submits incident-triage form</td>
+<td><code>form.submit</code> → severity, category</td>
+</tr>
+<tr>
+<td>3</td>
+<td>On-call</td>
+<td>Adds comment: &quot;Scaling API pods from 3→8&quot;</td>
+<td><code>comment.created</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Mitigation agent</td>
+<td>Adds log: &quot;Auto-scaled to 8 pods, latency dropping&quot;</td>
+<td>Background event</td>
+</tr>
+<tr>
+<td>5</td>
+<td>On-call</td>
+<td>Clicks <code>mark-mitigated</code></td>
+<td>Action webhook</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Orchestrator</td>
+<td>Moves card to <code>resolved</code>, updates actions to <code>write-post-mortem</code></td>
+<td><code>task.moved</code></td>
+</tr>
+<tr>
+<td>7</td>
+<td>On-call</td>
+<td>Submits post-mortem form</td>
+<td><code>form.submit</code> → root cause, action items</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Orchestrator</td>
+<td>Moves to <code>post-mortem-done</code>, creates follow-up cards from action items</td>
+<td><code>task.created</code> (new cards)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What makes this work</strong>: The triage form produces a <strong>validated payload</strong> the system can act on — not a free-text comment that someone parses later. The <code>${created}</code> and <code>${metadata.service}</code> placeholders in the post-mortem form pre-fill context automatically.</p>
+<h3>Workflow 2 Automated Log Trail</h3>
+<p>Throughout the incident, agents and automations add structured logs:</p>
+<pre><code class="language-bash">kl log add incident-api-latency-2026-03-20 \
+  --text &quot;P99 latency returned to normal (180ms)&quot; \
+  --source monitoring \
+  --object '{&quot;p99_ms&quot;: 180, &quot;pod_count&quot;: 8}'
+</code></pre>
+<p>Every step is timestamped and visible on the card's Logs tab — a built-in audit trail without a separate logging system.</p>
+<hr>
+<h2>Workflow 3: Support Escalation with Agent-Drafted Replies</h2>
+<p><strong>The scenario</strong>: An AI agent summarizes customer issues, drafts replies, and collects related context. A support lead reviews and decides: send, edit, or escalate. Legal review is required for refund-related cases.</p>
+<h3>Workflow 3 Board Layout</h3>
+<pre><code class="language-text">New → Investigating → Draft Ready → Sending → Closed
+</code></pre>
+<h3>Workflow 3 Card Structure</h3>
+<pre><code class="language-yaml">---
+id: support-refund-dispute-2026-03-20
+status: draft-ready
+priority: high
+assignee: support-lead
+labels: [&quot;support&quot;, &quot;refund&quot;, &quot;agent-drafted&quot;]
+actions:
+  send-reply: &quot;Send to Customer&quot;
+  request-legal: &quot;Request Legal Review&quot;
+  redraft: &quot;Ask Agent to Redraft&quot;
+forms:
+  - name: escalation-review
+---
+
+# Refund Dispute — Order #8847
+
+Customer reports unauthorized charge of $299. Account shows
+single-use promo code applied correctly. Payment gateway confirms
+charge was authorized via 3D Secure.
+
+## Agent-Drafted Reply
+
+&gt; Hi [Customer Name],
+&gt;
+&gt; Thank you for reaching out. I've reviewed your order #8847 and can
+&gt; confirm the charge was processed with 3D Secure authentication.
+&gt; The promotional discount was applied as expected.
+&gt;
+&gt; I'd be happy to walk through the transaction details with you.
+&gt; Would you prefer a call or a detailed email breakdown?
+
+**Confidence**: 0.82
+**Related tickets**: #8801, #8823 (similar disputes, resolved)
+</code></pre>
+<h3>Workflow 3 Form Schema</h3>
+<pre><code class="language-json">{
+  &quot;forms&quot;: {
+    &quot;escalation-review&quot;: {
+      &quot;schema&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;title&quot;: &quot;Escalation Review&quot;,
+        &quot;required&quot;: [&quot;replyApproved&quot;, &quot;refundRisk&quot;],
+        &quot;properties&quot;: {
+          &quot;replyApproved&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [&quot;approved&quot;, &quot;needs-edit&quot;, &quot;rejected&quot;]
+          },
+          &quot;refundRisk&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [&quot;none&quot;, &quot;low&quot;, &quot;medium&quot;, &quot;high&quot;]
+          },
+          &quot;legalReviewRequired&quot;: { &quot;type&quot;: &quot;boolean&quot; },
+          &quot;editInstructions&quot;: { &quot;type&quot;: &quot;string&quot;, &quot;title&quot;: &quot;Instructions for redraft&quot; },
+          &quot;internalNotes&quot;: { &quot;type&quot;: &quot;string&quot; }
+        }
+      }
+    }
+  }
+}
+</code></pre>
+<h3>Workflow 3 Flow</h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Actor</th>
+<th>Action</th>
+<th>Signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Intake agent</td>
+<td>Creates card in <code>new</code>, adds summary and related tickets</td>
+<td><code>task.created</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Research agent</td>
+<td>Attaches payment trace, adds log with confidence score</td>
+<td><code>attachment.added</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Writer agent</td>
+<td>Drafts reply in card body, moves to <code>draft-ready</code></td>
+<td><code>task.moved</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Support lead</td>
+<td>Reviews draft, submits escalation-review form</td>
+<td><code>form.submit</code></td>
+</tr>
+<tr>
+<td>5a</td>
+<td><em>If legalReviewRequired</em></td>
+<td>Lead clicks <code>request-legal</code></td>
+<td>Action webhook → orchestrator adds <code>legal-review</code> label, notifies legal</td>
+</tr>
+<tr>
+<td>5b</td>
+<td><em>If replyApproved = &quot;approved&quot;</em></td>
+<td>Lead clicks <code>send-reply</code></td>
+<td>Action webhook → send agent dispatches reply</td>
+</tr>
+<tr>
+<td>5c</td>
+<td><em>If replyApproved = &quot;needs-edit&quot;</em></td>
+<td>Lead clicks <code>redraft</code></td>
+<td>Action webhook → writer agent re-drafts with <code>editInstructions</code> from form</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Send agent</td>
+<td>Dispatches reply, moves card to <code>closed</code>, adds log</td>
+<td><code>task.moved</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>What makes this work</strong>: The support lead's decision is captured in a <strong>structured form</strong>, not a Slack thread. The orchestrator knows the refund risk level, whether legal review is needed, and the exact edit instructions — all as typed, validated fields.</p>
+<hr>
+<h2>Pattern Summary</h2>
+<p>All three workflows share the same architecture:</p>
+<pre><code class="language-text">Agent creates/updates card
+    ↓
+Human reviews on the board
+    ↓
+Human acts (form submit / action click / move card)
+    ↓
+Webhook carries signal to orchestrator
+    ↓
+Orchestrator reacts (next agent step / update card / close loop)
+</code></pre>
+<p>The differences are in the <strong>form schemas</strong> and <strong>action definitions</strong>, not in the plumbing.</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th style="text-align:center">Content Pipeline</th>
+<th style="text-align:center">Incidents</th>
+<th style="text-align:center">Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Card actions</td>
+<td style="text-align:center">✓</td>
+<td style="text-align:center">✓</td>
+<td style="text-align:center">✓</td>
+</tr>
+<tr>
+<td>Dynamic action updates</td>
+<td style="text-align:center">✓</td>
+<td style="text-align:center">✓</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>Structured forms</td>
+<td style="text-align:center">✓</td>
+<td style="text-align:center">✓✓</td>
+<td style="text-align:center">✓</td>
+</tr>
+<tr>
+<td>Placeholder interpolation</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">✓</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>Agent-drafted content</td>
+<td style="text-align:center">✓</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">✓</td>
+</tr>
+<tr>
+<td>Structured logs</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">✓</td>
+<td style="text-align:center">✓</td>
+</tr>
+<tr>
+<td>Multi-form per card</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">✓</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>File attachments</td>
+<td style="text-align:center">✓</td>
+<td style="text-align:center">✓</td>
+<td style="text-align:center">✓</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3>Getting Started</h3>
+<p>Pick one workflow, adapt the schemas to your domain, and wire the two webhook endpoints (<a href="/blog/how-to-wire-human-layer-into-ai-agent-pipeline/">Part 2</a> has the setup). The initial investment is small:</p>
+<pre><code class="language-bash">npm install -g kanban-lite
+kl init
+kl serve
+
+# Register your orchestrator
+kl webhooks add --url https://your-app.example.com/events \
+  --events task.moved,form.submit,comment.created
+</code></pre>
+<p>In <code>.kanban.json</code>, add your action endpoint and form definitions:</p>
+<pre><code class="language-json">{
+  &quot;actionWebhookUrl&quot;: &quot;https://your-app.example.com/card-actions&quot;,
+  &quot;forms&quot;: {
+    &quot;your-review-form&quot;: {
+      &quot;schema&quot;: { &quot;...&quot; }
+    }
+  }
+}
+</code></pre>
+<p>For AI agents, add the board skill in one command:</p>
+<pre><code class="language-bash">npx skills add https://github.com/borgius/kanban-lite
+</code></pre>
+<hr>
+<h3>The Series at a Glance</h3>
+<ol>
+<li><strong><a href="/blog/ai-agent-human-control-surface/">Part 1: Your AI Agent Pipeline Needs a Human Control Surface</a></strong> — the problem and the idea.</li>
+<li><strong><a href="/blog/how-to-wire-human-layer-into-ai-agent-pipeline/">Part 2: How to Wire a Human Layer Into Any AI Agent Pipeline</a></strong> — the integration surfaces and signal types.</li>
+<li><strong>Part 3 (this article)</strong> — three production-ready workflows you can copy and adapt.</li>
+</ol>
+<p>The board is open source, MIT-licensed, and built for teams that need humans and agents working on the same surface.</p>
+<p>These are the same patterns I implement when building custom AI automation at <a href="https://incidentmind.com">IncidentMind</a>. The incident workflow in particular comes from real experience — I built an AI-powered incident response platform at Fidelity that automated detection, classification, context gathering, and LLM-assisted root-cause analysis. The human layer was always the hardest part to get right. If you're designing HITL workflows for your team and want to talk architecture, reach out — I enjoy this kind of problem.</p>
+<hr>
+<p><em>Viktor Burdyey builds AI automation systems at <a href="https://incidentmind.com">IncidentMind</a> — custom agents, MCP servers, and workflow systems for teams that need secure, company-owned automation. Previously CTO at EAT24 (acquired by Yelp for $134M) and Senior Platform Engineer at Fidelity, where he built an AI-powered incident response platform. Open to senior/staff engineering roles and consulting engagements. <a href="https://www.linkedin.com/in/burdyey">LinkedIn</a> · <a href="https://github.com/borgius">GitHub</a></em></p>
+<p>🔗 <a href="https://github.com/borgius/kanban-lite">kanban-lite on GitHub</a> · <a href="https://www.npmjs.com/package/kanban-lite/">npm</a> · <a href="https://borgius.github.io/kanban-lite/">Documentation</a> · MIT License</p>
+
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-copy">© 2026 IncidentMind LLC. All rights reserved.</div>
+        <div class="footer-links">
+          <a href="https://github.com/borgius" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/company/incidentmind" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="https://x.com/IncidentMind" target="_blank" rel="noopener" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

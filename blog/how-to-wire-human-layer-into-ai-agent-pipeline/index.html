@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Wire a Human Layer Into Any AI Agent Pipeline — IncidentMind Blog</title>
+  <meta name="description" content="A practical integration guide for connecting kanban-lite to your agent stack with MCP, webhooks, forms, n8n, the CLI, REST API, and the SDK.">
+  <link rel="canonical" href="https://incidentmind.com/blog/how-to-wire-human-layer-into-ai-agent-pipeline/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="icon" href="/img/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="/img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/img/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5T494JN5');</script>
+<!-- End Google Tag Manager -->
+
+
+</head>
+<body>
+  
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5T494JN5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="aurora" aria-hidden="true">
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+  </div>
+
+  <nav class="navbar scrolled" role="navigation" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <a href="/" class="nav-logo" aria-label="IncidentMind home">
+        <div class="nav-logo-icon"><img src="/img/icon.svg" alt="IncidentMind icon" width="40" height="40" style="display:block;"></div>
+        <span class="nav-logo-text">IncidentMind</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <ul class="nav-links">
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/#services">Solutions</a></li>
+        <li><a href="/#open-source">Open Source</a></li>
+        <li><a href="/#contact" class="nav-cta">Talk to IncidentMind</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main-content" class="blog-page">
+    <section class="blog-post-hero">
+      <div class="container blog-post-hero-inner">
+        <a href="/blog/" class="blog-breadcrumb"><i class="fa-solid fa-arrow-left"></i> Back to blog</a>
+        <div class="section-label">IncidentMind Blog</div>
+        <h1>How to Wire a Human Layer Into Any AI Agent Pipeline</h1>
+        <p class="blog-post-subtitle">A practical integration guide for connecting kanban-lite to your agent stack with MCP, webhooks, forms, n8n, the CLI, REST API, and the SDK.</p>
+        <div class="blog-meta">
+          <span class="blog-meta-pill">The Human Layer in AI Agent Systems</span>
+          <span class="blog-meta-pill">Part 2</span>
+          <span class="blog-meta-pill">Mar 27, 2026</span>
+          <span class="blog-meta-pill">9 min read</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="blog-post-section">
+      <div class="container">
+        <article class="blog-post-article glass article-prose">
+          <p><em>A practical integration guide: MCP tools, webhooks, forms, CLI, n8n, and the SDK — everything you need to connect kanban-lite to your agent stack.</em></p>
+<hr>
+<p><em>This is Part 2 of a 3-part series on building the human layer in AI agent systems. <a href="/blog/ai-agent-human-control-surface/">← Part 1: The Problem</a> · <a href="/blog/hitl-workflows-that-actually-work-in-production/">Part 3: Real Workflows →</a></em></p>
+<hr>
+<h2>TL;DR</h2>
+<ul>
+<li>kanban-lite exposes the same board through <strong>six interfaces</strong>: Web UI, VS Code, CLI, REST API, TypeScript SDK, and MCP server. A dedicated n8n node covers the same surface.</li>
+<li><strong>Mutation webhooks</strong> react to state changes. <strong>Action webhooks</strong> react to explicit human commands. <strong><code>form.submit</code> events</strong> carry validated structured data.</li>
+<li>Setup takes five commands. Connecting your orchestrator takes two webhook URLs.</li>
+</ul>
+<hr>
+<p><a href="/blog/ai-agent-human-control-surface/">Part 1</a> covered <em>why</em> agent pipelines need a shared human control surface. This article covers <em>how</em> to wire one up.</p>
+<p>The goal: your orchestrator creates and updates cards, humans interact through the board, and webhook events close the loop back to automation. Let's walk through the integration surfaces, signal types, and the practical wiring.</p>
+<hr>
+<h3>Six Ways In, Same Board</h3>
+<p>Every interface reads and writes the same underlying board. Pick whichever fits each part of your system:</p>
+<table>
+<thead>
+<tr>
+<th>Interface</th>
+<th>Best For</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TypeScript SDK</strong></td>
+<td>In-process agent code, custom backends</td>
+<td><code>sdk.createCard({ title, priority, forms })</code></td>
+</tr>
+<tr>
+<td><strong>REST API</strong></td>
+<td>Microservices, remote agents, any language</td>
+<td><code>POST /api/tasks</code> with JSON body</td>
+</tr>
+<tr>
+<td><strong>CLI</strong></td>
+<td>Scripts, CI/CD pipelines, shell automation</td>
+<td><code>kl add --title &quot;Deploy v2&quot; --actions &quot;retry,rollback&quot;</code></td>
+</tr>
+<tr>
+<td><strong>MCP Server</strong></td>
+<td>LLM agents (Claude, GPT, Codex)</td>
+<td><code>create_card</code>, <code>move_card</code>, <code>add_comment</code> tools</td>
+</tr>
+<tr>
+<td><strong>n8n Node</strong></td>
+<td>Visual automation, no-code workflows</td>
+<td>Kanban Lite node + Kanban Lite Trigger</td>
+</tr>
+<tr>
+<td><strong>Web UI / VS Code</strong></td>
+<td>Humans browsing, reviewing, acting</td>
+<td>Drag-and-drop, comment, click actions</td>
+</tr>
+</tbody>
+</table>
+<p>The MCP server deserves extra attention if you're building AI agent workflows. It runs over stdio transport and exposes 40+ tools that map directly to SDK methods. Any MCP-compatible agent can manage the board natively.</p>
+<p>For teams using Claude Code, Codex, or OpenCode, there's a one-liner:</p>
+<pre><code class="language-bash">npx skills add https://github.com/borgius/kanban-lite
+</code></pre>
+<p>That installs the kanban skill via <a href="https://skills.sh">skills.sh</a>, giving the agent full board context and the ability to create, update, move, and comment on cards from the terminal.</p>
+<hr>
+<h3>Setting Up in Five Commands</h3>
+<pre><code class="language-bash"># Install
+npm install -g kanban-lite
+
+# Initialize a board
+kl init
+
+# Start the server (web UI + REST API + WebSocket)
+kl serve
+
+# Register a webhook for state-change events
+kl webhooks add --url https://your-pipeline.example.com/events \
+  --events task.moved,task.created,comment.created,attachment.added,form.submit
+
+# Start the MCP server for AI agents
+kl mcp
+</code></pre>
+<p>That gives you a running board at <code>http://localhost:3000</code>, a REST API at <code>/api</code>, live WebSocket sync, webhook delivery, and an MCP endpoint your agents can connect to.</p>
+<p><img src="https://raw.githubusercontent.com/borgius/kanban-lite/main/docs/images/settings-panel.png" alt="Settings panel — configure webhooks, columns, and board behavior"></p>
+<hr>
+<h3>Three Signal Types Your Orchestrator Should Handle</h3>
+<p>This is the key architectural decision. kanban-lite emits three distinct signal types, and your webhook handler should treat them differently.</p>
+<h4>1. Mutation events — ambient state changes</h4>
+<p>Fired when anything changes: card created, moved, updated, deleted; comment added; attachment uploaded.</p>
+<pre><code class="language-json">{
+  &quot;event&quot;: &quot;task.moved&quot;,
+  &quot;timestamp&quot;: &quot;2026-03-19T14:32:00.000Z&quot;,
+  &quot;data&quot;: {
+    &quot;id&quot;: &quot;blog-post-q3-launch&quot;,
+    &quot;status&quot;: &quot;review&quot;,
+    &quot;previousStatus&quot;: &quot;in-progress&quot;,
+    &quot;assignee&quot;: &quot;maya&quot;
+  }
+}
+</code></pre>
+<p><strong>Use for</strong>: triggering downstream automations, syncing external systems, updating dashboards.</p>
+<p>Register these with <code>kl webhooks add</code> or the REST API. You can subscribe to specific events or <code>*</code> for all.</p>
+<h4>2. Action events — explicit human commands</h4>
+<p>Fired when a human (or agent) clicks a named action button on a card or triggers a board-level action.</p>
+<p>Configure the global action endpoint in <code>.kanban.json</code>:</p>
+<pre><code class="language-json">{
+  &quot;actionWebhookUrl&quot;: &quot;https://your-pipeline.example.com/card-actions&quot;
+}
+</code></pre>
+<p>The payload includes the action key, the full card context, and who triggered it:</p>
+<pre><code class="language-json">{
+  &quot;event&quot;: &quot;board.action&quot;,
+  &quot;data&quot;: {
+    &quot;action&quot;: &quot;approve-publish&quot;,
+    &quot;card&quot;: {
+      &quot;id&quot;: &quot;blog-post-q3-launch&quot;,
+      &quot;status&quot;: &quot;review&quot;,
+      &quot;assignee&quot;: &quot;maya&quot;,
+      &quot;formData&quot;: { &quot;editorial-review&quot;: { &quot;tone&quot;: &quot;approved&quot;, &quot;notes&quot;: &quot;Good to go&quot; } }
+    }
+  }
+}
+</code></pre>
+<p><strong>Use for</strong>: explicit commands that should trigger specific orchestrator behaviors — approve, reject, retry, escalate, deploy.</p>
+<p>Actions can be updated dynamically as a card moves through stages. While a card is in <code>review</code>, expose <code>retry-draft</code> and <code>approve-publish</code>. After approval, replace them with <code>publish-now</code>. After publishing, add <code>create-social-assets</code>. Your orchestrator can update actions via SDK, API, CLI, or MCP.</p>
+<hr>
+<h3>Configuring Forms</h3>
+<p>Forms are defined in <code>.kanban.json</code> and attached to cards by name:</p>
+<pre><code class="language-json">{
+  &quot;forms&quot;: {
+    &quot;qa-signoff&quot;: {
+      &quot;schema&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;title&quot;: &quot;QA Sign-off&quot;,
+        &quot;required&quot;: [&quot;owner&quot;, &quot;result&quot;],
+        &quot;properties&quot;: {
+          &quot;owner&quot;: { &quot;type&quot;: &quot;string&quot; },
+          &quot;result&quot;: { &quot;type&quot;: &quot;string&quot;, &quot;enum&quot;: [&quot;pass&quot;, &quot;fail&quot;, &quot;blocked&quot;] },
+          &quot;notes&quot;: { &quot;type&quot;: &quot;string&quot; }
+        }
+      }
+    },
+    &quot;editorial-review&quot;: {
+      &quot;schema&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;title&quot;: &quot;Editorial Review&quot;,
+        &quot;required&quot;: [&quot;tone&quot;, &quot;factCheck&quot;],
+        &quot;properties&quot;: {
+          &quot;tone&quot;: { &quot;type&quot;: &quot;string&quot;, &quot;enum&quot;: [&quot;approved&quot;, &quot;needs-work&quot;, &quot;rejected&quot;] },
+          &quot;factCheck&quot;: { &quot;type&quot;: &quot;boolean&quot; },
+          &quot;notes&quot;: { &quot;type&quot;: &quot;string&quot; }
+        }
+      }
+    }
+  }
+}
+</code></pre>
+<p>Attach forms when creating a card:</p>
+<pre><code class="language-bash"># CLI
+kl add --title &quot;Review article&quot; --forms '[&quot;editorial-review&quot;, &quot;qa-signoff&quot;]'
+</code></pre>
+<pre><code class="language-typescript">// SDK
+await sdk.createCard({
+  title: 'Review article',
+  forms: [{ name: 'editorial-review' }, { name: 'qa-signoff' }]
+});
+</code></pre>
+<pre><code class="language-json">// REST API — POST /api/tasks
+{
+  &quot;title&quot;: &quot;Review article&quot;,
+  &quot;forms&quot;: [{ &quot;name&quot;: &quot;editorial-review&quot; }, { &quot;name&quot;: &quot;qa-signoff&quot; }]
+}
+</code></pre>
+<p>Each form renders as its own tab in the card detail panel. Submitted data persists under <code>formData[formId]</code>, so multiple forms on one card don't collide.</p>
+<p><img src="https://raw.githubusercontent.com/borgius/kanban-lite/main/docs/images/card-detail.png" alt="Card detail — markdown, comments, logs, and form tabs in one view"></p>
+<hr>
+<h3>n8n Integration: Visual Wiring</h3>
+<p>If your automation runs on n8n, the first-party <code>n8n-nodes-kanban-lite</code> package gives you two nodes:</p>
+<p><strong>Kanban Lite</strong> (app node) — covers every resource:</p>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Operations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Card</td>
+<td>list, get, create, update, move, delete, transfer, trigger action</td>
+</tr>
+<tr>
+<td>Board</td>
+<td>list, get, create, update, delete, set default, trigger action</td>
+</tr>
+<tr>
+<td>Column</td>
+<td>list, add, update, remove, reorder</td>
+</tr>
+<tr>
+<td>Comment</td>
+<td>list, add, update, delete</td>
+</tr>
+<tr>
+<td>Attachment</td>
+<td>list, add, remove</td>
+</tr>
+<tr>
+<td>Form</td>
+<td>submit</td>
+</tr>
+<tr>
+<td>Webhook</td>
+<td>list, create, update, delete</td>
+</tr>
+<tr>
+<td>Settings</td>
+<td>get, update</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>status, migrate to SQLite, migrate to markdown</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Kanban Lite Trigger</strong> (trigger node) — event-driven automation with two transport modes:</p>
+<ul>
+<li><strong>Remote API</strong>: n8n receives after-events via HTTP webhook from a running kanban-lite server.</li>
+<li><strong>Local SDK</strong>: n8n runs on the same machine and observes both before-events and after-events in-process — useful for pre-action validation or gating.</li>
+</ul>
+<hr>
+<h3>Scaling Beyond Markdown</h3>
+<p>Cards start as markdown files — perfect for small teams, local dev, and Git-friendly workflows. When you need more:</p>
+<table>
+<thead>
+<tr>
+<th>Need</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Faster queries at scale</td>
+<td><code>kl storage migrate-to-sqlite</code> — keeps <code>.kanban.json</code> config, moves cards to SQLite</td>
+</tr>
+<tr>
+<td>MySQL for shared infra</td>
+<td><code>kl-mysql-storage</code> plugin — same migration path</td>
+</tr>
+<tr>
+<td>S3 for large attachments</td>
+<td><code>kl-s3-attachment-storage</code> plugin — works with AWS S3, MinIO, DigitalOcean Spaces</td>
+</tr>
+<tr>
+<td>Actor-scoped unread tracking</td>
+<td><code>kl-sqlite-card-state</code> plugin — persists who has seen what</td>
+</tr>
+<tr>
+<td>Auth &amp; RBAC</td>
+<td><code>kl-auth-plugin</code> — identity resolution + role-based policies (user/manager/admin)</td>
+</tr>
+</tbody>
+</table>
+<p>All of these are configured through <code>.kanban.json</code> under the <code>plugins</code> key. The plugin architecture uses capability namespaces (<code>card.storage</code>, <code>attachment.storage</code>, <code>auth.identity</code>, <code>auth.policy</code>, <code>card.state</code>), so you can mix and match without replacing the entire stack.</p>
+<hr>
+<h3>Webhook Security</h3>
+<p>Webhooks support HMAC-SHA256 signing. When you register a webhook with a secret:</p>
+<pre><code class="language-bash">kl webhooks add --url https://example.com/hook --secret my-signing-key
+</code></pre>
+<p>Every delivery includes an <code>X-Webhook-Signature: sha256=…</code> header. Your handler should verify the signature before processing.</p>
+<p>Delivery is fire-and-forget — kanban-lite does not retry. For durable delivery with retries and dead-letter queues, route webhooks through n8n, Make, or Zapier.</p>
+<hr>
+<h3>Minimal Orchestrator Contract</h3>
+<p>Your orchestrator only needs to implement two HTTP endpoints:</p>
+<p><strong>1. Event handler</strong> — receives mutation and form events:</p>
+<pre><code class="language-text">POST https://your-pipeline.example.com/events
+</code></pre>
+<p>Branch on the <code>event</code> field: <code>task.moved</code>, <code>task.created</code>, <code>comment.created</code>, <code>form.submit</code>, etc.</p>
+<p><strong>2. Action handler</strong> — receives explicit human commands:</p>
+<pre><code class="language-text">POST https://your-pipeline.example.com/card-actions
+</code></pre>
+<p>Branch on the <code>data.action</code> field: <code>approve-publish</code>, <code>retry-draft</code>, <code>escalate</code>, etc.</p>
+<p>That's it. Two endpoints. The board handles all the human-facing complexity.</p>
+<p>At <a href="https://incidentmind.com">IncidentMind</a>, this is the integration pattern we use when building custom agent systems for operations teams — the same approach I used when building Fidelity's AI-powered incident response platform, where agents needed to hand off to on-call engineers with full context attached. The two-endpoint contract keeps the orchestrator simple while the board handles the messy human-facing parts.</p>
+<hr>
+<h3>What's Next</h3>
+<p>Now you know <em>how</em> to wire the human layer. <a href="/blog/hitl-workflows-that-actually-work-in-production/">Part 3</a> walks through three complete workflows — content approval, incident management, and support escalation — with working card structures, form schemas, and webhook flows.</p>
+<hr>
+<p><strong>→ <a href="/blog/hitl-workflows-that-actually-work-in-production/">Part 3: 3 Human-in-the-Loop Workflows That Actually Work in Production</a></strong></p>
+<hr>
+<p><em>Viktor Burdyey builds AI automation systems at <a href="https://incidentmind.com">IncidentMind</a> — custom agents, MCP servers, and workflow systems for teams that need secure, company-owned automation. Previously CTO at EAT24 (acquired by Yelp for $134M) and Senior Platform Engineer at Fidelity, where he built an AI-powered incident response platform. Open to senior/staff engineering roles and consulting engagements. <a href="https://www.linkedin.com/in/burdyey">LinkedIn</a> · <a href="https://github.com/borgius">GitHub</a></em></p>
+<p>🔗 <a href="https://github.com/borgius/kanban-lite">kanban-lite on GitHub</a> · <a href="https://www.npmjs.com/package/kanban-lite">npm</a> · <a href="https://borgius.github.io/kanban-lite/">Documentation</a> · MIT License</p>
+
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-copy">© 2026 IncidentMind LLC. All rights reserved.</div>
+        <div class="footer-links">
+          <a href="https://github.com/borgius" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.linkedin.com/company/incidentmind" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="https://x.com/IncidentMind" target="_blank" rel="noopener" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
