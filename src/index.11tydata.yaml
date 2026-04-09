@@ -21,8 +21,8 @@
 # meta.title       → rendered in <title> and used by search engines / social cards
 # meta.description → rendered in <meta name="description"> for SEO snippets
 meta:
-  title: "IncidentMind — AI Automation Systems, Agents & MCP Engineering"
-  description: "IncidentMind builds custom AI agents, MCP servers, workflow automation, and platform systems for companies that need secure, company-owned automation."
+  title: "IncidentMind — AI Lead Automation for Service Businesses"
+  description: "We help HVAC and service companies automatically respond to every lead, qualify customers, and book more jobs using AI automation."
 
 # ─── Navbar ──────────────────────────────────────────────────────────────────
 # Rendered inside <nav class="navbar">.
@@ -52,7 +52,7 @@ nav:
       href: "#tech"
     - label: "Open Source"
       href: "#open-source"
-    - label: "Talk to IncidentMind"
+    - label: "Book Free Demo"
       href: "#contact"
       cta: true          # adds class="nav-cta" → highlighted pill button in navbar
 
@@ -65,40 +65,39 @@ nav:
 #   Right column: .hero-dash — glass metric card + two floating cards
 hero:
   # Small "available" indicator shown above the H1 with a pulsing green dot
-  tagline: "Custom AI automation, built for your stack"
+  tagline: "AI automation for real businesses, not demos"
 
   # H1 split across two lines:
   #   line1 → plain text
   #   line2 → wrapped in <span class="gradient-text"> (blue→violet gradient)
   heading:
-    line1: "AI agents that"
-    line2: "actually do the work"
+    line1: "Stop losing leads."
+    line2: "Respond instantly and book more jobs."
 
   # Paragraph below the H1 — rendered as <p class="hero-description">
   description: |
-    IncidentMind is an AI automation company that designs and ships custom agents, MCP servers, and workflow systems for real operations. We connect AI to your internal tools, approvals, docs, and production environments so your team can automate work safely — not just chat about it.
+    IncidentMind builds simple AI systems that automatically respond to every inquiry, qualify leads, and book jobs for your business. No complex tools, no hype. Just more revenue from the leads you already have.
 
   # CTA buttons rendered as <a class="btn-{variant}">
   # variant: "primary" → solid indigo button; "secondary" → ghost/outline button
   # target: "_blank" causes rel="noopener" to be added automatically in the template
   actions:
-    - label: "Book Strategy Call"
+    - label: "Book Free Demo"
       href: "https://calendly.com/incidentmind"
       icon: "fa-solid fa-calendar-check"   # Font Awesome icon class inside the button
       variant: "primary"
       target: "_blank"
-    - label: "View Open Source"
-      href: "https://github.com/borgius"
-      icon: "fa-brands fa-github"
+    - label: "See How It Works"
+      href: "#services"
+      icon: "fa-solid fa-play"
       variant: "secondary"
-      target: "_blank"
 
   # Three small trust-signal items with checkmark icons shown below CTA buttons
   # Rendered as .hero-proof-item divs (fa-check-circle icon prepended in HTML)
   proofItems:
-    - "Custom agents for your exact stack"
-    - "Secure, company-owned automation"
-    - "Built for complex operations teams"
+    - "Never miss a lead again"
+    - "Respond in under 60 seconds"
+    - "Works with your current tools"
 
   # Animated stat counters inside the right-column glass card (.hero-metric-grid)
   # JS in main.js reads data-target, data-prefix, data-suffix and animates from 0
@@ -107,22 +106,22 @@ hero:
   # suffix → appended to the displayed number (e.g. "%", "M", "GB")
   # color  → CSS custom property applied as inline style for the metric value text
   metrics:
-    - value: 60
+    - value: 30
       suffix: "%"
-      label: "MTTR Reduction Proven"
+      label: "More Leads Converted"
       color: "var(--accent-emerald)"
-    - value: 40
-      suffix: "%"
-      label: "Pipeline Speedup"
+    - value: 60
+      suffix: "s"
+      label: "Response Time"
       color: "var(--accent-blue)"
-    - value: 20
-      suffix: "+"
-      label: "Years Building Systems"
+    - value: 24
+      suffix: "/7"
+      label: "Always On"
       color: "var(--accent-violet)"
-    - value: 700
+    - value: 0
       prefix: "$"
-      suffix: "M"
-      label: "Revenue Scaled"
+      suffix: ""
+      label: "Missed Opportunities"
       color: "var(--accent-cyan)"
 
   # Two floating glass cards overlaid on the hero right column (.hero-float-card)
@@ -131,15 +130,15 @@ hero:
   # bgColor  → inline background on the icon wrapper div (rgba for transparency)
   # iconColor → inline color on the icon wrapper div
   floatCards:
-    - title: "Tool-Using Agents"
-      subtitle: "Connected to your systems"
-      icon: "fa-solid fa-brain"
+    - title: "Auto Lead Response"
+      subtitle: "Instant replies via SMS & email"
+      icon: "fa-solid fa-bolt"
       bgColor: "rgba(16,185,129,0.1)"
       iconColor: "var(--accent-emerald)"
       position: "card-1"
-    - title: "Secure by Design"
-      subtitle: "Runs in your environment"
-      icon: "fa-solid fa-shield-halved"
+    - title: "Auto Booking"
+      subtitle: "Turn leads into scheduled jobs"
+      icon: "fa-solid fa-calendar-check"
       bgColor: "rgba(99,102,241,0.1)"
       iconColor: "var(--accent-blue)"
       position: "card-2"
@@ -163,36 +162,36 @@ hero:
 problem:
   label: "The Problem"
   title:
-    line1: "Companies want AI"
-    line2: "automation"
-    line3: "not another copilot"
-  subtitle: "Most teams have AI pilots, SaaS bots, and disconnected automations — but the real work still happens manually across ops, support, engineering, and internal workflows. The gap is not ideas. It's execution inside your stack."
+    line1: "You are already"
+    line2: "getting leads"
+    line3: "but losing them"
+  subtitle: "Most service businesses lose money because they respond too late, miss inquiries, or don't follow up. Every missed message is lost revenue."
   stats:
-    - value: "$250B"
-      text: "Estimated annual spend on manual IT operations globally"
-    - value: "73%"
-      text: "Of teams say AI tooling still doesn't match their real environment"
+    - value: "30%+"
+      text: "Of leads never get a response"
+    - value: "5 min"
+      text: "Delay can reduce conversion by 80%"
   cards:
-    - icon: "fa-solid fa-puzzle-piece"
+    - icon: "fa-solid fa-clock"
       bgColor: "rgba(239,68,68,0.1)"
       iconColor: "#ef4444"
-      title: "Your Work Lives Across Too Many Systems"
-      body: "The real process spans tickets, Slack, docs, CI/CD, dashboards, databases, CRMs, and approval steps. Generic AI tools rarely connect the full workflow end-to-end."
-    - icon: "fa-solid fa-lock"
+      title: "Slow Response"
+      body: "Leads go cold if you don't respond within minutes."
+    - icon: "fa-solid fa-envelope-open"
       bgColor: "rgba(245,158,11,0.1)"
       iconColor: "#f59e0b"
-      title: "Owned Automation Matters"
-      body: "Teams in finance, healthcare, and enterprise environments need automations they can inspect, govern, and run in their own environment. Black-box SaaS AI often stops the conversation before the project begins."
-    - icon: "fa-solid fa-people-arrows"
+      title: "Missed Messages"
+      body: "Emails, forms, and calls get lost or ignored."
+    - icon: "fa-solid fa-user-xmark"
       bgColor: "rgba(99,102,241,0.1)"
       iconColor: "var(--accent-blue)"
-      title: "Copilots Suggest — They Don't Execute"
-      body: "Chat interfaces are useful, but they don't replace workflow design, tool permissions, human approvals, audit trails, and production-safe actions. Companies need automation that can actually move work forward."
-    - icon: "fa-solid fa-microchip"
+      title: "No Follow-Up"
+      body: "Potential customers never hear back."
+    - icon: "fa-solid fa-dollar-sign"
       bgColor: "rgba(16,185,129,0.1)"
       iconColor: "var(--accent-emerald)"
-      title: "AI Agents Need Real Integration"
-      body: "MCP servers, retrieval pipelines, workflow orchestration, and observability are what turn AI into a working system. Without that engineering layer, \"AI automation\" stays stuck in demo mode."
+      title: "Lost Revenue"
+      body: "Every missed lead is money left on the table."
 
 # ─── Services Section ────────────────────────────────────────────────────────
 # Rendered in <section id="services" class="services-section">.
@@ -204,8 +203,8 @@ problem:
 #      (even index → content-left / visual-right; odd → reversed)
 #      Template: {% for tier in services.tiers limit:3 %}
 #   3. platformCards grid (6 cards in a 3-column grid)
-#   4. 4th tier (Advisory) rendered separately after the platform grid
-#      Template: {% for tier in services.tiers offset:3 limit:1 %}
+#   4. Remaining tiers rendered after the platform grid
+#      Template: {% for tier in services.tiers offset:3 %}
 #
 # Per-tier fields:
 #   badge / badgeIcon / badgeVariant → pill badge above H3
@@ -223,12 +222,38 @@ problem:
 services:
   label: "Solutions"
   title:
-    line1: "What"
-    line2: "IncidentMind"
-    line3: "automates"
-  subtitle: "Custom AI systems for operations, support, internal tooling, platform workflows, and agent-driven execution — built to fit your environment instead of forcing you into a generic SaaS playbook."
+    line1: "Simple automation that"
+    line2: "makes you money"
+    line3: ""
+  subtitle: "Start small. See results fast. Scale later."
   tiers:
     # Tier 1 — rendered first (left-content / right-visual)
+    - badge: "Starter Offer"
+      badgeIcon: "fa-solid fa-bolt"
+      badgeVariant: "badge-growth"
+      title: "Lead Response Automation"
+      body: "Automatically respond to every lead, qualify customers, and book jobs without hiring staff."
+      features:
+        - "Instant SMS & email replies"
+        - "Lead qualification (AI)"
+        - "Auto booking integration"
+        - "Works with your website and forms"
+        - "Simple dashboard"
+      pricing:
+        value: "$1K – $3K"
+        label: "setup + monthly plan"
+      visual:
+        icon: "fa-solid fa-comments"
+        iconBg: "rgba(99,102,241,0.12)"
+        iconColor: "var(--accent-blue)"
+        label: "Lead automation"
+        tags:
+          - "SMS Automation"
+          - "Email Replies"
+          - "Lead Capture"
+          - "Booking Flow"
+          - "CRM Integration"
+    # Tier 2 — rendered second (right-content / left-visual, alternating)
     - badge: "Flagship Service"
       badgeIcon: "fa-solid fa-star"
       badgeVariant: "badge-flagship"
@@ -260,7 +285,7 @@ services:
           - "Feedback Loops"
           - "Company-Owned Deployment"
           - "Slack & Jira"
-    # Tier 2 — rendered second (right-content / left-visual, alternating)
+            # Tier 3 — rendered third (left-content / right-visual, alternating)
     - badge: "High Growth"
       badgeIcon: "fa-solid fa-rocket"
       badgeVariant: "badge-growth"
@@ -292,7 +317,7 @@ services:
           - "System Integrations"
           - "Multi-Agent Workflows"
           - "Agent Observability"
-    # Tier 3 — rendered third (left-content / right-visual, alternating)
+            # Tier 4 — rendered after the platformCards grid
     - badge: "Core Engineering"
       badgeIcon: "fa-solid fa-wrench"
       badgeVariant: "badge-core"
@@ -324,7 +349,7 @@ services:
           - "Incident Operations"
           - "Data Pipelines"
           - "Production Reliability"
-    # Tier 4 — rendered AFTER platformCards grid (offset:3 in template)
+            # Tier 5 — rendered after the platformCards grid (offset:3 in template)
     - badge: "Advisory"
       badgeIcon: "fa-solid fa-compass"
       badgeVariant: "badge-advisory"
@@ -356,7 +381,7 @@ services:
           - "Security Review"
           - "Compliance Alignment"
 
-  # 6-card grid rendered between tier 3 and tier 4 (the Advisory tier).
+  # 6-card grid rendered between tier 3 and the remaining deeper services.
   # Each card is a .platform-card glass element with icon, title, body, price.
   # iconBg / iconColor → inline styles on the icon wrapper div
   # price → plain text shown in .platform-card-price div (no gradient applied)
@@ -524,33 +549,33 @@ proof:
 positioning:
   label: "Why IncidentMind"
   title:
-    line1: "Custom AI automation,"
-    line2: "not another SaaS bot"
+    line1: "Built for service businesses,"
+    line2: "not AI experiments"
   quadrant:
     axes:
-      top: "Owned Automation"
-      bottom: "Generic SaaS"
-      left: "Hands-On Delivery"
-      right: "Self-Serve Tooling"
+      top: "Done-for-you setup"
+      bottom: "DIY or generic"
+      left: "Fits your business"
+      right: "One-size-fits-all"
     cells:
       - label: "IncidentMind"
-        sublabel: "Custom agents + automation systems"
+        sublabel: "Lead response + booking automation"
         highlight: true      # adds .quadrant-highlight → highlighted cell with border
-      - sublabel: "DIY frameworks"
-      - sublabel: "Traditional consulting"
-      - sublabel: "SaaS copilots & bots"
+      - sublabel: "DIY tools & automations"
+      - sublabel: "Traditional agencies"
+      - sublabel: "Generic AI chatbots"
   text:
-    heading: "Built for companies that need automation to fit reality"
-    body: "IncidentMind sits between generic SaaS bots and abstract strategy consulting. We build company-specific automation systems that connect to your tools, respect your constraints, and leave you with software you actually own."
+    heading: "Simple automation that helps you book more jobs"
+    body: "You don't need another tool that sounds impressive and creates more work. You need fast replies, consistent follow-up, and a setup that works with the tools you already use. That's what IncidentMind builds."
     list:
-      - icon: "fa-solid fa-shield-halved"
-        text: "Teams that need security, governance, and data control"
-      - icon: "fa-solid fa-fingerprint"
-        text: "Companies with unique workflows that don't fit SaaS templates"
-      - icon: "fa-solid fa-brain"
-        text: "Operators who want AI agents to do more than answer questions"
-      - icon: "fa-solid fa-hand-holding-dollar"
-        text: "Leaders who want a durable automation asset instead of another subscription"
+      - icon: "fa-solid fa-screwdriver-wrench"
+        text: "HVAC and local service teams that lose leads after hours"
+      - icon: "fa-solid fa-phone-volume"
+        text: "Owners who want every inquiry answered fast"
+      - icon: "fa-solid fa-calendar-check"
+        text: "Businesses that want more booked jobs from the leads they already get"
+      - icon: "fa-solid fa-chart-line"
+        text: "Teams that want simple setup and clear ROI"
 
 # ─── Technology Stack Section ─────────────────────────────────────────────────
 # Rendered in <section id="tech" class="tech-section">.
@@ -693,37 +718,29 @@ openSource:
 #   .href         → optional link target (tel:, mailto:, https:)
 #   .target       → optional "_blank" for external links (rel="noopener" added)
 contact:
-  label: "Start an Engagement"
+  label: "Get More Leads"
   heading:
-    line1: "Need AI automation that"
-    line2: "works in"
-    line2Gradient: "your environment?"
-  body: "Start with a free 30-minute call to identify the workflow, systems, and constraints that matter most. No vague AI pitch — just a focused conversation about what IncidentMind can automate for your team."
+    line1: "Want more jobs"
+    line2: "from your"
+    line2Gradient: "existing leads?"
+  body: "I'll show you exactly how many leads you're losing and how to fix it in 30 minutes. No sales pressure."
   actions:
-    - label: "Book Intro Call"
+    - label: "Book Free Demo"
       href: "https://calendly.com/incidentmind"
       icon: "fa-solid fa-calendar-check"
       variant: "primary"
       target: "_blank"
-    - label: "Connect on LinkedIn"
-      href: "https://linkedin.com/company/incidentmind"
-      icon: "fa-brands fa-linkedin"
+    - label: "Email Me Directly"
+      href: "mailto:viktor@incidentmind.com"
+      icon: "fa-solid fa-envelope"
       variant: "secondary"
-      target: "_blank"
   info:
     - icon: "fa-solid fa-user"
-      text: "IncidentMind · AI Automation Company"
-    - icon: "fa-solid fa-id-badge"
-      text: "Founded by Viktor Burdyey"
+      text: "Viktor Burdyey"
     - icon: "fa-solid fa-location-dot"
-      text: "Durham, NC · Remote & On-site"
-    - icon: "fa-solid fa-envelope"
-      text: "viktor@incidentmind.com"
-      href: "mailto:viktor@incidentmind.com"
-    - icon: "fa-brands fa-github"
-      text: "github.com/borgius"
-      href: "https://github.com/borgius"
-      target: "_blank"
+      text: "Raleigh-Durham, NC"
+    - icon: "fa-solid fa-briefcase"
+      text: "Helping service businesses grow with AI"
 
 # ─── Footer ───────────────────────────────────────────────────────────────────
 # Rendered in <footer>.

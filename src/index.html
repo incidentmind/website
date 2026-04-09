@@ -225,10 +225,18 @@
         {% endfor %}
       </div>
 
-      {% for tier in services.tiers offset:3 limit:1 %}
-      <div style="margin-top: 100px;">
-        <div class="service-tier" style="margin-bottom: 0;">
-          <div class="service-content reveal-left">
+      {% for tier in services.tiers offset:3 %}
+      {% assign globalIndex = forloop.index0 | plus: 3 %}
+      {% assign isEven = globalIndex | modulo: 2 %}
+      {% if isEven == 0 %}
+        {% assign contentReveal = "reveal-left" %}
+        {% assign visualReveal = "reveal-right" %}
+      {% else %}
+        {% assign contentReveal = "reveal-right" %}
+        {% assign visualReveal = "reveal-left" %}
+      {% endif %}
+      <div class="service-tier"{% if forloop.first or forloop.last %} style="{% if forloop.first %}margin-top: 100px; {% endif %}{% if forloop.last %}margin-bottom: 0;{% endif %}"{% endif %}>
+          <div class="service-content {{ contentReveal }}">
             <div class="service-badge {{ tier.badgeVariant }}"><i class="{{ tier.badgeIcon }}"></i> {{ tier.badge }}</div>
             <h3>{{ tier.title }}</h3>
             <p>{{ tier.body }}</p>
@@ -242,7 +250,7 @@
               <span class="service-pricing-label">{{ tier.pricing.label }}</span>
             </div>
           </div>
-          <div class="service-visual glass reveal-right">
+          <div class="service-visual glass {{ visualReveal }}">
             <div class="service-visual-inner">
               <div class="service-icon-large" style="background: {{ tier.visual.iconBg }}; color: {{ tier.visual.iconColor }};">
                 <i class="{{ tier.visual.icon }}"></i>
@@ -256,7 +264,6 @@
             </div>
           </div>
         </div>
-      </div>
       {% endfor %}
     </div>
   </section>
